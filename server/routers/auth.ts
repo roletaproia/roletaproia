@@ -4,7 +4,7 @@ import { getDb } from "../db";
 import { users } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
-import { sign } from "jose";
+import { SignJWT } from "jose";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "../_core/cookies";
 
@@ -54,14 +54,13 @@ export const authRouter = router({
         .$returningId();
 
       // Gerar JWT token
-      const token = await sign(
-        {
+      const token = await new SignJWT({
           userId: newUser.id,
           email: input.email,
-        },
-        JWT_SECRET,
-        { expiresIn: "7d" }
-      );
+        })
+        .setProtectedHeader({ alg: "HS256" })
+        .setExpirationTime("7d")
+        .sign(JWT_SECRET);
 
       // Definir cookie
       const cookieOptions = getSessionCookieOptions(ctx.req);
@@ -112,14 +111,13 @@ export const authRouter = router({
         .where(eq(users.id, user.id));
 
       // Gerar JWT token
-      const token = await sign(
-        {
+      const token = await new SignJWT({
           userId: user.id,
           email: user.email,
-        },
-        JWT_SECRET,
-        { expiresIn: "7d" }
-      );
+        })
+        .setProtectedHeader({ alg: "HS256" })
+        .setExpirationTime("7d")
+        .sign(JWT_SECRET);
 
       // Definir cookie
       const cookieOptions = getSessionCookieOptions(ctx.req);
