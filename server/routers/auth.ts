@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
-import { db } from "../db";
+import { getDb } from "../db";
 import { users } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
@@ -26,6 +26,9 @@ export const authRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       // Verificar se o email já existe
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+      
       const existingUser = await db
         .select()
         .from(users)
@@ -82,6 +85,9 @@ export const authRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       // Buscar usuário pelo email
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+      
       const [user] = await db
         .select()
         .from(users)
@@ -155,6 +161,9 @@ export const authRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       // Buscar usuário
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+      
       const [user] = await db
         .select()
         .from(users)
