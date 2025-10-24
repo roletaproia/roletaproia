@@ -250,7 +250,7 @@ export default function StrategyForm({
             ))}
           </SelectContent>
         </Select>
-        <p className="text-xs text-gray-400 mt-2">{currentStrategy.description}</p>
+        <p className="text-xs text-gray-200 mt-2">{currentStrategy.description}</p>
       </div>
 
       {/* Aposta Base */}
@@ -269,7 +269,7 @@ export default function StrategyForm({
           step="0.01"
           required
         />
-        <p className="text-xs text-gray-400 mt-1">Valor inicial da aposta para esta estratégia</p>
+        <p className="text-xs text-gray-200 mt-1">Valor inicial da aposta para esta estratégia</p>
       </div>
 
       {/* Campos Dinâmicos por Tipo */}
@@ -288,7 +288,7 @@ export default function StrategyForm({
                   <div key={field.key} className="flex items-center justify-between">
                     <div>
                       <Label className="text-sm font-medium">{field.label}</Label>
-                      <p className="text-xs text-gray-400 mt-1">{field.description}</p>
+                      <p className="text-xs text-gray-200 mt-1">{field.description}</p>
                     </div>
                     <Switch
                       checked={value}
@@ -313,7 +313,7 @@ export default function StrategyForm({
                       step={field.step || 1}
                       className="mt-2 bg-slate-700 border-purple-700/30"
                     />
-                    <p className="text-xs text-gray-400 mt-1">{field.description}</p>
+                    <p className="text-xs text-gray-200 mt-1">{field.description}</p>
                   </div>
                 );
               }
@@ -332,7 +332,7 @@ export default function StrategyForm({
                       rows={4}
                       placeholder={field.default}
                     />
-                    <p className="text-xs text-gray-400 mt-1">{field.description}</p>
+                    <p className="text-xs text-gray-200 mt-1">{field.description}</p>
                   </div>
                 );
               }
@@ -351,7 +351,7 @@ export default function StrategyForm({
                     className="mt-2 bg-slate-700 border-purple-700/30"
                     placeholder={field.default}
                   />
-                  <p className="text-xs text-gray-400 mt-1">{field.description}</p>
+                  <p className="text-xs text-gray-200 mt-1">{field.description}</p>
                 </div>
               );
             })}
