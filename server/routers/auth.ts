@@ -1,0 +1,190 @@
+import { z } from "zod";
+import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
+import { db } from "../db";
+import { users } from "../../drizzle/schema";
+import { eq } from "drizzle-orm";
+import bcrypt from "bcrypt";
+import { sign } from "jose";
+import { COOKIE_NAME } from "@shared/const";
+import { getSessionCookieOptions } from "../_core/cookies";
+
+const JWT_SECRET = new TextEncoder().encode(
+  process.env.JWT_SECRET || "your-secret-key-change-in-production"
+);
+
+export const authRouter = router({
+  /**
+   * Registro de novo usuário
+   */
+  register: publicProcedure
+    .input(
+      z.object({
+        name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+        email: z.string().email("Email inválido"),
+        password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Verificar se o email já existe
+      const existingUser = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, input.email))
+        .limit(1);
+
+      if (existingUser.length > 0) {
+        throw new Error("Email já cadastrado");
+      }
+
+      // Hash da senha
+      const hashedPassword = await bcrypt.hash(input.password, 10);
+
+      // Criar usuário
+      const [newUser] = await db
+        .insert(users)
+        .values({
+          name: input.name,
+          email: input.email,
+          password: hashedPassword,
+          role: "user",
+        })
+        .$returningId();
+
+      // Gerar JWT token
+      const token = await sign(
+        {
+          userId: newUser.id,
+          email: input.email,
+        },
+        JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+
+      // Definir cookie
+      const cookieOptions = getSessionCookieOptions(ctx.req);
+      ctx.res.cookie(COOKIE_NAME, token, cookieOptions);
+
+      return {
+        success: true,
+        message: "Usuário registrado com sucesso",
+      };
+    }),
+
+  /**
+   * Login de usuário
+   */
+  login: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email("Email inválido"),
+        password: z.string().min(1, "Senha é obrigatória"),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Buscar usuário pelo email
+      const [user] = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, input.email))
+        .limit(1);
+
+      if (!user) {
+        throw new Error("Email ou senha incorretos");
+      }
+
+      // Verificar senha
+      const isPasswordValid = await bcrypt.compare(input.password, user.password);
+
+      if (!isPasswordValid) {
+        throw new Error("Email ou senha incorretos");
+      }
+
+      // Atualizar último login
+      await db
+        .update(users)
+        .set({ lastSignedIn: new Date() })
+        .where(eq(users.id, user.id));
+
+      // Gerar JWT token
+      const token = await sign(
+        {
+          userId: user.id,
+          email: user.email,
+        },
+        JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+
+      // Definir cookie
+      const cookieOptions = getSessionCookieOptions(ctx.req);
+      ctx.res.cookie(COOKIE_NAME, token, cookieOptions);
+
+      return {
+        success: true,
+        message: "Login realizado com sucesso",
+      };
+    }),
+
+  /**
+   * Obter usuário atual
+   */
+  me: publicProcedure.query(({ ctx }) => {
+    return ctx.user;
+  }),
+
+  /**
+   * Logout
+   */
+  logout: publicProcedure.mutation(({ ctx }) => {
+    const cookieOptions = getSessionCookieOptions(ctx.req);
+    ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
+    return {
+      success: true,
+    } as const;
+  }),
+
+  /**
+   * Alterar senha
+   */
+  changePassword: protectedProcedure
+    .input(
+      z.object({
+        currentPassword: z.string().min(1, "Senha atual é obrigatória"),
+        newPassword: z.string().min(6, "Nova senha deve ter pelo menos 6 caracteres"),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Buscar usuário
+      const [user] = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, ctx.user.id))
+        .limit(1);
+
+      if (!user) {
+        throw new Error("Usuário não encontrado");
+      }
+
+      // Verificar senha atual
+      const isPasswordValid = await bcrypt.compare(input.currentPassword, user.password);
+
+      if (!isPasswordValid) {
+        throw new Error("Senha atual incorreta");
+      }
+
+      // Hash da nova senha
+      const hashedPassword = await bcrypt.hash(input.newPassword, 10);
+
+      // Atualizar senha
+      await db
+        .update(users)
+        .set({ password: hashedPassword })
+        .where(eq(users.id, ctx.user.id));
+
+      return {
+        success: true,
+        message: "Senha alterada com sucesso",
+      };
+    }),
+});
+
