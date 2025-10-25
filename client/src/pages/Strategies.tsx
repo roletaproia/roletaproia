@@ -80,7 +80,8 @@ export default function Strategies() {
   const selectedStrategy = strategies?.find((s) => s.id === editingId);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
+    <Layout>
+    <div className="p-6">
       {/* Header */}
       <div className="border-b border-red-900/30 p-6 flex justify-between items-center">
         <div>
