@@ -81,7 +81,7 @@ export default function Strategies() {
 
   return (
     <Layout>
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
       <div className="border-b border-red-900/30 p-6 flex justify-between items-center">
         <div>
@@ -131,7 +131,7 @@ export default function Strategies() {
         </Dialog>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>

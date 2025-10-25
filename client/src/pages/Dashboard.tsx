@@ -85,7 +85,7 @@ export default function Dashboard() {
 
       <div className="p-6 space-y-8">
         {/* Stats Cards */}
-        <div className="grid md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Saldo Atual */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
