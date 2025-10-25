@@ -46,7 +46,7 @@ export default function Chat() {
       {/* Header */}
       <div className="border-b border-red-900/30 p-6">
         <h1 className="text-3xl font-bold mb-2">Chat da Comunidade</h1>
-        <p className="text-gray-400">Converse com outros usuários, compartilhe estratégias e aprenda juntos</p>
+        <p className="text-gray-200">Converse com outros usuários, compartilhe estratégias e aprenda juntos</p>
       </div>
 
       <div className="p-6">
@@ -54,7 +54,7 @@ export default function Chat() {
           {/* Messages Area */}
           <CardContent className="flex-1 overflow-y-auto p-4 space-y-3">
             {isLoading ? (
-              <p className="text-gray-400 text-center py-8">Carregando mensagens...</p>
+              <p className="text-gray-200 text-center py-8">Carregando mensagens...</p>
             ) : messages && messages.length > 0 ? (
               <div className="space-y-3">
                 {messages.map((msg: any) => (
@@ -111,7 +111,7 @@ export default function Chat() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-400 text-center py-8">Nenhuma mensagem ainda. Seja o primeiro a falar!</p>
+              <p className="text-gray-200 text-center py-8">Nenhuma mensagem ainda. Seja o primeiro a falar!</p>
             )}
           </CardContent>
 

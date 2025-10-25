@@ -1,3 +1,4 @@
+import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc";
@@ -84,7 +85,7 @@ export default function Strategies() {
       <div className="border-b border-red-900/30 p-6 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-2">Estratégias de Apostas</h1>
-          <p className="text-gray-400">Crie e gerencie suas estratégias de apostas automáticas</p>
+          <p className="text-gray-200">Crie e gerencie suas estratégias de apostas automáticas</p>
         </div>
         <Dialog open={open} onOpenChange={(newOpen) => {
           setOpen(newOpen);
@@ -133,7 +134,7 @@ export default function Strategies() {
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
-            <p className="text-gray-400 ml-4">Carregando estratégias...</p>
+            <p className="text-gray-200 ml-4">Carregando estratégias...</p>
           </div>
         ) : strategies && strategies.length > 0 ? (
           <div className="grid gap-4">
@@ -145,7 +146,7 @@ export default function Strategies() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <CardTitle className="flex items-center gap-2">
+                      <CardTitle className="text-white" className="flex items-center gap-2">
                         {strategy.name}
                       </CardTitle>
                       <CardDescription className="mt-2 space-y-1">
@@ -166,7 +167,7 @@ export default function Strategies() {
                         className={`px-3 py-1 rounded-full text-sm font-medium ${
                           strategy.isActive
                             ? "bg-green-900/30 text-green-400 border border-green-700/50"
-                            : "bg-gray-900/30 text-gray-400 border border-gray-700/50"
+                            : "bg-gray-900/30 text-gray-200 border border-gray-700/50"
                         }`}
                       >
                         {strategy.isActive ? "✓ Ativa" : "○ Inativa"}
@@ -203,7 +204,7 @@ export default function Strategies() {
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardContent className="pt-6 text-center">
               <div className="mb-4 text-5xl">🎯</div>
-              <p className="text-gray-400 mb-4">Você ainda não criou nenhuma estratégia.</p>
+              <p className="text-gray-200 mb-4">Você ainda não criou nenhuma estratégia.</p>
               <p className="text-gray-500 text-sm mb-6">
                 Comece criando sua primeira estratégia de apostas. Escolha entre Fibonacci, Martingale,
                 D'Alembert, Labouchère ou crie uma customizada!
@@ -220,7 +221,7 @@ export default function Strategies() {
       {/* Informações sobre Estratégias */}
       <div className="p-6 border-t border-red-900/30">
         <h2 className="text-xl font-bold mb-4">📚 Conheça as Estratégias</h2>
-        <p className="text-gray-400 mb-6">
+        <p className="text-gray-200 mb-6">
           Antes de configurar, entenda como cada estratégia funciona, seus prós e contras.
         </p>
 
@@ -228,17 +229,17 @@ export default function Strategies() {
           {/* Aposta Fixa */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">💰 Aposta Fixa (Flat Betting)</CardTitle>
+              <CardTitle className="text-white" className="text-xl flex items-center gap-2">💰 Aposta Fixa (Flat Betting)</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
-              <p className="text-gray-400 mb-3">
+              <p className="text-gray-200 mb-3">
                 Você aposta sempre o mesmo valor, independentemente de ganhar ou perder. Não há progressão de apostas.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-green-400 mb-1">Prós:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Muito mais simples e menos arriscada.</li>
                     <li>Melhor para jogadores que querem apenas diversão.</li>
                     <li>Evita grandes perdas rápidas.</li>
@@ -246,7 +247,7 @@ export default function Strategies() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-red-400 mb-1">Contras:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Lucro potencial menor.</li>
                     <li>Não altera a vantagem da casa.</li>
                   </ul>
@@ -258,24 +259,24 @@ export default function Strategies() {
           {/* Fibonacci */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">🔢 Sistema Fibonacci</CardTitle>
+              <CardTitle className="text-white" className="text-xl flex items-center gap-2">🔢 Sistema Fibonacci</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
-              <p className="text-gray-400 mb-3">
+              <p className="text-gray-200 mb-3">
                 Usa a sequência de Fibonacci (1, 1, 2, 3, 5, 8, 13...). Se perder, avança na sequência. Se ganhar, retrocede dois passos.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-green-400 mb-1">Prós:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Mais "moderado" do que o Martingale (as apostas aumentam mais devagar).</li>
                     <li>Dá uma estrutura ao jogo, ajudando a controlar o bankroll.</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-red-400 mb-1">Contras:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Ainda pode levar a perdas grandes se houver muitas derrotas consecutivas.</li>
                     <li>O progresso e lucro tendem a ser mais lentos.</li>
                   </ul>
@@ -287,24 +288,24 @@ export default function Strategies() {
           {/* Martingale */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">📈 Sistema Martingale</CardTitle>
+              <CardTitle className="text-white" className="text-xl flex items-center gap-2">📈 Sistema Martingale</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
-              <p className="text-gray-400 mb-3">
+              <p className="text-gray-200 mb-3">
                 Se perder, dobra a aposta na rodada seguinte. Se ganhar, volta à aposta inicial. O objetivo é recuperar todas as perdas e obter lucro igual à aposta inicial.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-green-400 mb-1">Prós:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Muito simples de entender.</li>
                     <li>Pode dar lucro rápido se evitar uma sequência longa de perdas.</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-red-400 mb-1">Contras:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Requer bankroll muito grande se surgir uma sequência de perdas.</li>
                     <li>Há limites máximos de aposta na mesa.</li>
                     <li>Aumenta o risco sem alterar a vantagem da casa.</li>
@@ -317,24 +318,24 @@ export default function Strategies() {
           {/* Reverse Martingale (Paroli) */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">🔄 Reverse Martingale (Paroli)</CardTitle>
+              <CardTitle className="text-white" className="text-xl flex items-center gap-2">🔄 Reverse Martingale (Paroli)</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
-              <p className="text-gray-400 mb-3">
+              <p className="text-gray-200 mb-3">
                 Inverte a lógica do Martingale: você aumenta a aposta após cada vitória. Após uma perda, volta à aposta inicial.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-green-400 mb-1">Prós:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Menor risco de "escalar" apostas após muitas perdas.</li>
                     <li>Permite aproveitar possíveis "rachas" de vitórias.</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-red-400 mb-1">Contras:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Depende de uma sequência de vitórias, que são mais raras no longo prazo.</li>
                     <li>Se a sequência acabar, pode perder o ganho acumulado.</li>
                   </ul>
@@ -346,24 +347,24 @@ export default function Strategies() {
           {/* D'Alembert */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">⚖️ Sistema D'Alembert</CardTitle>
+              <CardTitle className="text-white" className="text-xl flex items-center gap-2">⚖️ Sistema D'Alembert</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
-              <p className="text-gray-400 mb-3">
+              <p className="text-gray-200 mb-3">
                 Aumenta a aposta em 1 unidade após uma perda e reduz em 1 unidade após uma vitória. É uma progressão negativa mais suave.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-green-400 mb-1">Prós:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Menor escalada de risco comparado ao Martingale.</li>
                     <li>Mais "seguro" para quem quer algo mais conservador.</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-red-400 mb-1">Contras:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Ainda não elimina a vantagem da casa.</li>
                     <li>Em longas sequências de perdas, o sistema pode implicar perdas significativas.</li>
                   </ul>
@@ -375,24 +376,24 @@ export default function Strategies() {
           {/* Labouchère */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">📊 Sistema Labouchère</CardTitle>
+              <CardTitle className="text-white" className="text-xl flex items-center gap-2">📊 Sistema Labouchère</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
-              <p className="text-gray-400 mb-3">
+              <p className="text-gray-200 mb-3">
                 Usa uma sequência de números. A aposta é a soma do primeiro e do último número da sequência. Se ganhar, risca os dois. Se perder, adiciona o valor apostado ao final.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold text-green-400 mb-1">Prós:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Pode dar maior senso de controle, definindo o objetivo de lucro.</li>
                     <li>Estrutura mais personalizada.</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-red-400 mb-1">Contras:</h4>
-                  <ul className="list-disc list-inside text-gray-400 ml-2 space-y-1">
+                  <ul className="list-disc list-inside text-gray-200 ml-2 space-y-1">
                     <li>Pode escalar rápido em perdas – o risco aumenta bastante.</li>
                     <li>Complexidade maior.</li>
                   </ul>
@@ -403,6 +404,7 @@ export default function Strategies() {
         </div>
       </div>
     </div>
+    </Layout>
   );
 }
 

@@ -88,7 +88,7 @@ export default function BettingRobot() {
       {/* Header */}
       <div className="border-b border-red-900/30 p-6">
         <h1 className="text-3xl font-bold mb-2">Robô de Apostas</h1>
-        <p className="text-gray-400">Configure e execute apostas automáticas com suas estratégias</p>
+        <p className="text-gray-200">Configure e execute apostas automáticas com suas estratégias</p>
       </div>
 
       <div className="p-6 space-y-8">
@@ -98,7 +98,7 @@ export default function BettingRobot() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Zap className="h-5 w-5 text-yellow-400" />
-                <CardTitle>Status do Robô</CardTitle>
+                <CardTitle className="text-white">Status do Robô</CardTitle>
               </div>
               <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
                 isRunning ? "bg-green-900/30 text-green-300" : "bg-gray-900/30 text-gray-300"
@@ -110,17 +110,17 @@ export default function BettingRobot() {
           <CardContent>
             <div className="grid md:grid-cols-3 gap-4">
               <div>
-                <p className="text-gray-400 text-sm">Saldo Atual</p>
+                <p className="text-gray-200 text-sm">Saldo Atual</p>
                 <p className="text-2xl font-bold text-green-400">
                   R$ {bankroll ? (bankroll.currentBalance / 100).toFixed(2) : "0.00"}
                 </p>
               </div>
               <div>
-                <p className="text-gray-400 text-sm">Apostas Realizadas</p>
+                <p className="text-gray-200 text-sm">Apostas Realizadas</p>
                 <p className="text-2xl font-bold text-blue-400">{bets?.length || 0}</p>
               </div>
               <div>
-                <p className="text-gray-400 text-sm">Taxa de Vitória</p>
+                <p className="text-gray-200 text-sm">Taxa de Vitória</p>
                 <p className="text-2xl font-bold text-yellow-400">
                   {bets && bets.length > 0 ? ((bets.filter((b: any) => b.result === "win").length / bets.length) * 100).toFixed(1) : "0"}%
                 </p>
@@ -132,7 +132,7 @@ export default function BettingRobot() {
         {/* Configuration Card */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
           <CardHeader>
-            <CardTitle>Configuração do Robô</CardTitle>
+            <CardTitle className="text-white">Configuração do Robô</CardTitle>
             <CardDescription>Defina os parâmetros para executar apostas automáticas</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -254,7 +254,7 @@ export default function BettingRobot() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <TrendingUp className="h-5 w-5 text-red-400" />
-                <CardTitle>Últimas Apostas</CardTitle>
+                <CardTitle className="text-white">Últimas Apostas</CardTitle>
               </div>
               <Button variant="outline" size="sm">Ver Todas</Button>
             </div>
@@ -268,7 +268,7 @@ export default function BettingRobot() {
                       <p className="font-medium">
                         R$ {(bet.betAmount / 100).toFixed(2)}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-200">
                         {new Date(bet.createdAt).toLocaleString()}
                       </p>
                     </div>
@@ -276,7 +276,7 @@ export default function BettingRobot() {
                       <p className={`font-semibold ${bet.result === "win" ? "text-green-400" : "text-red-400"}`}>
                         {bet.result === "win" ? "✓ Ganho" : "✗ Perda"}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-200">
                         R$ {(bet.payout / 100).toFixed(2)}
                       </p>
                     </div>
@@ -284,7 +284,7 @@ export default function BettingRobot() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-400 text-center py-8">Nenhuma aposta realizada ainda.</p>
+              <p className="text-gray-200 text-center py-8">Nenhuma aposta realizada ainda.</p>
             )}
           </CardContent>
         </Card>

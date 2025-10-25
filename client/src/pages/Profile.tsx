@@ -46,14 +46,14 @@ export default function Profile() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Meu Perfil</h1>
-        <p className="text-gray-400">Gerencie suas informações pessoais e configurações de conta</p>
+        <p className="text-gray-200">Gerencie suas informações pessoais e configurações de conta</p>
       </div>
 
       <div className="max-w-2xl space-y-6">
         {/* Avatar Section */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
           <CardHeader>
-            <CardTitle>Foto de Perfil</CardTitle>
+            <CardTitle className="text-white">Foto de Perfil</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-6">
@@ -72,7 +72,7 @@ export default function Profile() {
                   />
                 </label>
                 {avatarFile && (
-                  <p className="text-sm text-gray-400 mt-2">
+                  <p className="text-sm text-gray-200 mt-2">
                     Arquivo selecionado: {avatarFile.name}
                   </p>
                 )}
@@ -84,7 +84,7 @@ export default function Profile() {
         {/* Personal Information */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
           <CardHeader>
-            <CardTitle>Informações Pessoais</CardTitle>
+            <CardTitle className="text-white">Informações Pessoais</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Name */}
@@ -142,21 +142,21 @@ export default function Profile() {
         {/* Account Information */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
           <CardHeader>
-            <CardTitle>Informações da Conta</CardTitle>
+            <CardTitle className="text-white">Informações da Conta</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-400">ID da Conta:</span>
+              <span className="text-gray-200">ID da Conta:</span>
               <span className="text-white font-mono">{user?.id}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-400">Membro desde:</span>
+              <span className="text-gray-200">Membro desde:</span>
               <span className="text-white">
                 {user?.createdAt ? new Date(user.createdAt).toLocaleDateString("pt-BR") : "-"}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-400">Último acesso:</span>
+              <span className="text-gray-200">Último acesso:</span>
               <span className="text-white">
                 {user?.lastSignedIn ? new Date(user.lastSignedIn).toLocaleDateString("pt-BR") : "-"}
               </span>

@@ -51,7 +51,7 @@ export default function BankrollManagement() {
       <div className="border-b border-red-900/30 p-6 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-2">Gerenciamento de Banca</h1>
-          <p className="text-gray-400">Acompanhe seu saldo, ganhos e perdas em tempo real</p>
+          <p className="text-gray-200">Acompanhe seu saldo, ganhos e perdas em tempo real</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -106,13 +106,13 @@ export default function BankrollManagement() {
           {/* Saldo Atual */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader>
-              <CardTitle className="text-gray-400">Saldo Atual</CardTitle>
+              <CardTitle className="text-white" className="text-gray-200">Saldo Atual</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-bold text-white mb-2">
                 {isLoading ? "..." : formatCurrency(bankroll?.currentBalance || 0)}
               </div>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-200">
                 Inicial: {isLoading ? "..." : formatCurrency(bankroll?.initialBalance || 0)}
               </p>
             </CardContent>
@@ -121,14 +121,14 @@ export default function BankrollManagement() {
           {/* Lucro/Prejuízo */}
           <Card className={`bg-gradient-to-br ${profit >= 0 ? "from-green-900/20" : "from-red-900/20"} to-transparent ${profit >= 0 ? "border-green-700/30" : "border-red-700/30"}`}>
             <CardHeader>
-              <CardTitle className="text-gray-400">Lucro/Prejuízo</CardTitle>
+              <CardTitle className="text-white" className="text-gray-200">Lucro/Prejuízo</CardTitle>
             </CardHeader>
             <CardContent>
               <div className={`text-4xl font-bold mb-2 flex items-center ${profit >= 0 ? "text-green-400" : "text-red-400"}`}>
                 {isLoading ? "..." : formatCurrency(profit)}
                 {profit >= 0 ? <TrendingUp className="ml-2 h-8 w-8" /> : <TrendingDown className="ml-2 h-8 w-8" />}
               </div>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-200">
                 {profit >= 0 ? "Ganho" : "Perda"} acumulado
               </p>
             </CardContent>
@@ -139,7 +139,7 @@ export default function BankrollManagement() {
         <div className="grid md:grid-cols-4 gap-4">
           <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Total de Ganhos</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Ganhos</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-400">
@@ -150,7 +150,7 @@ export default function BankrollManagement() {
 
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Total de Perdas</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Perdas</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-400">
@@ -161,7 +161,7 @@ export default function BankrollManagement() {
 
           <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Total de Apostas</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Apostas</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-400">
@@ -172,7 +172,7 @@ export default function BankrollManagement() {
 
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Taxa de Vitória</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-purple-400">
@@ -188,20 +188,20 @@ export default function BankrollManagement() {
             <CardHeader>
               <div className="flex items-center space-x-2">
                 <AlertCircle className="h-5 w-5 text-yellow-400" />
-                <CardTitle>Limites Configurados</CardTitle>
+                <CardTitle className="text-white">Limites Configurados</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-4">
                 {bankroll.stopLoss && (
                   <div>
-                    <p className="text-sm text-gray-400">Stop Loss</p>
+                    <p className="text-sm text-gray-200">Stop Loss</p>
                     <p className="text-lg font-bold text-yellow-400">{formatCurrency(bankroll.stopLoss)}</p>
                   </div>
                 )}
                 {bankroll.stopWin && (
                   <div>
-                    <p className="text-sm text-gray-400">Stop Win</p>
+                    <p className="text-sm text-gray-200">Stop Win</p>
                     <p className="text-lg font-bold text-yellow-400">{formatCurrency(bankroll.stopWin)}</p>
                   </div>
                 )}
@@ -213,7 +213,7 @@ export default function BankrollManagement() {
         {/* Histórico de Apostas */}
         <Card className="bg-gradient-to-br from-purple-900/20 to-transparent border-purple-700/30">
           <CardHeader>
-            <CardTitle>Histórico de Apostas Recentes</CardTitle>
+            <CardTitle className="text-white">Histórico de Apostas Recentes</CardTitle>
             <CardDescription>Últimas 10 apostas realizadas</CardDescription>
           </CardHeader>
           <CardContent>
@@ -223,7 +223,7 @@ export default function BankrollManagement() {
                   <div key={bet.id} className="flex items-center justify-between p-3 bg-red-900/30 rounded-lg">
                     <div>
                       <p className="font-medium">{formatCurrency(bet.betAmount)}</p>
-                      <p className="text-sm text-gray-400">{new Date(bet.createdAt).toLocaleString()}</p>
+                      <p className="text-sm text-gray-200">{new Date(bet.createdAt).toLocaleString()}</p>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       bet.result === "win" ? "bg-green-900/30 text-green-400" : 
@@ -236,7 +236,7 @@ export default function BankrollManagement() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-400">Nenhuma aposta realizada ainda.</p>
+              <p className="text-gray-200">Nenhuma aposta realizada ainda.</p>
             )}
           </CardContent>
         </Card>

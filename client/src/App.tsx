@@ -11,6 +11,7 @@ import BankrollManagement from "./pages/BankrollManagement";
 import Chat from "./pages/Chat";
 import BettingRobot from "./pages/BettingRobot";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import AdminPanel from "./pages/AdminPanel";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/bankroll-management" component={BankrollManagement} />
       <Route path="/chat" component={Chat} />
       <Route path="/profile" component={Profile} />
+        <Route path="/settings" component={Settings} />
       <Route path="/admin" component={AdminPanel} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}

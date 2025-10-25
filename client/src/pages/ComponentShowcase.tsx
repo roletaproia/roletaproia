@@ -875,7 +875,7 @@ export default function ComponentsShowcase() {
               <TabsContent value="account">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Account</CardTitle>
+                    <CardTitle className="text-white">Account</CardTitle>
                     <CardDescription>
                       Make changes to your account here.
                     </CardDescription>
@@ -894,7 +894,7 @@ export default function ComponentsShowcase() {
               <TabsContent value="password">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Password</CardTitle>
+                    <CardTitle className="text-white">Password</CardTitle>
                     <CardDescription>
                       Change your password here.
                     </CardDescription>
@@ -917,7 +917,7 @@ export default function ComponentsShowcase() {
               <TabsContent value="settings">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Settings</CardTitle>
+                    <CardTitle className="text-white">Settings</CardTitle>
                     <CardDescription>
                       Manage your settings here.
                     </CardDescription>
@@ -967,7 +967,7 @@ export default function ComponentsShowcase() {
                 <CardHeader>
                   <CollapsibleTrigger asChild>
                     <Button variant="ghost" className="w-full justify-between">
-                      <CardTitle>@peduarte starred 3 repositories</CardTitle>
+                      <CardTitle className="text-white">@peduarte starred 3 repositories</CardTitle>
                     </Button>
                   </CollapsibleTrigger>
                 </CardHeader>

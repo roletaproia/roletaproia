@@ -1,3 +1,4 @@
+import Layout from "@/components/Layout";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,14 +26,14 @@ export default function Dashboard() {
 
   const { logout } = useAuth();
 
-  return (
+  return (<Layout>
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
       {/* Header com Menu de Perfil */}
       <div className="border-b border-red-900/30 p-6 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-          <p className="text-gray-400">Bem-vindo, {user?.name}! Aqui está um resumo da sua atividade.</p>
-        </div>
+          <p className="text-gray-200">Bem-vindo, {user?.name}! Aqui está um resumo da sua atividade.</p>
+        </div></Layout>
         {/* Menu de Perfil */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -43,10 +44,10 @@ export default function Dashboard() {
           <DropdownMenuContent align="end" className="w-48">
             <div className="px-2 py-1.5 text-sm font-medium text-foreground">
               {user?.name}
-            </div>
+            </div></Layout>
             <div className="px-2 py-0.5 text-xs text-muted-foreground">
               {user?.role === "admin" ? "👑 Admin" : user?.role === "sub-admin" ? "🔐 Sub-Admin" : "👤 Usuário"}
-            </div>
+            </div></Layout>
             <div className="border-t my-1" />
             <DropdownMenuItem asChild>
               <Link href="/profile" className="cursor-pointer flex items-center">
@@ -80,7 +81,7 @@ export default function Dashboard() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </div>
+      </div></Layout>
 
       <div className="p-6 space-y-8">
         {/* Stats Cards */}
@@ -88,12 +89,12 @@ export default function Dashboard() {
           {/* Saldo Atual */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Saldo Atual</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Saldo Atual</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">
                 {bankrollLoading ? "..." : formatCurrency(bankroll?.currentBalance || 0)}
-              </div>
+              </div></Layout>
               <p className="text-xs text-gray-500 mt-1">
                 Inicial: {bankrollLoading ? "..." : formatCurrency(bankroll?.initialBalance || 0)}
               </p>
@@ -103,12 +104,12 @@ export default function Dashboard() {
           {/* Total de Ganhos */}
           <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Total de Ganhos</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Ganhos</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-400">
                 {bankrollLoading ? "..." : formatCurrency(bankroll?.totalWins || 0)}
-              </div>
+              </div></Layout>
               <p className="text-xs text-gray-500 mt-1">Acumulado</p>
             </CardContent>
           </Card>
@@ -116,12 +117,12 @@ export default function Dashboard() {
           {/* Total de Perdas */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Total de Perdas</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Perdas</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-400">
                 {bankrollLoading ? "..." : formatCurrency(bankroll?.totalLosses || 0)}
-              </div>
+              </div></Layout>
               <p className="text-xs text-gray-500 mt-1">Acumulado</p>
             </CardContent>
           </Card>
@@ -129,18 +130,18 @@ export default function Dashboard() {
           {/* Taxa de Vitória */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-400">Taxa de Vitória</CardTitle>
+              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-400">
                 {bankrollLoading ? "..." : `${bankroll?.winRate || "0"}%`}
-              </div>
+              </div></Layout>
               <p className="text-xs text-gray-500 mt-1">
                 {bankrollLoading ? "..." : `${bankroll?.totalBets || 0} apostas`}
               </p>
             </CardContent>
           </Card>
-        </div>
+        </div></Layout>
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4">
@@ -150,8 +151,8 @@ export default function Dashboard() {
             <CardHeader>
               <div className="flex items-center space-x-2">
                 <Bot className="h-5 w-5 text-red-400" />
-                <CardTitle>Robô de Apostas</CardTitle>
-              </div>
+                <CardTitle className="text-white">Robô de Apostas</CardTitle>
+              </div></Layout>
               <CardDescription>Configure e execute apostas automáticas</CardDescription>
             </CardHeader>
             <CardContent>
@@ -165,8 +166,8 @@ export default function Dashboard() {
             <CardHeader>
               <div className="flex items-center space-x-2">
                 <TrendingUp className="h-5 w-5 text-red-400" />
-                <CardTitle>Gerenciamento de Banca</CardTitle>
-              </div>
+                <CardTitle className="text-white">Gerenciamento de Banca</CardTitle>
+              </div></Layout>
               <CardDescription>Acompanhe seu saldo e estatísticas</CardDescription>
             </CardHeader>
             <CardContent>
@@ -180,15 +181,15 @@ export default function Dashboard() {
             <CardHeader>
               <div className="flex items-center space-x-2">
                 <MessageSquare className="h-5 w-5 text-red-400" />
-                <CardTitle>Chat</CardTitle>
-              </div>
+                <CardTitle className="text-white">Chat</CardTitle>
+              </div></Layout>
               <CardDescription>Converse com outros usuários</CardDescription>
             </CardHeader>
             <CardContent>
               <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">Acessar</Button>
             </CardContent>
           </Card>
-        </div>
+        </div></Layout>
 
         {/* Estratégias */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
@@ -196,32 +197,32 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Zap className="h-5 w-5 text-red-400" />
-                <CardTitle>Minhas Estratégias</CardTitle>
-              </div>
+                <CardTitle className="text-white">Minhas Estratégias</CardTitle>
+              </div></Layout>
               <Button size="sm" onClick={() => navigate("/strategies")}>
                 Ver Todas
               </Button>
-            </div>
+            </div></Layout>
           </CardHeader>
           <CardContent>
             {strategiesLoading ? (
-              <p className="text-gray-400">Carregando...</p>
+              <p className="text-gray-200">Carregando...</p>
             ) : strategies && strategies.length > 0 ? (
               <div className="space-y-3">
                 {strategies.slice(0, 3).map((strategy) => (
                   <div key={strategy.id} className="flex items-center justify-between p-3 bg-red-900/30 rounded-lg">
                     <div>
                       <p className="font-medium">{strategy.name}</p>
-                      <p className="text-sm text-gray-400">{strategy.type}</p>
-                    </div>
-                    <span className={`px-3 py-1 rounded-full text-sm ${strategy.isActive ? "bg-green-900/30 text-green-400" : "bg-gray-900/30 text-gray-400"}`}>
+                      <p className="text-sm text-gray-200">{strategy.type}</p>
+                    </div></Layout>
+                    <span className={`px-3 py-1 rounded-full text-sm ${strategy.isActive ? "bg-green-900/30 text-green-400" : "bg-gray-900/30 text-gray-200"}`}>
                       {strategy.isActive ? "Ativa" : "Inativa"}
                     </span>
-                  </div>
+                  </div></Layout>
                 ))}
-              </div>
+              </div></Layout>
             ) : (
-              <p className="text-gray-400">Nenhuma estratégia criada. <Button variant="link" size="sm" onClick={() => navigate("/strategies")}>Criar uma</Button></p>
+              <p className="text-gray-200">Nenhuma estratégia criada. <Button variant="link" size="sm" onClick={() => navigate("/strategies")}>Criar uma</Button></p>
             )}
           </CardContent>
         </Card>
@@ -232,24 +233,24 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <BarChart3 className="h-5 w-5 text-red-400" />
-                <CardTitle>Últimas Apostas</CardTitle>
-              </div>
+                <CardTitle className="text-white">Últimas Apostas</CardTitle>
+              </div></Layout>
               <Button size="sm" onClick={() => navigate("/bet-history")}>
                 Ver Todas
               </Button>
-            </div>
+            </div></Layout>
           </CardHeader>
           <CardContent>
             {betsLoading ? (
-              <p className="text-gray-400">Carregando...</p>
+              <p className="text-gray-200">Carregando...</p>
             ) : bets && bets.length > 0 ? (
               <div className="space-y-3">
                 {bets.map((bet) => (
                   <div key={bet.id} className="flex items-center justify-between p-3 bg-red-900/30 rounded-lg">
                     <div>
                       <p className="font-medium">{formatCurrency(bet.betAmount)}</p>
-                      <p className="text-sm text-gray-400">{new Date(bet.createdAt).toLocaleDateString()}</p>
-                    </div>
+                      <p className="text-sm text-gray-200">{new Date(bet.createdAt).toLocaleDateString()}</p>
+                    </div></Layout>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       bet.result === "win" ? "bg-green-900/30 text-green-400" : 
                       bet.result === "loss" ? "bg-red-900/30 text-red-400" :
@@ -257,16 +258,16 @@ export default function Dashboard() {
                     }`}>
                       {bet.result === "win" ? "✓ Ganho" : bet.result === "loss" ? "✗ Perda" : "⏳ Pendente"}
                     </span>
-                  </div>
+                  </div></Layout>
                 ))}
-              </div>
+              </div></Layout>
             ) : (
-              <p className="text-gray-400">Nenhuma aposta realizada ainda.</p>
+              <p className="text-gray-200">Nenhuma aposta realizada ainda.</p>
             )}
           </CardContent>
         </Card>
-      </div>
-    </div>
+      </div></Layout>
+    </div></Layout>
   );
 }
 

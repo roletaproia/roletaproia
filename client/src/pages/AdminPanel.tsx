@@ -28,7 +28,7 @@ export default function AdminPanel() {
           <CardContent className="pt-6 text-center space-y-4">
             <AlertCircle className="h-12 w-12 text-red-400 mx-auto" />
             <h2 className="text-xl font-bold">Acesso Negado</h2>
-            <p className="text-gray-400">Apenas administradores podem acessar este painel.</p>
+            <p className="text-gray-200">Apenas administradores podem acessar este painel.</p>
           </CardContent>
         </Card>
       </div>
@@ -65,7 +65,7 @@ export default function AdminPanel() {
           <Shield className="h-8 w-8 text-yellow-400" />
           <h1 className="text-3xl font-bold">Painel de Administração</h1>
         </div>
-        <p className="text-gray-400">Gerencie usuários, admins e configure o sistema</p>
+        <p className="text-gray-200">Gerencie usuários, admins e configure o sistema</p>
       </div>
 
       <div className="p-6 space-y-8">
@@ -77,7 +77,7 @@ export default function AdminPanel() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-gray-400 text-sm">Total de Usuários</p>
+                    <p className="text-gray-200 text-sm">Total de Usuários</p>
                     <p className="text-3xl font-bold text-white mt-1">{stats.totalUsers}</p>
                   </div>
                   <Users className="h-8 w-8 text-blue-400" />
@@ -90,7 +90,7 @@ export default function AdminPanel() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-gray-400 text-sm">Administradores</p>
+                    <p className="text-gray-200 text-sm">Administradores</p>
                     <p className="text-3xl font-bold text-yellow-400 mt-1">{stats.adminCount}</p>
                   </div>
                   <Crown className="h-8 w-8 text-yellow-400" />
@@ -103,7 +103,7 @@ export default function AdminPanel() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-gray-400 text-sm">Usuários Regulares</p>
+                    <p className="text-gray-200 text-sm">Usuários Regulares</p>
                     <p className="text-3xl font-bold text-green-400 mt-1">{stats.userCount}</p>
                   </div>
                   <TrendingUp className="h-8 w-8 text-green-400" />
@@ -116,11 +116,11 @@ export default function AdminPanel() {
         {/* Users Management */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
           <CardHeader>
-            <CardTitle>Gerenciar Usuários</CardTitle>
+            <CardTitle className="text-white">Gerenciar Usuários</CardTitle>
           </CardHeader>
           <CardContent>
             {usersQuery.isLoading ? (
-              <p className="text-gray-400 text-center py-8">Carregando usuários...</p>
+              <p className="text-gray-200 text-center py-8">Carregando usuários...</p>
             ) : users.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -138,7 +138,7 @@ export default function AdminPanel() {
                       <tr key={u.id} className="hover:bg-red-900/10 transition-colors">
                         <td className="py-3 px-4 text-gray-300">{u.id}</td>
                         <td className="py-3 px-4 text-white font-medium">{u.name || "-"}</td>
-                        <td className="py-3 px-4 text-gray-400">{u.email || "-"}</td>
+                        <td className="py-3 px-4 text-gray-200">{u.email || "-"}</td>
                         <td className="py-3 px-4">
                           <span
                             className={`px-3 py-1 rounded-full text-xs font-semibold ${
@@ -181,7 +181,7 @@ export default function AdminPanel() {
                 </table>
               </div>
             ) : (
-              <p className="text-gray-400 text-center py-8">Nenhum usuário encontrado.</p>
+              <p className="text-gray-200 text-center py-8">Nenhum usuário encontrado.</p>
             )}
           </CardContent>
         </Card>

@@ -101,7 +101,7 @@ export default function Home() {
       <section id="features" className="container mx-auto px-4 py-20 md:py-32">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Funcionalidades Principais</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-200 max-w-2xl mx-auto">
             Tudo que você precisa para gerenciar apostas inteligentemente em um único lugar.
           </p>
         </div>
@@ -113,7 +113,7 @@ export default function Home() {
               <Bot className="h-6 w-6 text-red-400" />
             </div>
             <h3 className="text-xl font-bold mb-3">Robô de Apostas</h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-200 mb-4">
               Automatize suas apostas com estratégias configuráveis como Fibonacci, Martingale e muito mais.
             </p>
             <ul className="space-y-2 text-sm text-gray-500">
@@ -129,7 +129,7 @@ export default function Home() {
               <BarChart3 className="h-6 w-6 text-red-400" />
             </div>
             <h3 className="text-xl font-bold mb-3">Gerenciamento de Banca</h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-200 mb-4">
               Acompanhe seu saldo, ganhos e perdas em tempo real com análises detalhadas.
             </p>
             <ul className="space-y-2 text-sm text-gray-500">
@@ -145,7 +145,7 @@ export default function Home() {
               <MessageSquare className="h-6 w-6 text-red-400" />
             </div>
             <h3 className="text-xl font-bold mb-3">Chat em Tempo Real</h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-200 mb-4">
               Conecte-se com outros usuários, compartilhe estratégias e aprenda com a comunidade.
             </p>
             <ul className="space-y-2 text-sm text-gray-500">
@@ -161,7 +161,7 @@ export default function Home() {
       <section className="container mx-auto px-4 py-20 md:py-32">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Como Funciona</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-200 max-w-2xl mx-auto">
             Comece em 3 passos simples.
           </p>
         </div>
@@ -172,7 +172,7 @@ export default function Home() {
               <span className="text-2xl font-bold text-red-400">1</span>
             </div>
             <h3 className="text-xl font-bold mb-2">Crie sua Conta</h3>
-            <p className="text-gray-400">Registre-se gratuitamente em menos de 1 minuto.</p>
+            <p className="text-gray-200">Registre-se gratuitamente em menos de 1 minuto.</p>
           </div>
 
           <div className="text-center">
@@ -180,7 +180,7 @@ export default function Home() {
               <span className="text-2xl font-bold text-red-400">2</span>
             </div>
             <h3 className="text-xl font-bold mb-2">Configure seu Robô</h3>
-            <p className="text-gray-400">Escolha uma estratégia e defina seus parâmetros.</p>
+            <p className="text-gray-200">Escolha uma estratégia e defina seus parâmetros.</p>
           </div>
 
           <div className="text-center">
@@ -188,7 +188,7 @@ export default function Home() {
               <span className="text-2xl font-bold text-red-400">3</span>
             </div>
             <h3 className="text-xl font-bold mb-2">Comece a Ganhar</h3>
-            <p className="text-gray-400">Deixe o robô trabalhar e acompanhe seus ganhos.</p>
+            <p className="text-gray-200">Deixe o robô trabalhar e acompanhe seus ganhos.</p>
           </div>
         </div>
       </section>
@@ -214,13 +214,13 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <h4 className="font-bold mb-4">Sobre</h4>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-200 text-sm">
                 Roleta Pro I.A. é uma plataforma de automação de apostas com gerenciamento inteligente de banca.
               </p>
             </div>
             <div>
               <h4 className="font-bold mb-4">Produto</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
+              <ul className="space-y-2 text-sm text-gray-200">
                 <li><a href="#features" className="hover:text-white transition-colors">Funcionalidades</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Preços</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Documentação</a></li>
@@ -228,7 +228,7 @@ export default function Home() {
             </div>
             <div>
               <h4 className="font-bold mb-4">Comunidade</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
+              <ul className="space-y-2 text-sm text-gray-200">
                 <li><a href="#" className="hover:text-white transition-colors">Chat</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Fórum</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Suporte</a></li>
@@ -236,7 +236,7 @@ export default function Home() {
             </div>
             <div>
               <h4 className="font-bold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
+              <ul className="space-y-2 text-sm text-gray-200">
                 <li><a href="#" className="hover:text-white transition-colors">Privacidade</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Termos</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Contato</a></li>
@@ -244,7 +244,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border-t border-purple-900/30 pt-8 text-center text-gray-400 text-sm">
+          <div className="border-t border-purple-900/30 pt-8 text-center text-gray-200 text-sm">
              <p>&copy; 2025 Roleta Pro I.A. Todos os direitos reservados.</p>
           </div>
         </div>
