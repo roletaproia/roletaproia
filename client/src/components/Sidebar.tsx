@@ -11,7 +11,7 @@ import {
   LogOut,
   Shield
 } from "lucide-react";
-import { useAuth } from "@/lib/auth";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "./ui/button";
 
 export default function Sidebar() {

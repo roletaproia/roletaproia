@@ -89,7 +89,7 @@ export default function Dashboard() {
           {/* Saldo Atual */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Saldo Atual</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Saldo Atual</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">
@@ -104,7 +104,7 @@ export default function Dashboard() {
           {/* Total de Ganhos */}
           <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Ganhos</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Total de Ganhos</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-400">
@@ -117,7 +117,7 @@ export default function Dashboard() {
           {/* Total de Perdas */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Perdas</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Total de Perdas</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-400">
@@ -130,7 +130,7 @@ export default function Dashboard() {
           {/* Taxa de Vitória */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-400">

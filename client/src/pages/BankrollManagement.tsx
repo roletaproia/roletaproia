@@ -106,7 +106,7 @@ export default function BankrollManagement() {
           {/* Saldo Atual */}
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader>
-              <CardTitle className="text-white" className="text-gray-200">Saldo Atual</CardTitle>
+              <CardTitle className="text-gray-200">Saldo Atual</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-bold text-white mb-2">
@@ -121,7 +121,7 @@ export default function BankrollManagement() {
           {/* Lucro/Prejuízo */}
           <Card className={`bg-gradient-to-br ${profit >= 0 ? "from-green-900/20" : "from-red-900/20"} to-transparent ${profit >= 0 ? "border-green-700/30" : "border-red-700/30"}`}>
             <CardHeader>
-              <CardTitle className="text-white" className="text-gray-200">Lucro/Prejuízo</CardTitle>
+              <CardTitle className="text-gray-200">Lucro/Prejuízo</CardTitle>
             </CardHeader>
             <CardContent>
               <div className={`text-4xl font-bold mb-2 flex items-center ${profit >= 0 ? "text-green-400" : "text-red-400"}`}>
@@ -139,7 +139,7 @@ export default function BankrollManagement() {
         <div className="grid md:grid-cols-4 gap-4">
           <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Ganhos</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Total de Ganhos</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-400">
@@ -150,7 +150,7 @@ export default function BankrollManagement() {
 
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Perdas</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Total de Perdas</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-400">
@@ -161,7 +161,7 @@ export default function BankrollManagement() {
 
           <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Total de Apostas</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Total de Apostas</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-400">
@@ -172,7 +172,7 @@ export default function BankrollManagement() {
 
           <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white" className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-purple-400">
