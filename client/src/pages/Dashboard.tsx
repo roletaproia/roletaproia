@@ -33,7 +33,7 @@ export default function Dashboard() {
         <div>
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
           <p className="text-gray-200">Bem-vindo, {user?.name}! Aqui está um resumo da sua atividade.</p>
-        </div></Layout>
+        </div>
         {/* Menu de Perfil */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -44,10 +44,10 @@ export default function Dashboard() {
           <DropdownMenuContent align="end" className="w-48">
             <div className="px-2 py-1.5 text-sm font-medium text-foreground">
               {user?.name}
-            </div></Layout>
+            </div>
             <div className="px-2 py-0.5 text-xs text-muted-foreground">
               {user?.role === "admin" ? "👑 Admin" : user?.role === "sub-admin" ? "🔐 Sub-Admin" : "👤 Usuário"}
-            </div></Layout>
+            </div>
             <div className="border-t my-1" />
             <DropdownMenuItem asChild>
               <Link href="/profile" className="cursor-pointer flex items-center">
@@ -81,7 +81,7 @@ export default function Dashboard() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </div></Layout>
+      </div>
 
       <div className="p-6 space-y-8">
         {/* Stats Cards */}
@@ -94,7 +94,7 @@ export default function Dashboard() {
             <CardContent>
               <div className="text-2xl font-bold text-white">
                 {bankrollLoading ? "..." : formatCurrency(bankroll?.currentBalance || 0)}
-              </div></Layout>
+              </div>
               <p className="text-xs text-gray-500 mt-1">
                 Inicial: {bankrollLoading ? "..." : formatCurrency(bankroll?.initialBalance || 0)}
               </p>
@@ -109,7 +109,7 @@ export default function Dashboard() {
             <CardContent>
               <div className="text-2xl font-bold text-green-400">
                 {bankrollLoading ? "..." : formatCurrency(bankroll?.totalWins || 0)}
-              </div></Layout>
+              </div>
               <p className="text-xs text-gray-500 mt-1">Acumulado</p>
             </CardContent>
           </Card>
@@ -122,7 +122,7 @@ export default function Dashboard() {
             <CardContent>
               <div className="text-2xl font-bold text-red-400">
                 {bankrollLoading ? "..." : formatCurrency(bankroll?.totalLosses || 0)}
-              </div></Layout>
+              </div>
               <p className="text-xs text-gray-500 mt-1">Acumulado</p>
             </CardContent>
           </Card>
@@ -135,13 +135,13 @@ export default function Dashboard() {
             <CardContent>
               <div className="text-2xl font-bold text-blue-400">
                 {bankrollLoading ? "..." : `${bankroll?.winRate || "0"}%`}
-              </div></Layout>
+              </div>
               <p className="text-xs text-gray-500 mt-1">
                 {bankrollLoading ? "..." : `${bankroll?.totalBets || 0} apostas`}
               </p>
             </CardContent>
           </Card>
-        </div></Layout>
+        </div>
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4">
@@ -152,7 +152,7 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2">
                 <Bot className="h-5 w-5 text-red-400" />
                 <CardTitle className="text-white">Robô de Apostas</CardTitle>
-              </div></Layout>
+              </div>
               <CardDescription>Configure e execute apostas automáticas</CardDescription>
             </CardHeader>
             <CardContent>
@@ -167,7 +167,7 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2">
                 <TrendingUp className="h-5 w-5 text-red-400" />
                 <CardTitle className="text-white">Gerenciamento de Banca</CardTitle>
-              </div></Layout>
+              </div>
               <CardDescription>Acompanhe seu saldo e estatísticas</CardDescription>
             </CardHeader>
             <CardContent>
@@ -182,14 +182,14 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2">
                 <MessageSquare className="h-5 w-5 text-red-400" />
                 <CardTitle className="text-white">Chat</CardTitle>
-              </div></Layout>
+              </div>
               <CardDescription>Converse com outros usuários</CardDescription>
             </CardHeader>
             <CardContent>
               <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">Acessar</Button>
             </CardContent>
           </Card>
-        </div></Layout>
+        </div>
 
         {/* Estratégias */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
@@ -198,11 +198,11 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2">
                 <Zap className="h-5 w-5 text-red-400" />
                 <CardTitle className="text-white">Minhas Estratégias</CardTitle>
-              </div></Layout>
+              </div>
               <Button size="sm" onClick={() => navigate("/strategies")}>
                 Ver Todas
               </Button>
-            </div></Layout>
+            </div>
           </CardHeader>
           <CardContent>
             {strategiesLoading ? (
@@ -214,13 +214,13 @@ export default function Dashboard() {
                     <div>
                       <p className="font-medium">{strategy.name}</p>
                       <p className="text-sm text-gray-200">{strategy.type}</p>
-                    </div></Layout>
+                    </div>
                     <span className={`px-3 py-1 rounded-full text-sm ${strategy.isActive ? "bg-green-900/30 text-green-400" : "bg-gray-900/30 text-gray-200"}`}>
                       {strategy.isActive ? "Ativa" : "Inativa"}
                     </span>
-                  </div></Layout>
+                  </div>
                 ))}
-              </div></Layout>
+              </div>
             ) : (
               <p className="text-gray-200">Nenhuma estratégia criada. <Button variant="link" size="sm" onClick={() => navigate("/strategies")}>Criar uma</Button></p>
             )}
@@ -234,11 +234,11 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2">
                 <BarChart3 className="h-5 w-5 text-red-400" />
                 <CardTitle className="text-white">Últimas Apostas</CardTitle>
-              </div></Layout>
+              </div>
               <Button size="sm" onClick={() => navigate("/bet-history")}>
                 Ver Todas
               </Button>
-            </div></Layout>
+            </div>
           </CardHeader>
           <CardContent>
             {betsLoading ? (
@@ -250,7 +250,7 @@ export default function Dashboard() {
                     <div>
                       <p className="font-medium">{formatCurrency(bet.betAmount)}</p>
                       <p className="text-sm text-gray-200">{new Date(bet.createdAt).toLocaleDateString()}</p>
-                    </div></Layout>
+                    </div>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       bet.result === "win" ? "bg-green-900/30 text-green-400" : 
                       bet.result === "loss" ? "bg-red-900/30 text-red-400" :
@@ -258,16 +258,17 @@ export default function Dashboard() {
                     }`}>
                       {bet.result === "win" ? "✓ Ganho" : bet.result === "loss" ? "✗ Perda" : "⏳ Pendente"}
                     </span>
-                  </div></Layout>
+                  </div>
                 ))}
-              </div></Layout>
+              </div>
             ) : (
               <p className="text-gray-200">Nenhuma aposta realizada ainda.</p>
             )}
           </CardContent>
         </Card>
-      </div></Layout>
-    </div></Layout>
+      </div>
+    </div>
+    </Layout>
   );
 }
 
