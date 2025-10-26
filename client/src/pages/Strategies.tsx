@@ -147,7 +147,7 @@ export default function Strategies() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <CardTitle className="flex items-center gap-2">
+                      <CardTitle className="flex items-center gap-2 text-white">
                         {strategy.name}
                       </CardTitle>
                       <CardDescription className="mt-2 space-y-1">
@@ -230,7 +230,7 @@ export default function Strategies() {
           {/* Aposta Fixa */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">💰 Aposta Fixa (Flat Betting)</CardTitle>
+              <CardTitle className="text-xl flex items-center gap-2 text-white">💰 Aposta Fixa (Flat Betting)</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
@@ -260,7 +260,7 @@ export default function Strategies() {
           {/* Fibonacci */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">🔢 Sistema Fibonacci</CardTitle>
+              <CardTitle className="text-xl flex items-center gap-2 text-white">🔢 Sistema Fibonacci</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
@@ -289,7 +289,7 @@ export default function Strategies() {
           {/* Martingale */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">📈 Sistema Martingale</CardTitle>
+              <CardTitle className="text-xl flex items-center gap-2 text-white">📈 Sistema Martingale</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
@@ -319,7 +319,7 @@ export default function Strategies() {
           {/* Reverse Martingale (Paroli) */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">🔄 Reverse Martingale (Paroli)</CardTitle>
+              <CardTitle className="text-xl flex items-center gap-2 text-white">🔄 Reverse Martingale (Paroli)</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
@@ -348,7 +348,7 @@ export default function Strategies() {
           {/* D'Alembert */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">⚖️ Sistema D'Alembert</CardTitle>
+              <CardTitle className="text-xl flex items-center gap-2 text-white">⚖️ Sistema D'Alembert</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>
@@ -377,7 +377,7 @@ export default function Strategies() {
           {/* Labouchère */}
           <Card className="bg-slate-800/50 border-purple-700/30">
             <CardHeader>
-              <CardTitle className="text-xl flex items-center gap-2">📊 Sistema Labouchère</CardTitle>
+              <CardTitle className="text-xl flex items-center gap-2 text-white">📊 Sistema Labouchère</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
               <h3 className="font-semibold text-base text-yellow-400 mb-1">Como Funciona:</h3>

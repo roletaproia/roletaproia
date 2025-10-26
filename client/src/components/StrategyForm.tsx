@@ -214,7 +214,7 @@ export default function StrategyForm({
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Nome da Estratégia */}
       <div>
-        <Label htmlFor="name" className="text-sm font-medium">
+        <Label htmlFor="name" className="text-sm font-medium text-white">
           Nome da Estratégia
         </Label>
         <Input
@@ -229,7 +229,7 @@ export default function StrategyForm({
 
       {/* Tipo de Estratégia */}
       <div>
-        <Label htmlFor="type" className="text-sm font-medium">
+        <Label htmlFor="type" className="text-sm font-medium text-white">
           Tipo de Estratégia
         </Label>
         <Select
@@ -255,7 +255,7 @@ export default function StrategyForm({
 
       {/* Aposta Base */}
       <div>
-        <Label htmlFor="baseBet" className="text-sm font-medium">
+        <Label htmlFor="baseBet" className="text-sm font-medium text-white">
           Aposta Base (R$)
         </Label>
         <Input
@@ -276,7 +276,7 @@ export default function StrategyForm({
       {fields.length > 0 && (
         <Card className="bg-slate-800/50 border-purple-700/30">
           <CardHeader>
-            <CardTitle className="text-base">Configurações da Estratégia</CardTitle>
+            <CardTitle className="text-base text-white">Configurações da Estratégia</CardTitle>
             <CardDescription>Customize os parâmetros da sua estratégia</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -287,7 +287,7 @@ export default function StrategyForm({
                 return (
                   <div key={field.key} className="flex items-center justify-between">
                     <div>
-                      <Label className="text-sm font-medium">{field.label}</Label>
+                      <Label className="text-sm font-medium text-white">{field.label}</Label>
                       <p className="text-xs text-gray-200 mt-1">{field.description}</p>
                     </div>
                     <Switch
@@ -301,7 +301,7 @@ export default function StrategyForm({
               if (field.type === "number") {
                 return (
                   <div key={field.key}>
-                    <Label htmlFor={field.key} className="text-sm font-medium">
+                    <Label htmlFor={field.key} className="text-sm font-medium text-white">
                       {field.label}
                     </Label>
                     <Input
@@ -321,7 +321,7 @@ export default function StrategyForm({
               if (field.type === "textarea") {
                 return (
                   <div key={field.key}>
-                    <Label htmlFor={field.key} className="text-sm font-medium">
+                    <Label htmlFor={field.key} className="text-sm font-medium text-white">
                       {field.label}
                     </Label>
                     <textarea
@@ -340,7 +340,7 @@ export default function StrategyForm({
               // text
               return (
                 <div key={field.key}>
-                  <Label htmlFor={field.key} className="text-sm font-medium">
+                  <Label htmlFor={field.key} className="text-sm font-medium text-white">
                     {field.label}
                   </Label>
                   <Input
