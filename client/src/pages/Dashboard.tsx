@@ -31,7 +31,7 @@ export default function Dashboard() {
       {/* Header com Menu de Perfil */}
       <div className="border-b border-red-900/30 p-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
+          <h1 className="text-3xl font-bold mb-2 text-yellow-400">Dashboard</h1>
           <p className="text-gray-200">Bem-vindo, {user?.name}! Aqui está um resumo da sua atividade.</p>
         </div>
         {/* Menu de Perfil */}

@@ -87,7 +87,7 @@ export default function BettingRobot() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
       {/* Header */}
       <div className="border-b border-red-900/30 p-6">
-        <h1 className="text-3xl font-bold mb-2">Robô de Apostas</h1>
+        <h1 className="text-3xl font-bold mb-2 text-yellow-400">Robô de Apostas</h1>
         <p className="text-gray-200">Configure e execute apostas automáticas com suas estratégias</p>
       </div>
 

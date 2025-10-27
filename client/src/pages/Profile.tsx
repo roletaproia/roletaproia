@@ -47,7 +47,7 @@ export default function Profile() {
     <div className="p-4 sm:p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Meu Perfil</h1>
+        <h1 className="text-3xl font-bold mb-2 text-yellow-400">Meu Perfil</h1>
         <p className="text-gray-200">Gerencie suas informações pessoais e configurações de conta</p>
       </div>
 

@@ -85,7 +85,7 @@ export default function Strategies() {
       {/* Header */}
       <div className="border-b border-red-900/30 p-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Estratégias de Apostas</h1>
+          <h1 className="text-3xl font-bold mb-2 text-yellow-400">Estratégias de Apostas</h1>
           <p className="text-gray-200">Crie e gerencie suas estratégias de apostas automáticas</p>
         </div>
         <Dialog open={open} onOpenChange={(newOpen) => {
@@ -221,7 +221,7 @@ export default function Strategies() {
 
       {/* Informações sobre Estratégias */}
       <div className="p-6 border-t border-red-900/30">
-        <h2 className="text-xl font-bold mb-4">📚 Conheça as Estratégias</h2>
+        <h2 className="text-xl font-bold mb-4 text-yellow-400">📚 Conheça as Estratégias</h2>
         <p className="text-gray-200 mb-6">
           Antes de configurar, entenda como cada estratégia funciona, seus prós e contras.
         </p>

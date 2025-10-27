@@ -63,7 +63,7 @@ export default function AdminPanel() {
       <div className="border-b border-red-900/30 p-6">
         <div className="flex items-center gap-3 mb-2">
           <Shield className="h-8 w-8 text-yellow-400" />
-          <h1 className="text-3xl font-bold">Painel de Administração</h1>
+          <h1 className="text-3xl font-bold text-yellow-400">Painel de Administração</h1>
         </div>
         <p className="text-gray-200">Gerencie usuários, admins e configure o sistema</p>
       </div>

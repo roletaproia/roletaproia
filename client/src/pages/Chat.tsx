@@ -45,7 +45,7 @@ export default function Chat() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
       {/* Header */}
       <div className="border-b border-red-900/30 p-6">
-        <h1 className="text-3xl font-bold mb-2">Chat da Comunidade</h1>
+        <h1 className="text-3xl font-bold mb-2 text-yellow-400">Chat da Comunidade</h1>
         <p className="text-gray-200">Converse com outros usuários, compartilhe estratégias e aprenda juntos</p>
       </div>
 

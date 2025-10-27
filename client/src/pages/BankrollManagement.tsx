@@ -50,7 +50,7 @@ export default function BankrollManagement() {
       {/* Header */}
       <div className="border-b border-red-900/30 p-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Gerenciamento de Banca</h1>
+          <h1 className="text-3xl font-bold mb-2 text-yellow-400">Gerenciamento de Banca</h1>
           <p className="text-gray-200">Acompanhe seu saldo, ganhos e perdas em tempo real</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
