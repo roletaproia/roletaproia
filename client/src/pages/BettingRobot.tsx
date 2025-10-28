@@ -328,6 +328,42 @@ export default function BettingRobot() {
                 <p className="text-gray-200 text-sm">Taxa de Vitória</p>
                 <p className="text-2xl font-bold text-yellow-400">
                   {bets && bets.length > 0 ? ((bets.filter((b: any) => b.result === "win").length / bets.length) * 100).toFixed(1) : "0"}%
+            {/* Input Manual de Número (Mobile/Desktop) */}
+            {isRunning && (
+              <div className="mt-4 p-4 bg-blue-900/20 border border-blue-700/30 rounded-lg">
+                <label className="text-sm font-medium text-gray-300 mb-2 block">
+                  Adicionar Número Manualmente (Mobile)
+                </label>
+                <div className="flex gap-2">
+                  <Input
+                    type="number"
+                    placeholder="0-36"
+                    min="0"
+                    max="36"
+                    className="bg-slate-800 border-blue-700/30"
+                    id="manualNumberInput"
+                  />
+                  <Button
+                    onClick={() => {
+                      const input = document.getElementById('manualNumberInput') as HTMLInputElement;
+                      const num = parseInt(input.value);
+                      if (num >= 0 && num <= 36) {
+                        processNewNumber(num);
+                        input.value = '';
+                      } else {
+                        alert('Digite um número entre 0 e 36');
+                      }
+                    }}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    Adicionar
+                  </Button>
+                </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  Use se estiver no celular ou sem extensão
+                </p>
+              </div>
+            )}
                 </p>
               </div>
               <div>
