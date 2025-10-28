@@ -61,11 +61,18 @@ export default function Profile() {
   const handleSaveProfile = async () => {
     setIsSaving(true);
     try {
-      const updateData = {
-        name: formData.name,
-        email: formData.email,
-        avatarUrl: formData.avatarUrl.trim() || null,
-      };
+      const updateData: any = {};
+      
+      // Só enviar campos que mudaram
+      if (formData.name !== user?.name) {
+        updateData.name = formData.name;
+      }
+      if (formData.email !== user?.email) {
+        updateData.email = formData.email;
+      }
+      if (formData.avatarUrl !== user?.avatarUrl) {
+        updateData.avatarUrl = formData.avatarUrl.trim() || null;
+      }
 
       await updateProfileMutation.mutateAsync(updateData);
       await refetchUser();

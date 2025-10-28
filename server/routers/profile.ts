@@ -38,6 +38,7 @@ export const profileRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      console.log('[Profile Update] Input recebido:', JSON.stringify(input, null, 2));
       const db = await getDb();
       if (!db) throw new Error("Database not available");
       
