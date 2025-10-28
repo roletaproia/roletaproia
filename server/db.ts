@@ -202,7 +202,23 @@ export async function getChatMessages(limit: number = 100) {
   const db = await getDb();
   if (!db) return [];
   
-  return db.select().from(chatMessages).orderBy(desc(chatMessages.createdAt)).limit(limit);
+  // JOIN com users para trazer nome e role
+  const messages = await db
+    .select({
+      id: chatMessages.id,
+      userId: chatMessages.userId,
+      message: chatMessages.message,
+      isSystemMessage: chatMessages.isSystemMessage,
+      createdAt: chatMessages.createdAt,
+      userName: users.name,
+      userRole: users.role,
+    })
+    .from(chatMessages)
+    .leftJoin(users, eq(chatMessages.userId, users.id))
+    .orderBy(desc(chatMessages.createdAt))
+    .limit(limit);
+  
+  return messages;
 }
 
 export async function deleteChatMessage(messageId: number) {
