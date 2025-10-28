@@ -100,3 +100,82 @@ export const chatMessages = mysqlTable("chatMessages", {
 export type ChatMessage = typeof chatMessages.$inferSelect;
 export type InsertChatMessage = typeof chatMessages.$inferInsert;
 
+
+/**
+ * Tabela de Bans de Chat
+ * Armazena usuários banidos do chat
+ */
+export const chatBans = mysqlTable("chatBans", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id),
+  bannedBy: int("bannedBy").notNull().references(() => users.id), // Admin que aplicou o ban
+  reason: text("reason").notNull(),
+  expiresAt: timestamp("expiresAt"), // null = permanente
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ChatBan = typeof chatBans.$inferSelect;
+export type InsertChatBan = typeof chatBans.$inferInsert;
+
+/**
+ * Tabela de Regras do Chat
+ * Armazena regras configuráveis do chat
+ */
+export const chatRules = mysqlTable("chatRules", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  isActive: int("isActive").notNull().default(1), // 0 = inativo, 1 = ativo
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ChatRule = typeof chatRules.$inferSelect;
+export type InsertChatRule = typeof chatRules.$inferInsert;
+
+/**
+ * Tabela de Palavras Proibidas
+ * Lista de palavras que não podem ser enviadas no chat
+ */
+export const bannedWords = mysqlTable("bannedWords", {
+  id: int("id").autoincrement().primaryKey(),
+  word: varchar("word", { length: 255 }).notNull().unique(),
+  severity: mysqlEnum("severity", ["low", "medium", "high"]).default("medium").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type BannedWord = typeof bannedWords.$inferSelect;
+export type InsertBannedWord = typeof bannedWords.$inferInsert;
+
+/**
+ * Tabela de Avisos/Warnings
+ * Armazena avisos dados aos usuários antes de ban
+ */
+export const chatWarnings = mysqlTable("chatWarnings", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id),
+  issuedBy: int("issuedBy").notNull().references(() => users.id), // Admin que deu o aviso
+  reason: text("reason").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ChatWarning = typeof chatWarnings.$inferSelect;
+export type InsertChatWarning = typeof chatWarnings.$inferInsert;
+
+/**
+ * Tabela de Mensagens Deletadas (Log de Moderação)
+ * Histórico de mensagens removidas pela moderação
+ */
+export const deletedMessages = mysqlTable("deletedMessages", {
+  id: int("id").autoincrement().primaryKey(),
+  originalMessageId: int("originalMessageId").notNull(),
+  userId: int("userId").notNull().references(() => users.id),
+  message: text("message").notNull(),
+  deletedBy: int("deletedBy").notNull().references(() => users.id), // Admin que deletou
+  reason: text("reason").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type DeletedMessage = typeof deletedMessages.$inferSelect;
+export type InsertDeletedMessage = typeof deletedMessages.$inferInsert;
+

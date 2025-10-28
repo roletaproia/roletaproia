@@ -31,7 +31,11 @@ export default function Sidebar() {
     { icon: User, label: "Perfil", href: "/profile" },
   ];
 
-  // Adicionar link de Admin se o usuário for admin
+  // Adicionar links de Admin se o usuário for admin
+  if (user?.role === "admin" || user?.role === "sub-admin") {
+    menuItems.push({ icon: Shield, label: "Moderação Chat", href: "/chat-moderation" });
+  }
+  
   if (user?.role === "admin") {
     menuItems.push({ icon: Shield, label: "Painel Admin", href: "/admin" });
   }

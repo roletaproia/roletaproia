@@ -13,6 +13,7 @@ import BettingRobot from "./pages/BettingRobot";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import AdminPanel from "./pages/AdminPanel";
+import ChatModeration from "./pages/ChatModeration";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/profile" component={Profile} />
         <Route path="/settings" component={Settings} />
       <Route path="/admin" component={AdminPanel} />
+      <Route path="/chat-moderation" component={ChatModeration} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

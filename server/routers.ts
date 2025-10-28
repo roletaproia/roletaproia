@@ -8,6 +8,7 @@ import { chatRouter } from "./routers/chat";
 import { adminRouter } from "./routers/admin";
 import { profileRouter } from "./routers/profile";
 import { bookmakerRouter } from "./routers/bookmaker";
+import { moderationRouter } from "./routers/moderation";
 
 export const appRouter = router({
   system: systemRouter,
@@ -19,6 +20,7 @@ export const appRouter = router({
   admin: adminRouter,
   profile: profileRouter,
   bookmaker: bookmakerRouter,
+  moderation: moderationRouter,
 });
 
 export type AppRouter = typeof appRouter;
