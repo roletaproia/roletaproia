@@ -112,12 +112,19 @@ export default function Profile() {
             {/* Preview da foto */}
             <div className="flex items-center gap-6">
               <div className="w-32 h-32 rounded-full bg-gray-700 border-4 border-yellow-500 flex items-center justify-center overflow-hidden">
-                {formData.avatarUrl && !imageError ? (
+                {formData.avatarUrl ? (
                   <img
                     src={formData.avatarUrl}
                     alt="Avatar"
                     className="w-full h-full object-cover"
-                    onError={() => setImageError(true)}
+                    onError={(e) => {
+                      setImageError(true);
+                      // Tentar carregar sem cache
+                      const img = e.target as HTMLImageElement;
+                      if (!img.src.includes('?nocache')) {
+                        img.src = formData.avatarUrl + '?nocache=' + Date.now();
+                      }
+                    }}
                   />
                 ) : (
                   <User className="w-16 h-16 text-gray-500" />
@@ -142,8 +149,8 @@ export default function Profile() {
                 </p>
                 
                 {imageError && formData.avatarUrl && (
-                  <p className="text-sm text-red-400">
-                    ⚠️ Não foi possível carregar a imagem. Verifique a URL.
+                  <p className="text-sm text-yellow-400">
+                    ⚠️ Preview não disponível, mas a URL será salva. Certifique-se que o link está correto.
                   </p>
                 )}
               </div>

@@ -17,6 +17,7 @@ import ChatModeration from "./pages/ChatModeration";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MakeAdmin from "./pages/MakeAdmin";
+import CreateAdmin from "./pages/CreateAdmin";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -35,6 +36,7 @@ function Router() {
       <Route path="/admin" component={AdminPanel} />
       <Route path="/chat-moderation" component={ChatModeration} />
       <Route path="/make-admin" component={MakeAdmin} />
+      <Route path="/create-admin" component={CreateAdmin} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
