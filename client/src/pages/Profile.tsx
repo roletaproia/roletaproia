@@ -61,30 +61,19 @@ export default function Profile() {
   const handleSaveProfile = async () => {
     setIsSaving(true);
     try {
-      const updateData: any = {};
-
-      // Adicionar campos que mudaram
-      if (formData.name !== user?.name) {
-        updateData.name = formData.name;
-      }
-      if (formData.email !== user?.email) {
-        updateData.email = formData.email;
-      }
-      if (formData.avatarUrl !== user?.avatarUrl) {
-        updateData.avatarUrl = formData.avatarUrl;
-      }
-
-      if (Object.keys(updateData).length === 0) {
-        alert("Nenhuma alteração para salvar!");
-        return;
-      }
+      const updateData = {
+        name: formData.name,
+        email: formData.email,
+        avatarUrl: formData.avatarUrl || undefined,
+      };
 
       await updateProfileMutation.mutateAsync(updateData);
       await refetchUser();
       alert("Perfil atualizado com sucesso!");
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro ao salvar perfil:", error);
-      alert(error.message || "Erro ao salvar perfil");
+      const errorMessage = error instanceof Error ? error.message : "Erro ao salvar perfil";
+      alert(errorMessage);
     } finally {
       setIsSaving(false);
     }
