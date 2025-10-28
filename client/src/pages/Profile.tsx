@@ -5,16 +5,18 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { User, Mail, Upload, Save, Trash2 } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { User, Mail, Image as ImageIcon, Save, Trash2, ExternalLink } from "lucide-react";
 
 export default function Profile() {
   const { user, refetchUser } = useAuth();
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
+    avatarUrl: user?.avatarUrl || "",
   });
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(user?.avatarUrl || null);
   const [isSaving, setIsSaving] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const updateProfileMutation = trpc.profile.updateProfile.useMutation();
   const deleteAvatarMutation = trpc.profile.deleteAvatar.useMutation();
@@ -25,38 +27,18 @@ export default function Profile() {
       setFormData({
         name: user.name || "",
         email: user.email || "",
+        avatarUrl: user.avatarUrl || "",
       });
-      setAvatarPreview(user.avatarUrl || null);
     }
   }, [user]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Validar tamanho (max 2MB)
-      if (file.size > 2 * 1024 * 1024) {
-        alert("Imagem muito grande! Máximo 2MB.");
-        return;
-      }
-
-      // Validar tipo
-      if (!file.type.startsWith("image/")) {
-        alert("Apenas imagens são permitidas!");
-        return;
-      }
-
-      // Converter para base64
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64 = reader.result as string;
-        setAvatarPreview(base64);
-      };
-      reader.readAsDataURL(file);
+    
+    // Reset error quando mudar URL
+    if (name === "avatarUrl") {
+      setImageError(false);
     }
   };
 
@@ -67,7 +49,7 @@ export default function Profile() {
 
     try {
       await deleteAvatarMutation.mutateAsync();
-      setAvatarPreview(null);
+      setFormData((prev) => ({ ...prev, avatarUrl: "" }));
       await refetchUser();
       alert("Foto removida com sucesso!");
     } catch (error: any) {
@@ -88,8 +70,8 @@ export default function Profile() {
       if (formData.email !== user?.email) {
         updateData.email = formData.email;
       }
-      if (avatarPreview && avatarPreview !== user?.avatarUrl) {
-        updateData.avatarUrl = avatarPreview;
+      if (formData.avatarUrl !== user?.avatarUrl) {
+        updateData.avatarUrl = formData.avatarUrl;
       }
 
       if (Object.keys(updateData).length === 0) {
@@ -118,143 +100,173 @@ export default function Profile() {
       </div>
 
       <div className="max-w-2xl space-y-6">
-        {/* Avatar Section */}
-        <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
+        {/* Avatar Card */}
+        <Card className="bg-gray-800 border-gray-700">
           <CardHeader>
-            <CardTitle className="text-white">Foto de Perfil</CardTitle>
+            <CardTitle className="text-xl text-yellow-400 flex items-center gap-2">
+              <ImageIcon className="w-5 h-5" />
+              Foto de Perfil
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Preview da foto */}
             <div className="flex items-center gap-6">
-              {/* Avatar Preview */}
-              <div className="relative">
-                {avatarPreview ? (
+              <div className="w-32 h-32 rounded-full bg-gray-700 border-4 border-yellow-500 flex items-center justify-center overflow-hidden">
+                {formData.avatarUrl && !imageError ? (
                   <img
-                    src={avatarPreview}
+                    src={formData.avatarUrl}
                     alt="Avatar"
-                    className="w-24 h-24 rounded-full object-cover border-2 border-yellow-400"
+                    className="w-full h-full object-cover"
+                    onError={() => setImageError(true)}
                   />
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-600 flex items-center justify-center text-3xl font-bold">
-                    {user?.name ? user.name[0].toUpperCase() : "U"}
-                  </div>
+                  <User className="w-16 h-16 text-gray-500" />
                 )}
               </div>
-
-              {/* Upload Controls */}
+              
               <div className="flex-1 space-y-2">
-                <label className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg cursor-pointer transition-colors w-fit">
-                  <Upload className="h-4 w-4" />
-                  <span>Fazer Upload</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleAvatarChange}
-                    className="hidden"
-                  />
-                </label>
-                
-                {avatarPreview && (
-                  <Button
-                    onClick={handleDeleteAvatar}
-                    variant="outline"
-                    size="sm"
-                    className="border-red-700/50 text-red-400 hover:bg-red-900/20"
-                  >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Remover Foto
-                  </Button>
-                )}
-                
-                <p className="text-xs text-gray-400">
-                  Formatos aceitos: JPG, PNG, GIF (máx. 2MB)
+                <Label htmlFor="avatarUrl" className="text-white">
+                  URL da Imagem
+                </Label>
+                <Input
+                  id="avatarUrl"
+                  name="avatarUrl"
+                  type="url"
+                  value={formData.avatarUrl}
+                  onChange={handleInputChange}
+                  placeholder="https://imgur.com/sua-foto.jpg"
+                  className="bg-gray-700 text-white border-gray-600"
+                />
+                <p className="text-sm text-gray-400">
+                  Cole o link direto da sua foto hospedada em Imgur, ImgBB, etc.
                 </p>
+                
+                {imageError && formData.avatarUrl && (
+                  <p className="text-sm text-red-400">
+                    ⚠️ Não foi possível carregar a imagem. Verifique a URL.
+                  </p>
+                )}
               </div>
             </div>
+
+            {/* Serviços recomendados */}
+            <div className="bg-gray-900 p-4 rounded-lg">
+              <p className="text-sm text-gray-300 mb-2 font-semibold">
+                📸 Onde hospedar sua foto:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href="https://imgur.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-full flex items-center gap-1"
+                >
+                  Imgur <ExternalLink className="w-3 h-3" />
+                </a>
+                <a
+                  href="https://imgbb.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-full flex items-center gap-1"
+                >
+                  ImgBB <ExternalLink className="w-3 h-3" />
+                </a>
+                <a
+                  href="https://postimages.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-full flex items-center gap-1"
+                >
+                  PostImages <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+
+            {formData.avatarUrl && (
+              <Button
+                onClick={handleDeleteAvatar}
+                variant="destructive"
+                className="w-full"
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                Remover Foto
+              </Button>
+            )}
           </CardContent>
         </Card>
 
-        {/* Personal Information */}
-        <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
+        {/* Informações Pessoais */}
+        <Card className="bg-gray-800 border-gray-700">
           <CardHeader>
-            <CardTitle className="text-white">Informações Pessoais</CardTitle>
+            <CardTitle className="text-xl text-yellow-400">Informações Pessoais</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* Name */}
             <div>
-              <label className="text-sm font-medium text-white mb-2 block">Nome</label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                <Input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Seu nome completo"
-                  className="bg-slate-800 border-red-700/30 text-white placeholder-gray-500 pl-10"
-                />
-              </div>
+              <Label htmlFor="name" className="text-white flex items-center gap-2 mb-2">
+                <User className="w-4 h-4" />
+                Nome
+              </Label>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="bg-gray-700 text-white border-gray-600"
+              />
             </div>
 
-            {/* Email */}
             <div>
-              <label className="text-sm font-medium text-white mb-2 block">Email</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                <Input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="seu.email@exemplo.com"
-                  className="bg-slate-800 border-red-700/30 text-white placeholder-gray-500 pl-10"
-                />
-              </div>
+              <Label htmlFor="email" className="text-white flex items-center gap-2 mb-2">
+                <Mail className="w-4 h-4" />
+                Email
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="bg-gray-700 text-white border-gray-600"
+              />
             </div>
-
-            {/* Role */}
-            <div>
-              <label className="text-sm font-medium text-white mb-2 block">Tipo de Conta</label>
-              <div className="px-4 py-2 bg-slate-800 border border-red-700/30 rounded-lg text-white">
-                {user?.role === "admin" ? "👑 Administrador" : user?.role === "sub-admin" ? "🔐 Sub-Administrador" : "👤 Usuário Regular"}
-              </div>
-            </div>
-
-            {/* Save Button */}
-            <Button
-              onClick={handleSaveProfile}
-              disabled={isSaving || updateProfileMutation.isPending}
-              className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold mt-6"
-            >
-              <Save className="mr-2 h-4 w-4" />
-              {isSaving || updateProfileMutation.isPending ? "Salvando..." : "Salvar Alterações"}
-            </Button>
           </CardContent>
         </Card>
 
-        {/* Account Information */}
-        <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
+        {/* Informações da Conta */}
+        <Card className="bg-gray-800 border-gray-700">
           <CardHeader>
-            <CardTitle className="text-white">Informações da Conta</CardTitle>
+            <CardTitle className="text-xl text-yellow-400">Informações da Conta</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex justify-between">
-              <span className="text-gray-200">ID da Conta:</span>
+          <CardContent className="space-y-3">
+            <div className="flex justify-between py-2 border-b border-gray-700">
+              <span className="text-gray-400">ID da Conta:</span>
               <span className="text-white font-mono">{user?.id}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-200">Membro desde:</span>
+            <div className="flex justify-between py-2 border-b border-gray-700">
+              <span className="text-gray-400">Membro desde:</span>
               <span className="text-white">
-                {user?.createdAt ? new Date(user.createdAt).toLocaleDateString("pt-BR") : "-"}
+                {user?.createdAt ? new Date(user.createdAt).toLocaleDateString("pt-BR") : "N/A"}
               </span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-200">Último acesso:</span>
+            <div className="flex justify-between py-2">
+              <span className="text-gray-400">Último acesso:</span>
               <span className="text-white">
-                {user?.lastSignedIn ? new Date(user.lastSignedIn).toLocaleDateString("pt-BR") : "-"}
+                {user?.updatedAt ? new Date(user.updatedAt).toLocaleDateString("pt-BR") : "N/A"}
               </span>
             </div>
           </CardContent>
         </Card>
+
+        {/* Botão Salvar */}
+        <Button
+          onClick={handleSaveProfile}
+          disabled={isSaving}
+          className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-6 text-lg"
+        >
+          <Save className="w-5 h-5 mr-2" />
+          {isSaving ? "Salvando..." : "Salvar Alterações"}
+        </Button>
       </div>
     </div>
     </Layout>
