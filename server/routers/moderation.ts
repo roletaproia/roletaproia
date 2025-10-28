@@ -24,7 +24,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       const expiresAt = input.duration
         ? new Date(Date.now() + input.duration * 60 * 60 * 1000)
         : null;
@@ -50,7 +50,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       await db.delete(chatBans).where(eq(chatBans.userId, input.userId));
 
       return { success: true, message: "Ban removido com sucesso" };
@@ -58,7 +58,7 @@ export const moderationRouter = router({
 
   // Verificar se usuário está banido
   checkBan: protectedProcedure.query(async ({ ctx }) => {
-    const db = getDb();
+    const db = await getDb();
     const bans = await db
       .select()
       .from(chatBans)
@@ -95,7 +95,7 @@ export const moderationRouter = router({
       });
     }
 
-    const db = getDb();
+    const db = await getDb();
     const bans = await db
       .select()
       .from(chatBans)
@@ -120,7 +120,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       await db.insert(chatWarnings).values({
         userId: input.userId,
         issuedBy: ctx.user.id,
@@ -141,7 +141,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       const warnings = await db
         .select()
         .from(chatWarnings)
@@ -167,7 +167,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
 
       // Buscar mensagem original
       const [message] = await db
@@ -206,7 +206,7 @@ export const moderationRouter = router({
       });
     }
 
-    const db = getDb();
+    const db = await getDb();
     const deleted = await db
       .select()
       .from(deletedMessages)
@@ -232,7 +232,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       await db.insert(bannedWords).values({
         word: input.word.toLowerCase(),
         severity: input.severity,
@@ -252,7 +252,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       await db.delete(bannedWords).where(eq(bannedWords.id, input.id));
 
       return { success: true, message: "Palavra removida da lista" };
@@ -267,7 +267,7 @@ export const moderationRouter = router({
       });
     }
 
-    const db = getDb();
+    const db = await getDb();
     const words = await db.select().from(bannedWords);
 
     return words;
@@ -289,7 +289,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       await db.insert(chatRules).values({
         name: input.name,
         description: input.description,
@@ -300,7 +300,7 @@ export const moderationRouter = router({
 
   // Listar regras do chat
   listRules: protectedProcedure.query(async () => {
-    const db = getDb();
+    const db = await getDb();
     const rules = await db
       .select()
       .from(chatRules)
@@ -327,7 +327,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       const { id, ...updates } = input;
 
       await db.update(chatRules).set(updates).where(eq(chatRules.id, id));
@@ -346,7 +346,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       await db.delete(chatRules).where(eq(chatRules.id, input.id));
 
       return { success: true, message: "Regra deletada com sucesso" };
@@ -362,7 +362,7 @@ export const moderationRouter = router({
         });
       }
 
-      const db = getDb();
+      const db = await getDb();
       
       // Buscar todas as mensagens antes de deletar (para log)
       const allMessages = await db.select().from(chatMessages);
