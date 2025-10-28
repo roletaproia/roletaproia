@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ export default function Chat() {
   const { user, isAuthenticated } = useAuth();
   const [messageState, setMessageState] = useState("");
   const [error, setError] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const sendMutation = trpc.chat.send.useMutation();
   const messagesQuery = trpc.chat.getMessages.useQuery({ limit: 100 });
@@ -22,6 +23,18 @@ export default function Chat() {
   const messages = messagesQuery.data || [];
   const isLoading = messagesQuery.isLoading;
   const isBanned = banStatus?.isBanned || false;
+
+  // Função para scroll automático para o final
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Scroll ao carregar mensagens pela primeira vez
+  useEffect(() => {
+    if (messages.length > 0) {
+      scrollToBottom();
+    }
+  }, [messages.length]);
 
   // Auto-refresh mensagens a cada 3 segundos
   useEffect(() => {
@@ -40,7 +53,9 @@ export default function Chat() {
     try {
       await sendMutation.mutateAsync({ message: messageState });
       setMessageState("");
-      messagesQuery.refetch();
+      await messagesQuery.refetch();
+      // Scroll para a nova mensagem
+      setTimeout(scrollToBottom, 100);
     } catch (error: any) {
       setError(error.message || "Erro ao enviar mensagem");
       console.error("Erro ao enviar mensagem:", error);
@@ -180,6 +195,8 @@ export default function Chat() {
                     </div>
                   </div>
                 ))}
+                {/* Elemento invisível para scroll automático */}
+                <div ref={messagesEndRef} />
               </div>
             ) : (
               <p className="text-gray-200 text-center py-8">Nenhuma mensagem ainda. Seja o primeiro a falar!</p>
