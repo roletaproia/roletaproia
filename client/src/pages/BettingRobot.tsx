@@ -221,7 +221,7 @@ export default function BettingRobot() {
   };
 
   const handleDownloadExtension = () => {
-    window.location.href = "/extension-guide";
+    window.location.href = "/extension-download";
   };
 
   return (

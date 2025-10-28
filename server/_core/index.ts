@@ -81,6 +81,21 @@ async function startServer() {
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   
+  // Extension download endpoint
+  app.get("/api/download/extension", (req, res) => {
+    const path = require('path');
+    const extensionPath = path.join(__dirname, '../../chrome-extension');
+    const zipPath = path.join(__dirname, '../../roletapro-extension.zip');
+    
+    // Check if ZIP exists, if not send the folder
+    const fs = require('fs');
+    if (fs.existsSync(zipPath)) {
+      res.download(zipPath, 'roletapro-extension.zip');
+    } else {
+      res.status(404).json({ error: 'Extension package not found' });
+    }
+  });
+  
   // File upload endpoint for avatars
   app.post("/api/upload/avatar", upload.single("avatar"), async (req, res) => {
     try {
