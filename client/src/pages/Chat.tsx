@@ -4,7 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Send, Trash2, Shield, AlertCircle, Info } from "lucide-react";
+import { Send, Trash2, Shield, AlertCircle, Info, Eraser } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -17,6 +17,7 @@ export default function Chat() {
   const sendMutation = trpc.chat.send.useMutation();
   const messagesQuery = trpc.chat.getMessages.useQuery({ limit: 100 });
   const deleteMessageMutation = trpc.chat.deleteMessage.useMutation();
+  const clearAllMessagesMutation = trpc.moderation.clearAllMessages.useMutation();
   const { data: banStatus } = trpc.moderation.checkBan.useQuery();
   const { data: rules } = trpc.moderation.listRules.useQuery();
 
@@ -74,6 +75,19 @@ export default function Chat() {
     }
   };
 
+  const handleClearAllMessages = async () => {
+    if (window.confirm("⚠️ ATENÇÃO! Tem certeza que deseja LIMPAR TODAS AS MENSAGENS do chat? Esta ação não pode ser desfeita!")) {
+      try {
+        const result = await clearAllMessagesMutation.mutateAsync();
+        alert(result.message);
+        messagesQuery.refetch();
+      } catch (error: any) {
+        alert(error.message || "Erro ao limpar chat");
+        console.error("Erro ao limpar chat:", error);
+      }
+    }
+  };
+
   return (
     <Layout>
       <div className="p-4 sm:p-6">
@@ -126,6 +140,21 @@ export default function Chat() {
 
         {/* Chat Card */}
         <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30 h-[600px] flex flex-col">
+          {/* Header com botão Limpar Chat (Admin only) */}
+          {user?.role === "admin" && (
+            <div className="border-b border-red-700/30 p-3 flex justify-between items-center">
+              <h3 className="text-yellow-400 font-semibold">Mensagens</h3>
+              <Button
+                onClick={handleClearAllMessages}
+                disabled={clearAllMessagesMutation.isPending || messages.length === 0}
+                className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 h-auto"
+                title="Limpar todas as mensagens do chat"
+              >
+                <Eraser className="h-4 w-4 mr-1" />
+                Limpar Chat
+              </Button>
+            </div>
+          )}
           {/* Messages Area */}
           <CardContent className="flex-1 overflow-y-auto p-4 space-y-3">
             {isLoading ? (

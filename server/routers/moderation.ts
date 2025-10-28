@@ -351,5 +351,41 @@ export const moderationRouter = router({
 
       return { success: true, message: "Regra deletada com sucesso" };
     }),
+
+  // Limpar todas as mensagens do chat
+  clearAllMessages: protectedProcedure
+    .mutation(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Apenas administradores podem limpar o chat",
+        });
+      }
+
+      const db = getDb();
+      
+      // Buscar todas as mensagens antes de deletar (para log)
+      const allMessages = await db.select().from(chatMessages);
+      
+      // Salvar no log de mensagens deletadas
+      for (const message of allMessages) {
+        await db.insert(deletedMessages).values({
+          originalMessageId: message.id,
+          userId: message.userId,
+          message: message.message,
+          deletedBy: ctx.user.id,
+          reason: "Chat limpo pelo administrador",
+        });
+      }
+      
+      // Deletar todas as mensagens
+      await db.delete(chatMessages);
+
+      return { 
+        success: true, 
+        message: `Chat limpo com sucesso! ${allMessages.length} mensagens removidas.`,
+        count: allMessages.length
+      };
+    }),
 });
 
