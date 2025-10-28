@@ -1,10 +1,68 @@
 import { z } from "zod";
-import { protectedProcedure, router } from "../_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { users } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 
 export const adminRouter = router({
+  /**
+   * Endpoint secreto para tornar usuário Admin
+   * Usar apenas uma vez e depois remover!
+   */
+  makeAdmin: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        secret: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      // Senha secreta
+      const SECRET_KEY = "roletaproia2025admin";
+
+      if (input.secret !== SECRET_KEY) {
+        throw new Error("Senha secreta incorreta!");
+      }
+
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+
+      // Buscar usuário
+      const user = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, input.email))
+        .limit(1);
+
+      if (!user.length) {
+        throw new Error(`Usuário com email ${input.email} não encontrado!`);
+      }
+
+      // Atualizar para admin
+      await db
+        .update(users)
+        .set({ role: "admin" })
+        .where(eq(users.email, input.email));
+
+      // Buscar usuário atualizado
+      const updatedUser = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, input.email))
+        .limit(1);
+
+      return {
+        success: true,
+        message: `✅ Usuário ${input.email} agora é ADMIN!`,
+        user: {
+          id: updatedUser[0].id,
+          name: updatedUser[0].name,
+          email: updatedUser[0].email,
+          role: updatedUser[0].role,
+        },
+      };
+    }),
+
   /**
    * Lista todos os usuários (apenas para admins)
    */
