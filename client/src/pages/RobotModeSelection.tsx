@@ -21,6 +21,14 @@ export default function RobotModeSelection() {
       <div className="p-4 sm:p-6 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
+          {/* Imagem do Robô */}
+          <div className="flex justify-center mb-6">
+            <img 
+              src="/robot-roulette.png" 
+              alt="Robô de Apostas" 
+              className="w-64 h-64 object-contain drop-shadow-2xl"
+            />
+          </div>
           <h1 className="text-4xl font-bold mb-3 text-yellow-400">🤖 Escolha o Modo do Robô</h1>
           <p className="text-xl text-gray-300">
             Selecione como você deseja usar nosso sistema de apostas inteligente
