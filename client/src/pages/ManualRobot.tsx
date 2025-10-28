@@ -10,13 +10,13 @@ import {
   AlertCircle, CheckCircle, ArrowLeft, Target 
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 
 export default function ManualRobot() {
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
   const [numbers, setNumbers] = useState<string[]>(Array(10).fill(""));
   const [selectedStrategy, setSelectedStrategy] = useState("fibonacci");
-  const [selectedBetType, setSelectedBetType] = useState("color");
+  const [selectedBetType, setSelectedBetType] = useState<"color" | "parity" | "dozen">("color");
   const [suggestion, setSuggestion] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
@@ -91,7 +91,7 @@ export default function ManualRobot() {
         {/* Header */}
         <div className="mb-6">
           <Button
-            onClick={() => navigate('/betting-robot/select-mode')}
+            onClick={() => setLocation('/betting-robot/select-mode')}
             variant="outline"
             className="mb-4 border-gray-600 text-gray-300 hover:bg-gray-700"
           >

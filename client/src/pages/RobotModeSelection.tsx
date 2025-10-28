@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,7 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Hand, Bot, Gift, ExternalLink, CheckCircle, Zap } from "lucide-react";
 
 export default function RobotModeSelection() {
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   const open1winRegister = () => {
     window.open('https://1wyvrz.life/?open=register&p=f5q8', '_blank');
@@ -121,7 +121,7 @@ export default function RobotModeSelection() {
               </div>
 
               <Button
-                onClick={() => navigate('/betting-robot/manual')}
+                onClick={() => setLocation('/betting-robot/manual')}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 text-lg"
               >
                 <Hand className="mr-2 h-5 w-5" />
@@ -187,7 +187,7 @@ export default function RobotModeSelection() {
               </div>
 
               <Button
-                onClick={() => navigate('/betting-robot')}
+                onClick={() => setLocation('/betting-robot')}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-6 text-lg"
               >
                 <Bot className="mr-2 h-5 w-5" />
