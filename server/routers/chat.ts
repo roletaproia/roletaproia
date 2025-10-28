@@ -25,7 +25,7 @@ function containsLink(message: string): boolean {
  * Verifica se a mensagem contém palavras proibidas
  */
 async function containsBannedWords(message: string): Promise<{ contains: boolean; word?: string; severity?: string }> {
-  const db = getDb();
+  const db = await getDb();
   const words = await db.select().from(bannedWords);
   
   const messageLower = message.toLowerCase();
@@ -47,7 +47,7 @@ async function containsBannedWords(message: string): Promise<{ contains: boolean
  * Verifica se o usuário está banido
  */
 async function isUserBanned(userId: number): Promise<{ isBanned: boolean; reason?: string; expiresAt?: Date | null }> {
-  const db = getDb();
+  const db = await getDb();
   const bans = await db
     .select()
     .from(chatBans)
