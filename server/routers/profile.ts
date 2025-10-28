@@ -43,11 +43,11 @@ export const profileRouter = router({
       
       const updateData: Record<string, any> = {};
 
-      if (input.name) {
+      if (input.name !== undefined) {
         updateData.name = input.name;
       }
 
-      if (input.email) {
+      if (input.email !== undefined) {
         // Check if email is already taken by another user
         const existingUser = await db
           .select()
@@ -62,9 +62,9 @@ export const profileRouter = router({
         updateData.email = input.email;
       }
 
-      if (input.avatarUrl) {
-        // Delete old avatar if exists
-        if (ctx.user.avatarUrl) {
+      if (input.avatarUrl !== undefined) {
+        // Se avatarUrl é diferente da atual, deletar a antiga
+        if (input.avatarUrl !== ctx.user.avatarUrl && ctx.user.avatarUrl) {
           deleteAvatar(ctx.user.avatarUrl);
         }
         updateData.avatarUrl = input.avatarUrl;
