@@ -64,7 +64,7 @@ export default function Profile() {
       const updateData = {
         name: formData.name,
         email: formData.email,
-        avatarUrl: formData.avatarUrl || undefined,
+        avatarUrl: formData.avatarUrl.trim() || null,
       };
 
       await updateProfileMutation.mutateAsync(updateData);
