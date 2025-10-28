@@ -2,7 +2,7 @@ import { z } from "zod";
 import { protectedProcedure, router } from "../_core/trpc";
 import { createChatMessage, getChatMessages, deleteChatMessage } from "../db";
 import { getDb } from "../db";
-import { chatBans, bannedWords } from "@/drizzle/schema";
+import { chatBans, bannedWords } from "../../drizzle/schema.js";
 import { eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
