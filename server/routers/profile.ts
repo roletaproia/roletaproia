@@ -34,7 +34,7 @@ export const profileRouter = router({
       z.object({
         name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres").max(100).optional(),
         email: z.string().email("Email inválido").optional(),
-        avatarUrl: z.string().optional().nullable(),
+        avatarUrl: z.string().url("URL inválida").optional().nullable().or(z.literal('')),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -63,11 +63,14 @@ export const profileRouter = router({
       }
 
       if (input.avatarUrl !== undefined) {
+        // Converter string vazia para null
+        const newAvatarUrl = input.avatarUrl === '' ? null : input.avatarUrl;
+        
         // Se avatarUrl é diferente da atual, deletar a antiga
-        if (input.avatarUrl !== ctx.user.avatarUrl && ctx.user.avatarUrl) {
+        if (newAvatarUrl !== ctx.user.avatarUrl && ctx.user.avatarUrl) {
           deleteAvatar(ctx.user.avatarUrl);
         }
-        updateData.avatarUrl = input.avatarUrl;
+        updateData.avatarUrl = newAvatarUrl;
       }
 
       // Sempre atualizar updatedAt, mesmo se nenhum campo mudou
