@@ -33,8 +33,32 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 
 async function startServer() {
   const app = express();
-  // Security middlewares
-  app.use(helmet());
+  // Security middlewares with CSP configuration
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "https://i.imgur.com",
+          "https://imgur.com",
+          "https://i.ibb.co",
+          "https://ibb.co",
+          "https://i.postimg.cc",
+          "https://postimg.cc",
+          "https://postimages.org"
+        ],
+        connectSrc: ["'self'"],
+        fontSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'none'"]
+      }
+    }
+  }));
   // CORS configuration
   const allowedOrigins = [process.env.VITE_APP_URL];
   const corsOptions = {
