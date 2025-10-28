@@ -220,10 +220,18 @@ export default function BettingRobot() {
     });
   };
 
-  // Baixar extensão
   const handleDownloadExtension = () => {
-    // TODO: Hospedar extensão e fornecer link de download
-    alert('Em breve! Por enquanto, entre em contato com o suporte para obter a extensão.');
+    window.location.href = "/extension-guide";
+  };
+  const handleDownloadExtension = () => {
+    window.location.href = "/extension-guide";
+  };
+  const handleDownloadExtension = () => {
+    window.location.href = "/extension-guide";
+  };
+  const handleDownloadExtension = () => {
+    window.location.href = "/extension-guide";
+  };
   };
 
   return (
