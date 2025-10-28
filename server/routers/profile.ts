@@ -74,16 +74,22 @@ export const profileRouter = router({
         throw new Error("Nenhum campo para atualizar");
       }
 
-      const result = await db
+      await db
         .update(users)
         .set({
           ...updateData,
           updatedAt: new Date(),
         })
-        .where(eq(users.id, ctx.user.id))
-        .returning();
+        .where(eq(users.id, ctx.user.id));
 
-      return result[0];
+      // Buscar usuário atualizado
+      const updatedUser = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, ctx.user.id))
+        .limit(1);
+
+      return updatedUser[0];
     }),
 
   /**
@@ -97,16 +103,22 @@ export const profileRouter = router({
       deleteAvatar(ctx.user.avatarUrl);
     }
 
-    const result = await db
+    await db
       .update(users)
       .set({
         avatarUrl: null,
         updatedAt: new Date(),
       })
-      .where(eq(users.id, ctx.user.id))
-      .returning();
+      .where(eq(users.id, ctx.user.id));
 
-    return result[0];
+    // Buscar usuário atualizado
+    const updatedUser = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, ctx.user.id))
+      .limit(1);
+
+    return updatedUser[0];
   }),
 
   /**
