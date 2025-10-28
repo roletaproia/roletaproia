@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleta Pro I.A. - Bot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 350px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e293b 0%, #7f1d1d 100%);
+      color: white;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .header h1 {
+      font-size: 20px;
+      color: #fbbf24;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+
+    .status {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .status-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .status-label {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .status-value {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .status-value.active {
+      color: #10b981;
+    }
+
+    .status-value.inactive {
+      color: #6b7280;
+    }
+
+    .button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .button.primary {
+      background: #10b981;
+      color: white;
+    }
+
+    .button.primary:hover {
+      background: #059669;
+    }
+
+    .button.danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    .button.danger:hover {
+      background: #dc2626;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .button.secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .numbers-history {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .numbers-history h3 {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .number-badge {
+      aspect-ratio: 1;
+      background: rgba(239, 68, 68, 0.3);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 15px;
+    }
+
+    .footer a {
+      color: #fbbf24;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .alert {
+      background: rgba(251, 191, 36, 0.2);
+      border: 1px solid rgba(251, 191, 36, 0.5);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 12px;
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🤖 Roleta Pro I.A.</h1>
+    <p>Bot Automático v1.0.0</p>
+  </div>
+
+  <div id="alert" class="alert" style="display: none;"></div>
+
+  <div class="status">
+    <div class="status-item">
+      <span class="status-label">Status:</span>
+      <span id="status" class="status-value inactive">⚪ Parado</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Último número:</span>
+      <span id="lastNumber" class="status-value">-</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Aba 1win:</span>
+      <span id="onewinTab" class="status-value inactive">❌ Não encontrada</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Aba Roleta Pro:</span>
+      <span id="roletaproTab" class="status-value inactive">❌ Não encontrada</span>
+    </div>
+  </div>
+
+  <div class="numbers-history">
+    <h3>Últimos 10 números:</h3>
+    <div id="numbersGrid" class="numbers-grid">
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+      <div class="number-badge">-</div>
+    </div>
+  </div>
+
+  <button id="startBtn" class="button primary">▶️ Iniciar Monitoramento</button>
+  <button id="stopBtn" class="button danger" style="display: none;">⏸️ Parar Monitoramento</button>
+  <button id="openRoletaPro" class="button secondary">🌐 Abrir Roleta Pro I.A.</button>
+  <button id="open1win" class="button secondary">🎰 Abrir 1win</button>
+
+  <div class="footer">
+    <p>Desenvolvido por <a href="https://roletaproia.onrender.com" target="_blank">Roleta Pro I.A.</a></p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

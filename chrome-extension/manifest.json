@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Roleta Pro I.A. - Bot Automático",
+  "version": "1.0.0",
+  "description": "Extensão para automatizar apostas na roleta 1win usando estratégias do Roleta Pro I.A.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://1whfxh.life/*",
+    "https://*.1win.*/*",
+    "https://roletaproia.onrender.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://1whfxh.life/casino/play/*",
+        "https://*.1win.*/casino/play/*"
+      ],
+      "js": ["content-1win.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://roletaproia.onrender.com/betting-robot"
+      ],
+      "js": ["content-roletaproia.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
+
