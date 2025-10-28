@@ -34,7 +34,7 @@ export const profileRouter = router({
       z.object({
         name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres").max(100).optional(),
         email: z.string().email("Email inválido").optional(),
-        avatarUrl: z.string().url().optional(),
+        avatarUrl: z.string().optional(), // Aceita URL ou base64
       })
     )
     .mutation(async ({ ctx, input }) => {
