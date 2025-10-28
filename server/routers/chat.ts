@@ -10,8 +10,15 @@ import { TRPCError } from "@trpc/server";
  * Verifica se a mensagem contém links
  */
 function containsLink(message: string): boolean {
-  const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.(com|net|org|br|io|co|me|info|biz|tv|app|dev|tech)[^\s]*)/gi;
-  return urlRegex.test(message);
+  // Regex melhorado para detectar URLs, domínios e links
+  const patterns = [
+    /https?:\/\/[^\s]+/gi,                    // http:// ou https://
+    /www\.[a-zA-Z0-9][a-zA-Z0-9-]+[^\s]*/gi,  // www.exemplo.com
+    /[a-zA-Z0-9][a-zA-Z0-9-]*\.(com|net|org|br|io|co|uk|me|info|biz|tv|app|dev|tech|site|online|store|blog|xyz|top|live|bet|casino|vip|pro|club|link|click)[a-zA-Z0-9\/.\-_]*/gi,  // dominio.com.br
+    /[a-zA-Z0-9]+\.(com|net|org|br)\/[^\s]*/gi // exemplo.com/path
+  ];
+  
+  return patterns.some(pattern => pattern.test(message));
 }
 
 /**
