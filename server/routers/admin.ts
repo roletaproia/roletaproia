@@ -9,6 +9,76 @@ export const adminRouter = router({
    * Endpoint secreto para tornar usuário Admin
    * Usar apenas uma vez e depois remover!
    */
+  /**
+   * Criar usuário Admin diretamente
+   */
+  createAdminUser: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+        name: z.string(),
+        secret: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const SECRET_KEY = "roletaproia2025admin";
+
+      if (input.secret !== SECRET_KEY) {
+        throw new Error("Senha secreta incorreta!");
+      }
+
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+
+      // Verificar se já existe
+      const existing = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, input.email))
+        .limit(1);
+
+      if (existing.length > 0) {
+        // Se já existe, apenas atualiza para admin
+        await db
+          .update(users)
+          .set({ role: "admin" })
+          .where(eq(users.email, input.email));
+
+        return {
+          success: true,
+          message: `✅ Usuário ${input.email} já existia e foi promovido a ADMIN!`,
+          existed: true,
+        };
+      }
+
+      // Criar novo usuário admin
+      await db.insert(users).values({
+        email: input.email,
+        password: input.password, // Em produção deveria ser hasheado
+        name: input.name,
+        role: "admin",
+      });
+
+      const newUser = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, input.email))
+        .limit(1);
+
+      return {
+        success: true,
+        message: `✅ Usuário Admin ${input.email} criado com sucesso!`,
+        user: {
+          id: newUser[0].id,
+          name: newUser[0].name,
+          email: newUser[0].email,
+          role: newUser[0].role,
+        },
+        existed: false,
+      };
+    }),
+
   makeAdmin: publicProcedure
     .input(
       z.object({
