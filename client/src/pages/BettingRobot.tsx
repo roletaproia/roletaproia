@@ -248,7 +248,7 @@ export default function BettingRobot() {
                   Baixar Extensão
                 </Button>
                 <Button variant="outline" asChild>
-                  <a href="https://github.com/roletaproia/chrome-extension" target="_blank" rel="noopener noreferrer">
+                  <a href="/extension-guide" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="mr-2 h-4 w-4" />
                     Ver Instruções
                   </a>
