@@ -258,6 +258,29 @@ export default function BettingRobot() {
           </Alert>
         )}
 
+        {/* Banner de Afiliado 1win */}
+        <Alert className="bg-gradient-to-r from-yellow-900/30 to-red-900/30 border-yellow-600/50">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <AlertTitle className="text-yellow-400 text-lg font-bold mb-2">
+                Nao tem conta na 1win?
+              </AlertTitle>
+              <AlertDescription className="text-gray-200">
+                <p className="mb-3">
+                  O robo funciona exclusivamente com a <strong className="text-yellow-400">Roleta Brasileira da 1win</strong>.
+                  Crie sua conta agora e ganhe <strong className="text-green-400">bonus de boas-vindas</strong>!
+                </p>
+                <Button
+                  onClick={() => window.open('https://1wyvrz.life/?open=register&p=f5q8', '_blank')}
+                  className="bg-gradient-to-r from-yellow-600 to-red-600 hover:from-yellow-700 hover:to-red-700 text-white font-bold"
+                >
+                  Criar Conta na 1win (Com Bonus)
+                </Button>
+              </AlertDescription>
+            </div>
+          </div>
+        </Alert>
+
         {extensionInstalled && (
           <Alert className="bg-green-900/20 border-green-700/50">
             <CheckCircle className="h-4 w-4" />
@@ -566,6 +589,12 @@ export default function BettingRobot() {
                     className="flex-1"
                   >
                     <RotateCcw className="mr-2 h-4 w-4" />
+                  <Button
+                    onClick={() => window.open('https://1wyvrz.life/?open=register&p=f5q8', '_blank')}
+                    className="flex-1 bg-gradient-to-r from-yellow-600 to-red-600 hover:from-yellow-700 hover:to-red-700 text-white font-bold"
+                  >
+                    Criar Conta 1win
+                  </Button>
                     Resetar
                   </Button>
                 </>

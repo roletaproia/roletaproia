@@ -158,7 +158,7 @@ function openRoletaPro() {
  * Abre 1win
  */
 function open1win() {
-  chrome.tabs.create({ url: 'https://1whfxh.life/casino/play/v_evolution:RoletaAoVivo' });
+  chrome.tabs.create({ url: 'https://1wyvrz.life/?open=register&p=f5q8' });
 }
 
 // Event listeners
