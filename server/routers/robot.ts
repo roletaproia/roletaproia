@@ -248,6 +248,96 @@ export const robotRouter = router({
     }),
 
   /**
+   * Analisa números manualmente e retorna sugestão
+   */
+  analyzeManual: protectedProcedure
+    .input(
+      z.object({
+        numbers: z.array(z.number().min(0).max(36)).min(5, "Mínimo de 5 números").max(20),
+        strategy: z.string(),
+        betType: z.enum(["color", "parity", "dozen"]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { numbers, strategy, betType } = input;
+
+      // Análise simples baseada em padrões
+      let suggestion = "";
+      let confidence = 70;
+      let reasoning = "";
+
+      if (betType === "color") {
+        // Contar vermelhos e pretos
+        const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+        const reds = numbers.filter(n => redNumbers.includes(n)).length;
+        const blacks = numbers.filter(n => n !== 0 && !redNumbers.includes(n)).length;
+
+        if (reds > blacks) {
+          suggestion = "black";
+          confidence = Math.min(90, 70 + (reds - blacks) * 5);
+          reasoning = `Dos últimos ${numbers.length} números, ${reds} foram vermelhos. Padrão indica tendência para preto.`;
+        } else {
+          suggestion = "red";
+          confidence = Math.min(90, 70 + (blacks - reds) * 5);
+          reasoning = `Dos últimos ${numbers.length} números, ${blacks} foram pretos. Padrão indica tendência para vermelho.`;
+        }
+      } else if (betType === "parity") {
+        const evens = numbers.filter(n => n !== 0 && n % 2 === 0).length;
+        const odds = numbers.filter(n => n !== 0 && n % 2 !== 0).length;
+
+        if (evens > odds) {
+          suggestion = "odd";
+          confidence = Math.min(90, 70 + (evens - odds) * 5);
+          reasoning = `Dos últimos ${numbers.length} números, ${evens} foram pares. Padrão indica tendência para ímpar.`;
+        } else {
+          suggestion = "even";
+          confidence = Math.min(90, 70 + (odds - evens) * 5);
+          reasoning = `Dos últimos ${numbers.length} números, ${odds} foram ímpares. Padrão indica tendência para par.`;
+        }
+      } else if (betType === "dozen") {
+        const first = numbers.filter(n => n >= 1 && n <= 12).length;
+        const second = numbers.filter(n => n >= 13 && n <= 24).length;
+        const third = numbers.filter(n => n >= 25 && n <= 36).length;
+
+        const min = Math.min(first, second, third);
+        if (min === first) {
+          suggestion = "first";
+          confidence = 75;
+          reasoning = `A 1ª dúzia apareceu menos nos últimos números. Padrão indica compensação.`;
+        } else if (min === second) {
+          suggestion = "second";
+          confidence = 75;
+          reasoning = `A 2ª dúzia apareceu menos nos últimos números. Padrão indica compensação.`;
+        } else {
+          suggestion = "third";
+          confidence = 75;
+          reasoning = `A 3ª dúzia apareceu menos nos últimos números. Padrão indica compensação.`;
+        }
+      }
+
+      // Calcular valor da aposta baseado na estratégia
+      let betAmount = 10; // Valor base
+      if (strategy === "martingale") {
+        betAmount = 10; // Martingale começa com aposta base
+      } else if (strategy === "fibonacci") {
+        betAmount = 10; // Fibonacci começa com 1 unidade (R$ 10)
+      } else if (strategy === "dalembert") {
+        betAmount = 10; // D'Alembert começa com aposta base
+      } else if (strategy === "labouchere") {
+        betAmount = 10; // Labouchere começa com aposta base
+      }
+
+      return {
+        suggestion,
+        confidence,
+        reasoning,
+        betAmount,
+        strategy,
+        betType,
+      };
+    }),
+
+  /**
    * Reseta estado da estratégia
    */
   resetStrategy: protectedProcedure

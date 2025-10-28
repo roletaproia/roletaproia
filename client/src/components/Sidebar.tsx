@@ -25,7 +25,7 @@ export default function Sidebar() {
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { icon: Zap, label: "Estratégias", href: "/strategies" },
-    { icon: Bot, label: "Robô de Apostas", href: "/betting-robot" },
+    { icon: Bot, label: "Robô de Apostas", href: "/betting-robot/select-mode" },
     { icon: Wallet, label: "Gerenciar Banca", href: "/bankroll-management" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
     { icon: User, label: "Perfil", href: "/profile" },
