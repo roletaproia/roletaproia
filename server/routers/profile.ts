@@ -70,16 +70,14 @@ export const profileRouter = router({
         updateData.avatarUrl = input.avatarUrl;
       }
 
-      if (Object.keys(updateData).length === 0) {
-        throw new Error("Nenhum campo para atualizar");
-      }
+      // Sempre atualizar updatedAt, mesmo se nenhum campo mudou
+      const dataToUpdate = Object.keys(updateData).length > 0 
+        ? { ...updateData, updatedAt: new Date() }
+        : { updatedAt: new Date() };
 
       await db
         .update(users)
-        .set({
-          ...updateData,
-          updatedAt: new Date(),
-        })
+        .set(dataToUpdate)
         .where(eq(users.id, ctx.user.id));
 
       // Buscar usuário atualizado

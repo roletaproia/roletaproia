@@ -101,18 +101,13 @@ export default function Profile() {
             {/* Preview da foto */}
             <div className="flex items-center gap-6">
               <div className="w-32 h-32 rounded-full bg-gray-700 border-4 border-yellow-500 flex items-center justify-center overflow-hidden">
-                {formData.avatarUrl ? (
+                {formData.avatarUrl && formData.avatarUrl.startsWith('http') && formData.avatarUrl.length > 15 ? (
                   <img
                     src={formData.avatarUrl}
                     alt="Avatar"
                     className="w-full h-full object-cover"
-                    onError={(e) => {
+                    onError={() => {
                       setImageError(true);
-                      // Tentar carregar sem cache
-                      const img = e.target as HTMLImageElement;
-                      if (!img.src.includes('?nocache')) {
-                        img.src = formData.avatarUrl + '?nocache=' + Date.now();
-                      }
                     }}
                   />
                 ) : (
