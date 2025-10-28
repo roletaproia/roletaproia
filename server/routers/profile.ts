@@ -32,8 +32,8 @@ export const profileRouter = router({
   updateProfile: protectedProcedure
     .input(
       z.object({
-        name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres").max(100).optional(),
-        email: z.string().email("Email inválido").optional(),
+        name: z.string().optional(),
+        email: z.string().optional(),
         avatarUrl: z.string().optional().nullable(),
       })
     )
