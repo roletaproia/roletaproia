@@ -34,7 +34,7 @@ export const profileRouter = router({
       z.object({
         name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres").max(100).optional(),
         email: z.string().email("Email inválido").optional(),
-        avatarUrl: z.string().url("URL inválida").optional().nullable().or(z.literal('')),
+        avatarUrl: z.string().optional().nullable(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -63,8 +63,8 @@ export const profileRouter = router({
       }
 
       if (input.avatarUrl !== undefined) {
-        // Converter string vazia para null
-        const newAvatarUrl = input.avatarUrl === '' ? null : input.avatarUrl;
+        // Converter string vazia, null ou whitespace para null
+        const newAvatarUrl = (input.avatarUrl && input.avatarUrl.trim()) ? input.avatarUrl.trim() : null;
         
         // Se avatarUrl é diferente da atual, deletar a antiga
         if (newAvatarUrl !== ctx.user.avatarUrl && ctx.user.avatarUrl) {
