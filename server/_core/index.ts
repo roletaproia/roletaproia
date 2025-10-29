@@ -81,27 +81,12 @@ async function startServer() {
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   
-  // Extension download endpoint
+  // Extension download endpoint - redirect to GitHub
   app.get("/api/download/extension", (req, res) => {
-    const path = require('path');
-    const fs = require('fs');
-    
-    // Try multiple possible paths
-    const possiblePaths = [
-      path.join(process.cwd(), 'roletapro-extension.zip'),
-      path.join(__dirname, '../../roletapro-extension.zip'),
-      path.join(__dirname, '../../../roletapro-extension.zip'),
-    ];
-    
-    for (const zipPath of possiblePaths) {
-      if (fs.existsSync(zipPath)) {
-        console.log('[Download] Sending extension from:', zipPath);
-        return res.download(zipPath, 'roletapro-extension.zip');
-      }
-    }
-    
-    console.error('[Download] Extension ZIP not found in any path');
-    res.status(404).json({ error: 'Extension package not found' });
+    // Redirect to GitHub raw file
+    const githubUrl = 'https://github.com/roletaproia/roletaproia/raw/main/roletapro-extension.zip';
+    console.log('[Download] Redirecting to GitHub:', githubUrl);
+    res.redirect(githubUrl);
   });
   
   // File upload endpoint for avatars
