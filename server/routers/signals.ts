@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
-import { db } from "../db";
+import { getDb } from "../db";
 import { signals, recommendations, captureSessions } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
@@ -20,6 +20,9 @@ export const signalsRouter = router({
       if (ctx.user.role !== "admin") {
         throw new Error("Apenas administradores podem enviar sinais");
       }
+
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
 
       // Inserir sinal no banco
       const [signal] = await db
@@ -59,6 +62,9 @@ export const signalsRouter = router({
   getLatestSignals: publicProcedure
     .input(z.object({ limit: z.number().default(10) }))
     .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return [];
+
       const latestSignals = await db
         .select()
         .from(signals)
@@ -70,6 +76,9 @@ export const signalsRouter = router({
 
   // Buscar sinal atual + recomendação
   getCurrentSignal: publicProcedure.query(async () => {
+    const db = await getDb();
+    if (!db) return null;
+
     const [latestSignal] = await db
       .select()
       .from(signals)
@@ -96,6 +105,17 @@ export const signalsRouter = router({
   getSessionStats: publicProcedure
     .input(z.object({ sessionId: z.string().optional() }))
     .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return {
+        totalSignals: 0,
+        redCount: 0,
+        blackCount: 0,
+        greenCount: 0,
+        redPercentage: 0,
+        blackPercentage: 0,
+        greenPercentage: 0,
+      };
+
       // Buscar todos os sinais (ou filtrar por sessão)
       const allSignals = input.sessionId
         ? await db
@@ -132,6 +152,9 @@ export const signalsRouter = router({
       throw new Error("Apenas administradores podem iniciar sessões");
     }
 
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
+
     const sessionId = uuidv4();
 
     await db.insert(captureSessions).values({
@@ -152,6 +175,9 @@ export const signalsRouter = router({
       if (ctx.user.role !== "admin") {
         throw new Error("Apenas administradores podem parar sessões");
       }
+
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
 
       await db
         .update(captureSessions)
