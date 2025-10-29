@@ -9,9 +9,16 @@
     "scripting"
   ],
   "host_permissions": [
-    "https://1whfxh.life/*",
-    "https://*.1win.*/*",
-    "https://roletaproia.onrender.com/*"
+    "https://*.life/*",
+    "https://*.1win.com/*",
+    "https://*.1win.br/*",
+    "https://1win.com/*",
+    "https://1win.br/*",
+    "https://roletaproia.onrender.com/*",
+    "https://*.evolutiongaming.com/*",
+    "https://*.evo-games.com/*",
+    "https://*.evolution.com/*",
+    "https://*.wirebankers.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -19,11 +26,15 @@
   "content_scripts": [
     {
       "matches": [
-        "https://1whfxh.life/casino/play/*",
-        "https://*.1win.*/casino/play/*"
+        "https://*.life/*",
+        "https://*.1win.com/*",
+        "https://*.1win.br/*",
+        "https://1win.com/*",
+        "https://1win.br/*"
       ],
       "js": ["content-1win.js"],
-      "run_at": "document_end"
+      "run_at": "document_end",
+      "all_frames": true
     },
     {
       "matches": [
@@ -31,6 +42,17 @@
       ],
       "js": ["content-roletaproia.js"],
       "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://*.evolutiongaming.com/*",
+        "https://*.evo-games.com/*",
+        "https://*.evolution.com/*",
+        "https://*.wirebankers.com/*"
+      ],
+      "js": ["content-evolution-iframe.js"],
+      "run_at": "document_end",
+      "all_frames": true
     }
   ],
   "action": {

@@ -13,7 +13,8 @@ import {
   Menu,
   X,
   Gift,
-  Star
+  Star,
+  Radio
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "./ui/button";
@@ -28,6 +29,7 @@ export default function Sidebar() {
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { icon: Zap, label: "Estratégias", href: "/strategies" },
     { icon: Bot, label: "Robô de Apostas", href: "/betting-robot/select-mode" },
+    { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals" },
     { icon: Wallet, label: "Gerenciar Banca", href: "/bankroll-management" },
     { icon: Gift, label: "Indicações", href: "/referrals" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },

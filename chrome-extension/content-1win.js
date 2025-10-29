@@ -180,10 +180,60 @@ function init() {
   });
 }
 
+// Escutar mensagens do iframe da Evolution
+window.addEventListener('message', (event) => {
+  console.log('[Roleta Pro I.A.] Mensagem recebida do iframe:', event.data);
+  
+  if (event.data.type === 'ROULETTE_NUMBER') {
+    const number = event.data.number;
+    console.log(`[Roleta Pro I.A.] Número recebido do iframe: ${number}`);
+    
+    if (number !== lastNumber) {
+      lastNumber = number;
+      numbersHistory.unshift(number);
+      
+      if (numbersHistory.length > CONFIG.MAX_HISTORY) {
+        numbersHistory = numbersHistory.slice(0, CONFIG.MAX_HISTORY);
+      }
+      
+      sendNumberToBackend(number);
+      
+      chrome.storage.local.set({
+        lastNumber: number,
+        numbersHistory: numbersHistory
+      });
+    }
+  }
+});
+
+// Função para enviar mensagem para todos os iframes
+function sendMessageToIframes(message) {
+  const iframes = document.querySelectorAll('iframe');
+  iframes.forEach(iframe => {
+    try {
+      iframe.contentWindow.postMessage(message, '*');
+    } catch (e) {
+      console.error('[Roleta Pro I.A.] Erro ao enviar mensagem para iframe:', e);
+    }
+  });
+}
+
+// Enviar mensagem HELLO para o background saber que a aba existe
+chrome.runtime.sendMessage({
+  type: 'HELLO',
+  source: '1win'
+});
+
 // Inicializar quando a página carregar
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
   init();
 }
+
+// Enviar comando de início para iframes após 3 segundos
+setTimeout(() => {
+  console.log('[Roleta Pro I.A.] Enviando comando START_MONITORING para iframes...');
+  sendMessageToIframes({ type: 'START_MONITORING' });
+}, 3000);
 

@@ -250,3 +250,58 @@ export const blockedIps = mysqlTable("blockedIps", {
 export type BlockedIp = typeof blockedIps.$inferSelect;
 export type InsertBlockedIp = typeof blockedIps.$inferInsert;
 
+
+
+/**
+ * Tabela de Sinais da Roleta (Live Signals)
+ * Armazena os números capturados automaticamente da roleta 1win
+ */
+export const signals = mysqlTable("signals", {
+  id: int("id").autoincrement().primaryKey(),
+  number: int("number").notNull(), // Número da roleta (0-36)
+  color: mysqlEnum("color", ["red", "black", "green"]).notNull(), // Cor do número
+  timestamp: timestamp("timestamp").defaultNow().notNull(), // Quando o número saiu
+  source: varchar("source", { length: 64 }).default("1win").notNull(), // Origem do sinal
+  sessionId: varchar("sessionId", { length: 255 }), // ID da sessão de captura
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Signal = typeof signals.$inferSelect;
+export type InsertSignal = typeof signals.$inferInsert;
+
+/**
+ * Tabela de Recomendações de Apostas (AI Recommendations)
+ * Armazena as recomendações geradas pela I.A. baseadas nos sinais
+ */
+export const recommendations = mysqlTable("recommendations", {
+  id: int("id").autoincrement().primaryKey(),
+  signalId: int("signalId").notNull().references(() => signals.id), // Sinal que gerou a recomendação
+  betType: varchar("betType", { length: 64 }).notNull(), // 'red', 'black', 'even', 'odd', 'high', 'low', etc.
+  confidence: int("confidence").notNull(), // Confiança da I.A. (0-100)
+  suggestedAmount: int("suggestedAmount").notNull(), // Valor sugerido em centavos
+  strategy: varchar("strategy", { length: 64 }).notNull(), // Estratégia usada (martingale, fibonacci, etc.)
+  result: mysqlEnum("result", ["pending", "win", "loss"]), // Resultado da recomendação
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Recommendation = typeof recommendations.$inferSelect;
+export type InsertRecommendation = typeof recommendations.$inferInsert;
+
+/**
+ * Tabela de Sessões de Captura (Capture Sessions)
+ * Controla as sessões de captura automática do admin
+ */
+export const captureSessions = mysqlTable("captureSessions", {
+  id: int("id").autoincrement().primaryKey(),
+  sessionId: varchar("sessionId", { length: 255 }).notNull().unique(), // UUID da sessão
+  startedBy: int("startedBy").notNull().references(() => users.id), // Admin que iniciou
+  status: mysqlEnum("status", ["active", "stopped", "error"]).default("active").notNull(),
+  totalSignals: int("totalSignals").notNull().default(0), // Total de sinais capturados
+  lastSignalAt: timestamp("lastSignalAt"), // Último sinal capturado
+  startedAt: timestamp("startedAt").defaultNow().notNull(),
+  stoppedAt: timestamp("stoppedAt"),
+});
+
+export type CaptureSession = typeof captureSessions.$inferSelect;
+export type InsertCaptureSession = typeof captureSessions.$inferInsert;
+

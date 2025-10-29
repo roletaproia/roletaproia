@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleta Pro I.A. - Bookmarklet de Entrada Rápida</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .step {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    .step-number {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .code-box {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .copy-btn:hover {
+      background: #5568d3;
+    }
+
+    .copy-btn:active {
+      transform: scale(0.95);
+    }
+
+    .bookmarklet-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 20px 0;
+      transition: transform 0.2s;
+    }
+
+    .bookmarklet-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .warning {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .warning-title {
+      font-weight: 600;
+      color: #856404;
+      margin-bottom: 5px;
+    }
+
+    .warning-text {
+      color: #856404;
+      font-size: 14px;
+    }
+
+    .demo-image {
+      width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .feature {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .feature-text {
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 Roleta Pro I.A.</h1>
+    <div class="subtitle">Bookmarklet de Entrada Rápida de Números</div>
+
+    <div class="section">
+      <div class="section-title">✨ Recursos</div>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Super Rápido</div>
+          <div class="feature-text">1 clique para adicionar número</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎨</div>
+          <div class="feature-title">Interface Visual</div>
+          <div class="feature-text">Grid de números coloridos</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Histórico</div>
+          <div class="feature-text">Últimos 10 números</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <div class="feature-title">Recomendações</div>
+          <div class="feature-text">Análise em tempo real</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📥 Como Instalar</div>
+      
+      <div class="step">
+        <span class="step-number">1</span>
+        <strong>Arraste o link abaixo para a barra de favoritos</strong>
+        <div style="margin-top: 15px; text-align: center;">
+          <a href="#" class="bookmarklet-link" id="bookmarklet-link" draggable="true">
+            🤖 Roleta Pro I.A.
+          </a>
+        </div>
+        <div style="margin-top: 10px; font-size: 13px; color: #666;">
+          Ou clique com o botão direito e selecione "Adicionar aos favoritos"
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-number">2</span>
+        <strong>Ou copie o código manualmente:</strong>
+        <div class="code-box" id="code-box">
+          <button class="copy-btn" onclick="copyCode()">Copiar</button>
+          <code id="bookmarklet-code">Carregando...</code>
+        </div>
+        <div style="font-size: 13px; color: #666; margin-top: 10px;">
+          Depois cole no campo "URL" ao criar um novo favorito
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🚀 Como Usar</div>
+      
+      <div class="step">
+        <span class="step-number">1</span>
+        <strong>Abra a roleta da 1win</strong> no navegador
+      </div>
+
+      <div class="step">
+        <span class="step-number">2</span>
+        <strong>Clique no favorito "Roleta Pro I.A."</strong> que você acabou de criar
+      </div>
+
+      <div class="step">
+        <span class="step-number">3</span>
+        <strong>Aparecerá uma interface flutuante</strong> com todos os números de 0 a 36
+      </div>
+
+      <div class="step">
+        <span class="step-number">4</span>
+        <strong>Quando um número sair na roleta, clique nele</strong> na interface
+      </div>
+
+      <div class="step">
+        <span class="step-number">5</span>
+        <strong>Veja a recomendação aparecer automaticamente!</strong>
+      </div>
+    </div>
+
+    <div class="warning">
+      <div class="warning-title">⚠️ Importante</div>
+      <div class="warning-text">
+        Este bookmarklet funciona apenas quando você está logado no Roleta Pro I.A. 
+        Certifique-se de fazer login antes de usar!
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">❓ Perguntas Frequentes</div>
+      
+      <div class="step">
+        <strong>O bookmarklet não aparece quando clico?</strong>
+        <div style="margin-top: 8px; font-size: 14px; color: #666;">
+          Verifique se você copiou o código completo, incluindo o "javascript:" no início.
+        </div>
+      </div>
+
+      <div class="step">
+        <strong>A recomendação não aparece?</strong>
+        <div style="margin-top: 8px; font-size: 14px; color: #666;">
+          Certifique-se de estar logado no Roleta Pro I.A. e que adicionou pelo menos 10 números.
+        </div>
+      </div>
+
+      <div class="step">
+        <strong>Posso usar em qualquer navegador?</strong>
+        <div style="margin-top: 8px; font-size: 14px; color: #666;">
+          Sim! Funciona no Chrome, Firefox, Safari, Edge e qualquer navegador moderno.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Carregar o código do bookmarklet
+    fetch('roleta-quick-input.min.js')
+      .then(response => response.text())
+      .then(code => {
+        document.getElementById('bookmarklet-code').textContent = code;
+        document.getElementById('bookmarklet-link').href = code;
+      })
+      .catch(error => {
+        document.getElementById('bookmarklet-code').textContent = 'Erro ao carregar o código. Verifique se o arquivo roleta-quick-input.min.js está no mesmo diretório.';
+      });
+
+    function copyCode() {
+      const code = document.getElementById('bookmarklet-code').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = '✓ Copiado!';
+        setTimeout(() => {
+          btn.textContent = 'Copiar';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
+

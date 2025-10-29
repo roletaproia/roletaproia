@@ -19,7 +19,7 @@ let state = {
  */
 async function find1winTab() {
   const tabs = await chrome.tabs.query({});
-  const tab = tabs.find(t => t.url && (t.url.includes('1whfxh.life') || t.url.includes('1win')));
+  const tab = tabs.find(t => t.url && (t.url.includes('.life') || t.url.includes('1win.com') || t.url.includes('1win.br')));
   return tab?.id || null;
 }
 
@@ -150,7 +150,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   // Atualizar IDs das abas
   if (sender.tab) {
-    if (sender.tab.url.includes('1whfxh.life') || sender.tab.url.includes('1win')) {
+    if (sender.tab.url.includes('.life') || sender.tab.url.includes('1win.com') || sender.tab.url.includes('1win.br')) {
       state.oneWinTabId = sender.tab.id;
     }
     if (sender.tab.url.includes('roletaproia.onrender.com')) {
@@ -159,6 +159,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   
   // Processar mensagens
+  if (message.type === 'HELLO') {
+    console.log('[Roleta Pro I.A.] HELLO recebido de:', sender.tab?.url);
+    sendResponse({ received: true });
+  }
+  
   if (message.type === 'NEW_NUMBER') {
     handleNewNumber(message.data.number, message.data.timestamp);
     sendResponse({ received: true });
