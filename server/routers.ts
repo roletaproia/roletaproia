@@ -10,6 +10,8 @@ import { profileRouter } from "./routers/profile";
 import { bookmakerRouter } from "./routers/bookmaker";
 import { moderationRouter } from "./routers/moderation";
 import { robotRouter } from "./routers/robot";
+import { subscriptionRouter } from "./routers/subscription";
+import { referralRouter } from "./routers/referral";
 
 export const appRouter = router({
   system: systemRouter,
@@ -23,6 +25,8 @@ export const appRouter = router({
   bookmaker: bookmakerRouter,
   moderation: moderationRouter,
   robot: robotRouter,
+  subscription: subscriptionRouter,
+  referral: referralRouter,
 });
 
 export type AppRouter = typeof appRouter;

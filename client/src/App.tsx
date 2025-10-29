@@ -22,6 +22,9 @@ import ExtensionGuide from "./pages/ExtensionGuide";
 import RobotModeSelection from "./pages/RobotModeSelection";
 import ManualRobot from "./pages/ManualRobot";
 import ExtensionDownload from "./pages/ExtensionDownload";
+import Pricing from "./pages/Pricing";
+import Referrals from "./pages/Referrals";
+import AdminSubscriptions from "./pages/AdminSubscriptions";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -35,6 +38,8 @@ function Router() {
       <Route path="/betting-robot/select-mode" component={RobotModeSelection} />
       <Route path="/betting-robot/manual" component={ManualRobot} />
       <Route path="/extension-download" component={ExtensionDownload} />
+      <Route path="/pricing" component={Pricing} />
+      <Route path="/referrals" component={Referrals} />
       <Route path="/betting-robot" component={BettingRobot} />
       <Route path="/extension-guide" component={ExtensionGuide} />
       <Route path="/bankroll-management" component={BankrollManagement} />
@@ -42,6 +47,7 @@ function Router() {
       <Route path="/profile" component={Profile} />
         <Route path="/settings" component={Settings} />
       <Route path="/admin" component={AdminPanel} />
+      <Route path="/admin/subscriptions" component={AdminSubscriptions} />
       <Route path="/chat-moderation" component={ChatModeration} />
       <Route path="/make-admin" component={MakeAdmin} />
       <Route path="/create-admin" component={CreateAdmin} />

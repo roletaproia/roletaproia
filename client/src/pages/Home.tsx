@@ -223,7 +223,7 @@ export default function Home() {
               <h4 className="font-bold mb-4">Produto</h4>
               <ul className="space-y-2 text-sm text-gray-200">
                 <li><a href="#features" className="hover:text-white transition-colors">Funcionalidades</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Preços</a></li>
+                <li><a href="/pricing" className="hover:text-white transition-colors">Preços</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Documentação</a></li>
               </ul>
             </div>

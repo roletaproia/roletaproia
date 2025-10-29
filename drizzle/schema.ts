@@ -179,3 +179,74 @@ export const deletedMessages = mysqlTable("deletedMessages", {
 export type DeletedMessage = typeof deletedMessages.$inferSelect;
 export type InsertDeletedMessage = typeof deletedMessages.$inferInsert;
 
+
+/**
+ * Tabela de Assinaturas/Subscriptions
+ * Gerencia planos pagos e trial dos usuários
+ */
+export const subscriptions = mysqlTable("subscriptions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique().references(() => users.id),
+  plan: mysqlEnum("plan", ["trial", "monthly", "quarterly", "annual"]).default("trial").notNull(),
+  status: mysqlEnum("status", ["active", "expired", "cancelled"]).default("active").notNull(),
+  trialEndsAt: timestamp("trialEndsAt"), // Data de fim do trial
+  subscriptionEndsAt: timestamp("subscriptionEndsAt"), // Data de fim da assinatura paga
+  extraDays: int("extraDays").notNull().default(0), // Dias extras dados pelo admin ou indicações
+  registrationIp: varchar("registrationIp", { length: 45 }), // IP do registro (IPv4/IPv6)
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Subscription = typeof subscriptions.$inferSelect;
+export type InsertSubscription = typeof subscriptions.$inferInsert;
+
+/**
+ * Tabela de Referrals/Indicações
+ * Sistema de indicação onde cada usuário ganha +7 dias por indicado
+ */
+export const referrals = mysqlTable("referrals", {
+  id: int("id").autoincrement().primaryKey(),
+  referrerId: int("referrerId").notNull().references(() => users.id), // Quem indicou
+  referredId: int("referredId").notNull().unique().references(() => users.id), // Quem foi indicado
+  referralCode: varchar("referralCode", { length: 32 }).notNull().unique(), // Código único do referrer
+  bonusDaysGranted: int("bonusDaysGranted").notNull().default(7), // Dias bônus dados
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Referral = typeof referrals.$inferSelect;
+export type InsertReferral = typeof referrals.$inferInsert;
+
+/**
+ * Tabela de Histórico de Pagamentos
+ * Log de pagamentos realizados pelos usuários
+ */
+export const payments = mysqlTable("payments", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id),
+  plan: mysqlEnum("plan", ["monthly", "quarterly", "annual"]).notNull(),
+  amount: int("amount").notNull(), // Valor em centavos
+  status: mysqlEnum("status", ["pending", "completed", "failed"]).default("pending").notNull(),
+  paymentMethod: varchar("paymentMethod", { length: 64 }), // 'telegram', 'pix', etc.
+  transactionId: varchar("transactionId", { length: 255 }), // ID da transação
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Payment = typeof payments.$inferSelect;
+export type InsertPayment = typeof payments.$inferInsert;
+
+/**
+ * Tabela de IPs Bloqueados
+ * Controle anti-fraude: cada IP só pode criar 1 trial
+ */
+export const blockedIps = mysqlTable("blockedIps", {
+  id: int("id").autoincrement().primaryKey(),
+  ipAddress: varchar("ipAddress", { length: 45 }).notNull().unique(),
+  userId: int("userId").references(() => users.id), // Primeiro usuário que usou este IP
+  reason: text("reason"), // Motivo do bloqueio (se manual)
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type BlockedIp = typeof blockedIps.$inferSelect;
+export type InsertBlockedIp = typeof blockedIps.$inferInsert;
+

@@ -20,6 +20,9 @@ export default function Dashboard() {
   // Buscar estratégias
   const { data: strategies, isLoading: strategiesLoading } = trpc.strategies.list.useQuery();
 
+  // Buscar status de subscription
+  const { data: subscriptionStatus } = trpc.subscription.checkAccess.useQuery();
+
   const formatCurrency = (cents: number) => {
     return `R$ ${(cents / 100).toFixed(2)}`;
   };
@@ -30,9 +33,29 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
       {/* Header com Menu de Perfil */}
       <div className="border-b border-red-900/30 p-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold mb-2 text-yellow-400">Dashboard</h1>
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-3xl font-bold text-yellow-400">Dashboard</h1>
+            {subscriptionStatus?.badge && (
+              <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                subscriptionStatus.badge === "Usuário Premium" 
+                  ? "bg-gradient-to-r from-yellow-500 to-yellow-600 text-black" 
+                  : "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
+              }`}>
+                {subscriptionStatus.badge}
+              </span>
+            )}
+          </div>
           <p className="text-gray-200">Bem-vindo, {user?.name}! Aqui está um resumo da sua atividade.</p>
+          {subscriptionStatus?.daysRemaining !== undefined && subscriptionStatus.daysRemaining <= 7 && (
+            <div className={`mt-2 px-3 py-2 rounded-lg text-sm font-medium ${
+              subscriptionStatus.daysRemaining <= 2 
+                ? "bg-red-900/30 border border-red-700/50 text-red-300" 
+                : "bg-yellow-900/30 border border-yellow-700/50 text-yellow-300"
+            }`}>
+              ⏱️ {subscriptionStatus.daysRemaining} {subscriptionStatus.daysRemaining === 1 ? "dia restante" : "dias restantes"} no seu {subscriptionStatus.plan === "trial" ? "período de teste" : "plano"}
+            </div>
+          )}
         </div>
         {/* Menu de Perfil */}
         <DropdownMenu>

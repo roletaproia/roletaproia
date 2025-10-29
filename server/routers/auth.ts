@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
-import { users } from "../../drizzle/schema";
+import { users, blockedIps, subscriptions } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import { SignJWT } from "jose";
@@ -25,9 +25,24 @@ export const authRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      // Verificar se o email já existe
       const db = await getDb();
       if (!db) throw new Error("Database not available");
+
+      // Obter IP do usuário
+      const userIp = ctx.req.ip || ctx.req.socket.remoteAddress || 'unknown';
+
+      // Verificar se o IP já foi usado para criar trial
+      const [existingIp] = await db
+        .select()
+        .from(blockedIps)
+        .where(eq(blockedIps.ipAddress, userIp))
+        .limit(1);
+
+      if (existingIp) {
+        throw new Error("Este IP já foi usado para criar uma conta de teste. Entre em contato com o suporte se precisar de ajuda.");
+      }
+
+      // Verificar se o email já existe
       
       const existingUser = await db
         .select()
@@ -52,6 +67,24 @@ export const authRouter = router({
           role: "user",
         })
         .$returningId();
+
+      // Registrar IP como usado
+      await db.insert(blockedIps).values({
+        ipAddress: userIp,
+        userId: newUser.id,
+      });
+
+      // Criar subscription com trial de 7 dias
+      const trialEndsAt = new Date();
+      trialEndsAt.setDate(trialEndsAt.getDate() + 7);
+
+      await db.insert(subscriptions).values({
+        userId: newUser.id,
+        plan: "trial",
+        status: "active",
+        trialEndsAt,
+        registrationIp: userIp,
+      });
 
       // Gerar JWT token
       const token = await new SignJWT({
