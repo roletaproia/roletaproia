@@ -14,6 +14,7 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 320 }).notNull().unique(),
   password: varchar("password", { length: 255 }).notNull(), // Hash da senha (bcrypt)
   avatarUrl: text("avatarUrl"), // URL do avatar/foto de perfil
+  referralCode: varchar("referralCode", { length: 32 }).unique(), // Código único de indicação do usuário
   role: mysqlEnum("role", ["user", "sub-admin", "admin"]).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -208,7 +209,6 @@ export const referrals = mysqlTable("referrals", {
   id: int("id").autoincrement().primaryKey(),
   referrerId: int("referrerId").notNull().references(() => users.id), // Quem indicou
   referredId: int("referredId").notNull().unique().references(() => users.id), // Quem foi indicado
-  referralCode: varchar("referralCode", { length: 32 }).notNull().unique(), // Código único do referrer
   bonusDaysGranted: int("bonusDaysGranted").notNull().default(7), // Dias bônus dados
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

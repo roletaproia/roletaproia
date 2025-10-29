@@ -13,34 +13,32 @@ export const referralRouter = router({
     const db = await getDb();
     if (!db) throw new Error("Database not available");
 
-    // Verificar se já tem código
-    const [existing] = await db
+    // Buscar usuário com código de referral
+    const [user] = await db
       .select()
-      .from(referrals)
-      .where(eq(referrals.referrerId, ctx.user.id))
+      .from(users)
+      .where(eq(users.id, ctx.user.id))
       .limit(1);
 
-    if (existing) {
-      const referralLink = `${process.env.APP_URL || 'https://roletaproia.onrender.com'}/register?ref=${existing.referralCode}`;
-      return {
-        code: existing.referralCode,
-        link: referralLink,
-      };
+    if (!user) {
+      throw new Error("Usuário não encontrado");
     }
 
-    // Gerar novo código único
-    const code = randomBytes(8).toString('hex');
-    const referralLink = `${process.env.APP_URL || 'https://roletaproia.onrender.com'}/register?ref=${code}`;
+    // Se não tem código, criar um
+    let referralCode = user.referralCode;
+    if (!referralCode) {
+      referralCode = randomBytes(6).toString('hex'); // 12 caracteres
+      
+      await db
+        .update(users)
+        .set({ referralCode })
+        .where(eq(users.id, ctx.user.id));
+    }
 
-    // Salvar no banco (sem referredId ainda)
-    await db.insert(referrals).values({
-      referrerId: ctx.user.id,
-      referredId: ctx.user.id, // Temporário, será atualizado quando alguém usar o código
-      referralCode: code,
-    });
+    const referralLink = `${process.env.APP_URL || 'https://roletaproia.onrender.com'}/register?ref=${referralCode}`;
 
     return {
-      code,
+      code: referralCode,
       link: referralLink,
     };
   }),
@@ -65,14 +63,11 @@ export const referralRouter = router({
       .leftJoin(users, eq(referrals.referredId, users.id))
       .where(eq(referrals.referrerId, ctx.user.id));
 
-    // Filtrar referrals válidos (excluir o temporário)
-    const validReferrals = myReferrals.filter(r => r.referredId !== ctx.user.id);
-
-    const totalBonusDays = validReferrals.reduce((sum, r) => sum + r.bonusDaysGranted, 0);
+    const totalBonusDays = myReferrals.reduce((sum, r) => sum + r.bonusDaysGranted, 0);
 
     return {
-      referrals: validReferrals,
-      totalReferrals: validReferrals.length,
+      referrals: myReferrals,
+      totalReferrals: myReferrals.length,
       totalBonusDays,
     };
   }),
@@ -93,21 +88,36 @@ export const referralRouter = router({
       if (!db) throw new Error("Database not available");
 
       // Buscar o referrer pelo código
-      const [referral] = await db
+      const [referrer] = await db
         .select()
-        .from(referrals)
-        .where(eq(referrals.referralCode, input.referralCode))
+        .from(users)
+        .where(eq(users.referralCode, input.referralCode))
         .limit(1);
 
-      if (!referral) {
+      if (!referrer) {
         throw new Error("Código de indicação inválido");
       }
 
-      // Criar novo registro de referral
+      // Não pode indicar a si mesmo
+      if (referrer.id === input.newUserId) {
+        throw new Error("Você não pode usar seu próprio código de indicação");
+      }
+
+      // Verificar se já existe referral para este usuário
+      const [existingReferral] = await db
+        .select()
+        .from(referrals)
+        .where(eq(referrals.referredId, input.newUserId))
+        .limit(1);
+
+      if (existingReferral) {
+        throw new Error("Este usuário já foi indicado por alguém");
+      }
+
+      // Criar registro de referral
       await db.insert(referrals).values({
-        referrerId: referral.referrerId,
+        referrerId: referrer.id,
         referredId: input.newUserId,
-        referralCode: input.referralCode,
         bonusDaysGranted: 7,
       });
 
@@ -115,17 +125,21 @@ export const referralRouter = router({
       const [referrerSub] = await db
         .select()
         .from(subscriptions)
-        .where(eq(subscriptions.userId, referral.referrerId))
+        .where(eq(subscriptions.userId, referrer.id))
         .limit(1);
 
       if (referrerSub) {
         await db
           .update(subscriptions)
           .set({ extraDays: referrerSub.extraDays + 7 })
-          .where(eq(subscriptions.userId, referral.referrerId));
+          .where(eq(subscriptions.userId, referrer.id));
       }
 
-      return { success: true, bonusDaysGranted: 7 };
+      return { 
+        success: true, 
+        bonusDaysGranted: 7,
+        referrerName: referrer.name,
+      };
     }),
 });
 
