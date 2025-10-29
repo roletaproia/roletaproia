@@ -12,6 +12,7 @@ import { moderationRouter } from "./routers/moderation";
 import { robotRouter } from "./routers/robot";
 import { subscriptionRouter } from "./routers/subscription";
 import { referralRouter } from "./routers/referral";
+import { signalsRouter } from "./routers/signals";
 
 
 export const appRouter = router({
@@ -28,6 +29,7 @@ export const appRouter = router({
   robot: robotRouter,
   subscription: subscriptionRouter,
   referral: referralRouter,
+  signals: signalsRouter,
 
 });
 
