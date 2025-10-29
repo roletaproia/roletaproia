@@ -84,16 +84,24 @@ async function startServer() {
   // Extension download endpoint
   app.get("/api/download/extension", (req, res) => {
     const path = require('path');
-    const extensionPath = path.join(__dirname, '../../chrome-extension');
-    const zipPath = path.join(__dirname, '../../roletapro-extension.zip');
-    
-    // Check if ZIP exists, if not send the folder
     const fs = require('fs');
-    if (fs.existsSync(zipPath)) {
-      res.download(zipPath, 'roletapro-extension.zip');
-    } else {
-      res.status(404).json({ error: 'Extension package not found' });
+    
+    // Try multiple possible paths
+    const possiblePaths = [
+      path.join(process.cwd(), 'roletapro-extension.zip'),
+      path.join(__dirname, '../../roletapro-extension.zip'),
+      path.join(__dirname, '../../../roletapro-extension.zip'),
+    ];
+    
+    for (const zipPath of possiblePaths) {
+      if (fs.existsSync(zipPath)) {
+        console.log('[Download] Sending extension from:', zipPath);
+        return res.download(zipPath, 'roletapro-extension.zip');
+      }
     }
+    
+    console.error('[Download] Extension ZIP not found in any path');
+    res.status(404).json({ error: 'Extension package not found' });
   });
   
   // File upload endpoint for avatars
