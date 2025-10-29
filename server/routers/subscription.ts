@@ -50,6 +50,15 @@ export const subscriptionRouter = router({
     const db = await getDb();
     if (!db) throw new Error("Database not available");
 
+    // Admins têm acesso ilimitado
+    if (ctx.user.role === "admin") {
+      return {
+        hasAccess: true,
+        plan: "unlimited",
+        badge: "Administrador",
+      };
+    }
+
     const [subscription] = await db
       .select()
       .from(subscriptions)
