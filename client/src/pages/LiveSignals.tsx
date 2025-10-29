@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { trpc } from "@/_core/trpc";
+import { trpc } from "@/lib/trpc";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
