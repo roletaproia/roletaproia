@@ -140,11 +140,11 @@ export async function getOrCreateBankroll(userId: number) {
     return existing[0];
   }
   
-  // Criar nova banca com saldo inicial de R$ 100,00 (10000 centavos)
+  // Criar nova banca com saldo inicial de R$ 0,00
   await db.insert(bankrolls).values({
     userId,
-    initialBalance: 10000,
-    currentBalance: 10000,
+    initialBalance: 0,
+    currentBalance: 0,
   });
   
   const created = await db.select().from(bankrolls).where(eq(bankrolls.userId, userId)).limit(1);
