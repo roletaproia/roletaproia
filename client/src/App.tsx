@@ -25,7 +25,7 @@ import ExtensionDownload from "./pages/ExtensionDownload";
 import Pricing from "./pages/Pricing";
 import Referrals from "./pages/Referrals";
 import AdminSubscriptions from "./pages/AdminSubscriptions";
-import LiveSignals from "./pages/LiveSignals";
+
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -42,7 +42,7 @@ function Router() {
       <Route path="/pricing" component={Pricing} />
       <Route path="/referrals" component={Referrals} />
       <Route path="/betting-robot" component={BettingRobot} />
-      <Route path="/live-signals" component={LiveSignals} />
+
       <Route path="/extension-guide" component={ExtensionGuide} />
       <Route path="/bankroll-management" component={BankrollManagement} />
       <Route path="/chat" component={Chat} />
