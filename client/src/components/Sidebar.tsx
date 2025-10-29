@@ -12,7 +12,8 @@ import {
   Shield,
   Menu,
   X,
-  Gift
+  Gift,
+  Star
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "./ui/button";
@@ -105,6 +106,15 @@ export default function Sidebar() {
             );
           })}
         </nav>
+
+        <div className="p-4">
+          <Link href="/pricing">
+            <a className="block w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black text-center font-bold py-3 px-4 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all">
+              <Star className="inline h-4 w-4 mr-2" />
+              Atualize seu Plano
+            </a>
+          </Link>
+        </div>
 
         {/* Informações do Usuário e Logout */}
         <div className="p-4 border-t border-red-900/30">

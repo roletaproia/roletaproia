@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Layout from "@/components/Layout";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -61,7 +62,8 @@ export default function AdminPanel() {
   const [location] = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
       {/* Header */}
       <div className="border-b border-red-900/30 p-6">
         <div className="flex items-center gap-3 mb-2">
@@ -223,6 +225,7 @@ export default function AdminPanel() {
         </Card>
       </div>
     </div>
+    </Layout>
   );
 }
 
