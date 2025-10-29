@@ -3,7 +3,8 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Users, TrendingUp, AlertCircle, Crown, UserMinus } from "lucide-react";
+import { Shield, Users, TrendingUp, AlertCircle, Crown, UserMinus, CreditCard } from "lucide-react";
+import { Link, useLocation } from "wouter";
 
 export default function AdminPanel() {
   const { user } = useAuth();
@@ -57,6 +58,8 @@ export default function AdminPanel() {
     }
   };
 
+  const [location] = useLocation();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
       {/* Header */}
@@ -66,6 +69,30 @@ export default function AdminPanel() {
           <h1 className="text-3xl font-bold text-yellow-400">Painel de Administração</h1>
         </div>
         <p className="text-gray-200">Gerencie usuários, admins e configure o sistema</p>
+        
+        {/* Menu de Navegação */}
+        <div className="flex gap-2 mt-4">
+          <Link href="/admin">
+            <a className={`px-4 py-2 rounded-lg transition-all ${
+              location === "/admin" 
+                ? "bg-red-600 text-white" 
+                : "bg-red-900/20 text-gray-300 hover:bg-red-900/40"
+            }`}>
+              <Users className="inline h-4 w-4 mr-2" />
+              Usuários
+            </a>
+          </Link>
+          <Link href="/admin/subscriptions">
+            <a className={`px-4 py-2 rounded-lg transition-all ${
+              location === "/admin/subscriptions" 
+                ? "bg-red-600 text-white" 
+                : "bg-red-900/20 text-gray-300 hover:bg-red-900/40"
+            }`}>
+              <CreditCard className="inline h-4 w-4 mr-2" />
+              Assinaturas
+            </a>
+          </Link>
+        </div>
       </div>
 
       <div className="p-6 space-y-8">

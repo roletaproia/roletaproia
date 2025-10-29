@@ -5,8 +5,9 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Shield, Users, Calendar, Crown, AlertCircle, Plus } from "lucide-react";
+import { Shield, Users, Calendar, Crown, AlertCircle, Plus, CreditCard } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Link, useLocation } from "wouter";
 
 export default function AdminSubscriptions() {
   const { user } = useAuth();
@@ -82,6 +83,8 @@ export default function AdminSubscriptions() {
     }
   };
 
+  const [location] = useLocation();
+
   return (
     <Layout>
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white p-6">
@@ -92,6 +95,30 @@ export default function AdminSubscriptions() {
             <h1 className="text-3xl font-bold text-yellow-400">Gerenciar Assinaturas</h1>
           </div>
           <p className="text-gray-200">Adicione dias extras ou converta usuários para premium</p>
+          
+          {/* Menu de Navegação */}
+          <div className="flex gap-2 mt-4">
+            <Link href="/admin">
+              <a className={`px-4 py-2 rounded-lg transition-all ${
+                location === "/admin" 
+                  ? "bg-red-600 text-white" 
+                  : "bg-red-900/20 text-gray-300 hover:bg-red-900/40"
+              }`}>
+                <Users className="inline h-4 w-4 mr-2" />
+                Usuários
+              </a>
+            </Link>
+            <Link href="/admin/subscriptions">
+              <a className={`px-4 py-2 rounded-lg transition-all ${
+                location === "/admin/subscriptions" 
+                  ? "bg-red-600 text-white" 
+                  : "bg-red-900/20 text-gray-300 hover:bg-red-900/40"
+              }`}>
+                <CreditCard className="inline h-4 w-4 mr-2" />
+                Assinaturas
+              </a>
+            </Link>
+          </div>
         </div>
 
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
