@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
-import { db } from "../_core/db";
+import { db } from "../db";
 import { signals, recommendations, captureSessions } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
