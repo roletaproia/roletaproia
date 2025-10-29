@@ -11,7 +11,8 @@ import {
   LogOut,
   Shield,
   Menu,
-  X
+  X,
+  Gift
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "./ui/button";
@@ -27,6 +28,7 @@ export default function Sidebar() {
     { icon: Zap, label: "Estratégias", href: "/strategies" },
     { icon: Bot, label: "Robô de Apostas", href: "/betting-robot/select-mode" },
     { icon: Wallet, label: "Gerenciar Banca", href: "/bankroll-management" },
+    { icon: Gift, label: "Indicações", href: "/referrals" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
     { icon: User, label: "Perfil", href: "/profile" },
   ];
