@@ -3,7 +3,7 @@ import { getDb } from "../db";
 import { signals, recommendations, captureSessions } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
 const router = Router();
 
@@ -16,11 +16,13 @@ async function verifyAdmin(req: any, res: any, next: any) {
     }
 
     const token = authHeader.substring(7);
-    const secret = process.env.JWT_SECRET || "your-secret-key";
+    const secret = new TextEncoder().encode(
+      process.env.JWT_SECRET || "your-secret-key-change-in-production"
+    );
     
-    const decoded: any = jwt.verify(token, secret);
+    const { payload } = await jwtVerify(token, secret);
     
-    if (!decoded || !decoded.userId) {
+    if (!payload || !payload.userId) {
       return res.status(401).json({ error: "Token inválido" });
     }
 
@@ -31,7 +33,7 @@ async function verifyAdmin(req: any, res: any, next: any) {
     }
 
     const users = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.id, decoded.userId),
+      where: (users, { eq }) => eq(users.id, payload.userId as number),
     });
 
     if (!users || users.role !== "admin") {
