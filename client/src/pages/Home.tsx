@@ -40,7 +40,7 @@ export default function Home() {
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="inline-block px-4 py-2 bg-red-900/30 border border-red-700/50 rounded-full">
-                <span className="text-sm font-semibold text-red-300">🤖 Automação Inteligente</span>
+                <span className="text-sm font-semibold text-red-300">📊 Análise Inteligente em Tempo Real</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold leading-tight">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">
@@ -48,7 +48,7 @@ export default function Home() {
                 </span>
               </h1>
               <p className="text-xl text-gray-300 max-w-lg">
-                Robô de apostas automático com gerenciamento inteligente de banca e chat em tempo real.
+                Sinais inteligentes da roleta em tempo real com análise de padrões e estratégias otimizadas.
               </p>
             </div>
 
@@ -113,14 +113,14 @@ export default function Home() {
             <div className="mb-4 inline-block p-3 bg-red-900/50 rounded-lg group-hover:bg-red-800/50 transition-colors">
               <Bot className="h-6 w-6 text-red-400" />
             </div>
-            <h3 className="text-xl font-bold mb-3">Robô de Apostas</h3>
+            <h3 className="text-xl font-bold mb-3">Sinais Inteligentes</h3>
             <p className="text-gray-200 mb-4">
-              Automatize suas apostas com estratégias configuráveis como Fibonacci, Martingale e muito mais.
+              Receba recomendações em tempo real baseadas em análise de padrões e histórico da roleta.
             </p>
             <ul className="space-y-2 text-sm text-gray-500">
-              <li>✓ Múltiplas estratégias</li>
-              <li>✓ Execução automática</li>
-              <li>✓ Simulação antes de usar</li>
+              <li>✓ Sinais ao vivo</li>
+              <li>✓ Análise de padrões</li>
+              <li>✓ Confiança % em cada sinal</li>
             </ul>
           </div>
 
@@ -180,16 +180,16 @@ export default function Home() {
             <div className="mb-4 inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-900/50 border border-red-700/50">
               <span className="text-2xl font-bold text-red-400">2</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Configure seu Robô</h3>
-            <p className="text-gray-200">Escolha uma estratégia e defina seus parâmetros.</p>
+            <h3 className="text-xl font-bold mb-2">Acesse os Sinais</h3>
+            <p className="text-gray-200">Veja recomendações em tempo real e escolha sua estratégia.</p>
           </div>
 
           <div className="text-center">
             <div className="mb-4 inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-900/50 border border-red-700/50">
               <span className="text-2xl font-bold text-red-400">3</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Comece a Ganhar</h3>
-            <p className="text-gray-200">Deixe o robô trabalhar e acompanhe seus ganhos.</p>
+            <h3 className="text-xl font-bold mb-2">Aposte com Inteligência</h3>
+            <p className="text-gray-200">Use os sinais para tomar decisões informadas e acompanhe seus ganhos.</p>
           </div>
         </div>
       </section>
