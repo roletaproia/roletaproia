@@ -52,11 +52,12 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Free Badge */}
-            <div className="flex items-center space-x-3 bg-gradient-to-r from-red-900/30 to-red-900/30 border border-red-700/50 rounded-lg p-4">
+            {/* Free Trial Badge */}
+            <div className="flex items-center space-x-3 bg-gradient-to-r from-green-900/30 to-green-900/30 border border-green-500/50 rounded-lg p-4">
               <Zap className="h-6 w-6 text-green-400" />
               <div>
-                <p className="font-bold text-green-300 text-lg">100% Grátis - Sempre Será</p>
+                <p className="font-bold text-green-300 text-lg">Experimente GRÁTIS por 7 dias</p>
+                <p className="text-green-200 text-sm">Sem cartão de crédito • Veja os resultados</p>
               </div>
             </div>
 
