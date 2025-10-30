@@ -4,10 +4,9 @@ import {
   LayoutDashboard, 
   Zap, 
   Wallet, 
-  Bot, 
+  Hand,
   MessageSquare, 
   User, 
-  Settings,
   LogOut,
   Shield,
   Menu,
@@ -15,7 +14,8 @@ import {
   Gift,
   Star,
   Radio,
-
+  HelpCircle,
+  Crown,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "./ui/button";
@@ -28,13 +28,13 @@ export default function Sidebar() {
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-    { icon: Zap, label: "Estratégias", href: "/strategies" },
-    { icon: Bot, label: "Robô de Apostas", href: "/betting-robot/select-mode" },
-    { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals" },
-
+    { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals", badge: "AO VIVO", badgeColor: "bg-green-500" },
+    { icon: Hand, label: "Simulador Manual", href: "/betting-robot/manual" },
     { icon: Wallet, label: "Gerenciar Banca", href: "/bankroll-management" },
-    { icon: Gift, label: "Indicações", href: "/referrals" },
+    { icon: Zap, label: "Estratégias", href: "/strategies" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
+    { icon: Gift, label: "Indicações", href: "/referrals" },
+    { icon: Crown, label: "Planos", href: "/pricing" },
     { icon: User, label: "Perfil", href: "/profile" },
   ];
 
@@ -81,7 +81,7 @@ export default function Sidebar() {
               {APP_LOGO && <img src={APP_LOGO} alt={APP_TITLE} className="h-10 w-10 rounded-lg" />}
               <div>
                 <h1 className="text-lg font-bold text-white">{APP_TITLE}</h1>
-                <p className="text-xs text-gray-400">Sistema de Apostas</p>
+                <p className="text-xs text-gray-400">Sinais Inteligentes</p>
               </div>
             </a>
           </Link>
@@ -97,25 +97,42 @@ export default function Sidebar() {
               <Link key={item.href} href={item.href}>
                 <a
                   onClick={closeSidebar}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
+                  className={`flex items-center justify-between space-x-3 px-4 py-3 rounded-lg transition-all ${
                     isActive
                       ? "bg-red-600 text-white shadow-lg"
                       : "text-gray-300 hover:bg-slate-800 hover:text-white"
                   }`}
                 >
-                  <Icon className="h-5 w-5" />
-                  <span className="font-medium">{item.label}</span>
+                  <div className="flex items-center space-x-3">
+                    <Icon className="h-5 w-5" />
+                    <span className="font-medium">{item.label}</span>
+                  </div>
+                  {item.badge && (
+                    <span className={`${item.badgeColor} text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse`}>
+                      {item.badge}
+                    </span>
+                  )}
                 </a>
               </Link>
             );
           })}
         </nav>
 
+        {/* Botão de Suporte Telegram */}
         <div className="p-4">
+          <a 
+            href="https://t.me/seu_usuario_telegram" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all mb-2"
+          >
+            <HelpCircle className="inline h-4 w-4 mr-2" />
+            Suporte Telegram
+          </a>
           <Link href="/pricing">
             <a className="block w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black text-center font-bold py-3 px-4 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all">
               <Star className="inline h-4 w-4 mr-2" />
-              Atualize seu Plano
+              Upgrade Premium
             </a>
           </Link>
         </div>

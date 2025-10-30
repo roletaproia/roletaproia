@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { trpc } from "@/lib/trpc";
-import { BarChart3, Bot, MessageSquare, TrendingUp, Zap, LogOut, User, Settings } from "lucide-react";
+import { Radio, Hand, TrendingUp, MessageSquare, Users, BarChart3, LogOut, User, Settings, Sparkles, Gift } from "lucide-react";
 import { useLocation, Link } from "wouter";
 
 export default function Dashboard() {
@@ -13,12 +13,6 @@ export default function Dashboard() {
 
   // Buscar dados de banca
   const { data: bankroll, isLoading: bankrollLoading } = trpc.bankroll.get.useQuery();
-
-  // Buscar histórico de apostas
-  const { data: bets, isLoading: betsLoading } = trpc.bets.getHistory.useQuery({ limit: 5 });
-
-  // Buscar estratégias
-  const { data: strategies, isLoading: strategiesLoading } = trpc.strategies.list.useQuery();
 
   // Buscar status de subscription
   const { data: subscriptionStatus } = trpc.subscription.checkAccess.useQuery();
@@ -46,7 +40,7 @@ export default function Dashboard() {
               </span>
             )}
           </div>
-          <p className="text-gray-200">Bem-vindo, {user?.name}! Aqui está um resumo da sua atividade.</p>
+          <p className="text-gray-200">Bem-vindo, {user?.name}! Escolha uma funcionalidade abaixo.</p>
           {subscriptionStatus?.daysRemaining !== undefined && subscriptionStatus.daysRemaining <= 7 && (
             <div className={`mt-2 px-3 py-2 rounded-lg text-sm font-medium ${
               subscriptionStatus.daysRemaining <= 2 
@@ -151,7 +145,7 @@ export default function Dashboard() {
           </Card>
 
           {/* Taxa de Vitória */}
-          <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
+          <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-700/30">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
             </CardHeader>
@@ -166,132 +160,173 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid md:grid-cols-3 gap-4">
-          {/* Robô de Apostas */}
-          <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30 hover:border-red-600/60 transition-all cursor-pointer"
-            onClick={() => navigate("/betting-robot")}>
-            <CardHeader>
-              <div className="flex items-center space-x-2">
-                <Bot className="h-5 w-5 text-red-400" />
-                <CardTitle className="text-white">Robô de Apostas</CardTitle>
+        {/* Funcionalidades Principais */}
+        <div>
+          <h2 className="text-2xl font-bold mb-4 text-yellow-400 flex items-center gap-2">
+            <Sparkles className="h-6 w-6" />
+            Funcionalidades
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Sinais Inteligentes - DESTAQUE */}
+            <Card className="bg-gradient-to-br from-purple-900/30 to-purple-950/50 border-purple-600 hover:border-purple-400 transition-all cursor-pointer relative overflow-hidden"
+              onClick={() => navigate("/live-signals")}>
+              {/* Badge NOVO */}
+              <div className="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
+                AO VIVO
               </div>
-              <CardDescription>Configure e execute apostas automáticas</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">Acessar</Button>
-            </CardContent>
-          </Card>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center">
+                    <Radio className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Sinais Inteligentes</CardTitle>
+                </div>
+                <CardDescription className="text-gray-300">
+                  Receba sinais em tempo real com análise de I.A.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold">
+                  Ver Sinais Ao Vivo
+                </Button>
+              </CardContent>
+            </Card>
 
-          {/* Gerenciamento de Banca */}
-          <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30 hover:border-red-600/60 transition-all cursor-pointer"
-            onClick={() => navigate("/bankroll-management")}>
-            <CardHeader>
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="h-5 w-5 text-red-400" />
-                <CardTitle className="text-white">Gerenciamento de Banca</CardTitle>
-              </div>
-              <CardDescription>Acompanhe seu saldo e estatísticas</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">Acessar</Button>
-            </CardContent>
-          </Card>
+            {/* Simulador Manual */}
+            <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-700/30 hover:border-blue-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/betting-robot/manual")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                    <Hand className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Simulador Manual</CardTitle>
+                </div>
+                <CardDescription>
+                  Insira números e receba sugestões da I.A.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+                  Acessar Simulador
+                </Button>
+              </CardContent>
+            </Card>
 
-          {/* Chat */}
-          <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30 hover:border-red-600/60 transition-all cursor-pointer"
-            onClick={() => navigate("/chat")}>
-            <CardHeader>
-              <div className="flex items-center space-x-2">
-                <MessageSquare className="h-5 w-5 text-red-400" />
-                <CardTitle className="text-white">Chat</CardTitle>
-              </div>
-              <CardDescription>Converse com outros usuários</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">Acessar</Button>
-            </CardContent>
-          </Card>
+            {/* Gerenciamento de Banca */}
+            <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30 hover:border-green-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/bankroll-management")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+                    <TrendingUp className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Gerenciamento de Banca</CardTitle>
+                </div>
+                <CardDescription>
+                  Acompanhe seu saldo e estatísticas detalhadas
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold">
+                  Gerenciar Banca
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Chat */}
+            <Card className="bg-gradient-to-br from-yellow-900/20 to-transparent border-yellow-700/30 hover:border-yellow-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/chat")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-yellow-600 rounded-full flex items-center justify-center">
+                    <MessageSquare className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Chat da Comunidade</CardTitle>
+                </div>
+                <CardDescription>
+                  Converse e compartilhe estratégias
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold">
+                  Entrar no Chat
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Indicações */}
+            <Card className="bg-gradient-to-br from-pink-900/20 to-transparent border-pink-700/30 hover:border-pink-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/referrals")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center">
+                    <Users className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Indicações</CardTitle>
+                </div>
+                <CardDescription>
+                  Indique amigos e ganhe recompensas
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold">
+                  Meu Link de Indicação
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Estratégias */}
+            <Card className="bg-gradient-to-br from-orange-900/20 to-transparent border-orange-700/30 hover:border-orange-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/strategies")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center">
+                    <BarChart3 className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Estratégias</CardTitle>
+                </div>
+                <CardDescription>
+                  Aprenda e configure estratégias profissionais
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold">
+                  Ver Estratégias
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
-        {/* Estratégias */}
-        <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Zap className="h-5 w-5 text-red-400" />
-                <CardTitle className="text-white">Minhas Estratégias</CardTitle>
+        {/* Banner de Upgrade (se não for premium) */}
+        {subscriptionStatus?.plan !== "premium" && (
+          <Card className="bg-gradient-to-r from-yellow-900/40 to-red-900/40 border-yellow-600">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Gift className="h-8 w-8 text-yellow-400" />
+                <div>
+                  <CardTitle className="text-yellow-400 text-xl">
+                    Desbloqueie Recursos Premium
+                  </CardTitle>
+                  <CardDescription className="text-gray-200">
+                    Acesso ilimitado a sinais inteligentes, estratégias avançadas e muito mais!
+                  </CardDescription>
+                </div>
               </div>
-              <Button size="sm" onClick={() => navigate("/strategies")}>
-                Ver Todas
+            </CardHeader>
+            <CardContent>
+              <Button 
+                onClick={() => navigate("/pricing")}
+                className="bg-yellow-600 hover:bg-yellow-700 text-black font-bold"
+              >
+                Ver Planos Premium
               </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {strategiesLoading ? (
-              <p className="text-gray-200">Carregando...</p>
-            ) : strategies && strategies.length > 0 ? (
-              <div className="space-y-3">
-                {strategies.slice(0, 3).map((strategy) => (
-                  <div key={strategy.id} className="flex items-center justify-between p-3 bg-red-900/30 rounded-lg">
-                    <div>
-                      <p className="font-medium">{strategy.name}</p>
-                      <p className="text-sm text-gray-200">{strategy.type}</p>
-                    </div>
-                    <span className={`px-3 py-1 rounded-full text-sm ${strategy.isActive ? "bg-green-900/30 text-green-400" : "bg-gray-900/30 text-gray-200"}`}>
-                      {strategy.isActive ? "Ativa" : "Inativa"}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-200">Nenhuma estratégia criada. <Button variant="link" size="sm" onClick={() => navigate("/strategies")}>Criar uma</Button></p>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Histórico de Apostas */}
-        <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <BarChart3 className="h-5 w-5 text-red-400" />
-                <CardTitle className="text-white">Últimas Apostas</CardTitle>
-              </div>
-              <Button size="sm" onClick={() => navigate("/bet-history")}>
-                Ver Todas
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {betsLoading ? (
-              <p className="text-gray-200">Carregando...</p>
-            ) : bets && bets.length > 0 ? (
-              <div className="space-y-3">
-                {bets.map((bet) => (
-                  <div key={bet.id} className="flex items-center justify-between p-3 bg-red-900/30 rounded-lg">
-                    <div>
-                      <p className="font-medium">{formatCurrency(bet.betAmount)}</p>
-                      <p className="text-sm text-gray-200">{new Date(bet.createdAt).toLocaleDateString()}</p>
-                    </div>
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      bet.result === "win" ? "bg-green-900/30 text-green-400" : 
-                      bet.result === "loss" ? "bg-red-900/30 text-red-400" :
-                      "bg-yellow-900/30 text-yellow-400"
-                    }`}>
-                      {bet.result === "win" ? "✓ Ganho" : bet.result === "loss" ? "✗ Perda" : "⏳ Pendente"}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-200">Nenhuma aposta realizada ainda.</p>
-            )}
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
-    </Layout>
-  );
+  </Layout>);
 }
 
