@@ -13,6 +13,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import signalsApiRouter from "../routes/signals-api";
 import signalsPublicRouter from "../routes/signals-public";
+import { startSyncCron } from "../sync-cron-final";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -34,6 +35,8 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 }
 
 async function startServer() {
+  // Iniciar sincronização automática com CasinoScores
+  startSyncCron();
   const app = express();
   // Security middlewares with CSP configuration
   app.use(helmet({
