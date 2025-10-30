@@ -12,6 +12,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import signalsApiRouter from "../routes/signals-api";
+import signalsPublicRouter from "../routes/signals-public";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -113,6 +114,9 @@ async function startServer() {
   
   // REST API for signals (easier for external scripts)
   app.use("/api/signals", signalsApiRouter);
+  
+  // Public API for signals (with secret key)
+  app.use("/api/signals-public", signalsPublicRouter);
   
   // tRPC API
   app.use(
