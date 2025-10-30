@@ -22,8 +22,11 @@ async function verifyAdmin(req: any, res: any, next: any) {
     
     const { payload } = await jwtVerify(token, secret);
     
+    console.log("[JWT] Payload recebido:", JSON.stringify(payload, null, 2));
+    
     if (!payload || !payload.userId) {
-      return res.status(401).json({ error: "Token inválido" });
+      console.error("[JWT] Erro: payload.userId não encontrado", payload);
+      return res.status(401).json({ error: "Token inválido ou expirado" });
     }
 
     // Buscar usuário no banco
