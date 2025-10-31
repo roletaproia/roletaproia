@@ -36,8 +36,6 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 }
 
 async function startServer() {
-  // Iniciar sincronização automática com CasinoScores
-  startSyncCron();
   const app = express();
   // Security middlewares with CSP configuration
   app.use(helmet({
