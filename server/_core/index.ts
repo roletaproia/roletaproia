@@ -13,7 +13,8 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import signalsApiRouter from "../routes/signals-api";
 import signalsPublicRouter from "../routes/signals-public";
-import { startSyncCron } from "./sync-cron-simple";
+import cron from 'node-cron';
+import axios from 'axios';
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -146,6 +147,58 @@ async function startServer() {
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
   });
+
+  // Sincronização automática com CasinoScores
+  let lastNumber: number | null = null;
+  let isRunning = false;
+
+  async function fetchAndSaveNumbers() {
+    if (isRunning) return;
+    
+    try {
+      isRunning = true;
+      
+      const response = await axios.get('https://casinoscores.com/lightning-roulette/', {
+        timeout: 5000,
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' }
+      });
+      
+      const html = response.data;
+      const numberMatches = html.match(/>\d{1,2}</g);
+      
+      if (numberMatches && numberMatches.length > 0) {
+        const numberStr = numberMatches[0].replace(/[><]/g, '');
+        const number = parseInt(numberStr);
+        
+        if (number >= 0 && number <= 36 && number !== lastNumber) {
+          const getColor = (n: number) => {
+            if (n === 0) return 'green';
+            const reds = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+            return reds.includes(n) ? 'red' : 'black';
+          };
+          
+          await db.insert(signals).values({
+            number,
+            color: getColor(number),
+            source: 'casinoscores-lightning',
+            timestamp: new Date(),
+          });
+          
+          console.log(`✅ Número ${number} (${getColor(number)}) capturado!`);
+          lastNumber = number;
+        }
+      }
+    } catch (error: any) {
+      console.error('❌ Erro ao buscar números:', error.message);
+    } finally {
+      isRunning = false;
+    }
+  }
+
+  console.log('🚀 Iniciando sincronização com CasinoScores...');
+  fetchAndSaveNumbers();
+  cron.schedule('*/5 * * * * *', fetchAndSaveNumbers);
+  console.log('✅ Cron ativo! Capturando a cada 5 segundos.');
 }
 
 startServer().catch(console.error);
