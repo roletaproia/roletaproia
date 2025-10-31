@@ -156,19 +156,44 @@ async function startServer() {
     try {
       isRunning = true;
       
-      const response = await axios.get('https://casinoscores.com/lightning-roulette/', {
-        timeout: 5000,
-        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' }
+      const response = await axios.get('https://casinoscores.com/pt-br/lightning-roulette/', {
+        timeout: 10000,
+        headers: { 
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        }
       });
       
       const html = response.data;
-      const numberMatches = html.match(/>\d{1,2}</g);
+      console.log('🔍 HTML recebido:', html.substring(0, 200));
       
-      if (numberMatches && numberMatches.length > 0) {
-        const numberStr = numberMatches[0].replace(/[><]/g, '');
-        const number = parseInt(numberStr);
+      // Tentar múltiplos padrões
+      const patterns = [
+        /<div[^>]*class="[^"]*number[^"]*"[^>]*>(\d{1,2})<\/div>/gi,
+        /<span[^>]*class="[^"]*number[^"]*"[^>]*>(\d{1,2})<\/span>/gi,
+        />\s*(\d{1,2})\s*</g,
+        /"number"[^>]*>(\d{1,2})</gi
+      ];
+      
+      let foundNumbers: number[] = [];
+      
+      for (const pattern of patterns) {
+        const matches = html.matchAll(pattern);
+        for (const match of matches) {
+          const num = parseInt(match[1] || match[0].replace(/[^\d]/g, ''));
+          if (num >= 0 && num <= 36) {
+            foundNumbers.push(num);
+          }
+        }
+        if (foundNumbers.length > 0) break;
+      }
+      
+      console.log(`🔍 Números encontrados: ${foundNumbers.slice(0, 10).join(', ')}`);
+      
+      if (foundNumbers.length > 0) {
+        const number = foundNumbers[0];
         
-        if (number >= 0 && number <= 36 && number !== lastNumber) {
+        if (number !== lastNumber) {
           const getColor = (n: number) => {
             if (n === 0) return 'green';
             const reds = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
@@ -182,12 +207,16 @@ async function startServer() {
             timestamp: new Date(),
           });
           
-          console.log(`✅ Número ${number} (${getColor(number)}) capturado!`);
+          console.log(`✅ Número ${number} (${getColor(number)}) capturado e salvo!`);
           lastNumber = number;
+        } else {
+          console.log(`⏭️ Número ${number} já foi capturado, aguardando próximo...`);
         }
+      } else {
+        console.log('⚠️ Nenhum número encontrado no HTML');
       }
     } catch (error: any) {
-      console.error('❌ Erro ao buscar números:', error.message);
+      console.error('❌ Erro completo:', error);
     } finally {
       isRunning = false;
     }
