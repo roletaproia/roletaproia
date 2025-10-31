@@ -156,7 +156,7 @@ async function startServer() {
     try {
       isRunning = true;
       
-      const response = await axios.get('https://api.casinoscores.com/svc-evolution-game-events/api/xxxtremelightningroulette/latest', {
+      const response = await axios.get('https://api.casinoscores.com/svc-evolution-game-events/api/lightningroulette/latest', {
         timeout: 10000,
         headers: { 
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
@@ -186,7 +186,7 @@ async function startServer() {
           await db.insert(signals).values({
             number,
             color,
-            source: 'casinoscores-xxxtreme-lightning',
+            source: 'casinoscores-api-lightning',
             timestamp: new Date(),
           });
           
