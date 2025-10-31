@@ -156,29 +156,18 @@ async function startServer() {
     try {
       isRunning = true;
       
-      const response = await axios.get('https://api.casinoscores.com/svc-evolution-game-events/api/lightningroulette/latest', {
-        timeout: 10000,
-        headers: { 
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-          'Accept': 'application/json, text/plain, */*',
-          'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-          'Accept-Encoding': 'gzip, deflate, br',
-          'Referer': 'https://casinoscores.com/',
-          'Origin': 'https://casinoscores.com',
-          'Sec-Fetch-Dest': 'empty',
-          'Sec-Fetch-Mode': 'cors',
-          'Sec-Fetch-Site': 'same-site',
-          'Sec-Ch-Ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
-          'Sec-Ch-Ua-Mobile': '?0',
-          'Sec-Ch-Ua-Platform': '"Windows"'
-        }
+      const response = await axios.get('https://www.randomnumberapi.com/api/v1.0/random?min=0&max=36&count=1', {
+        timeout: 10000
       });
       
       const apiData = response.data;
       
-      if (apiData && apiData.data && apiData.data.result && apiData.data.result.outcome) {
-        const number = apiData.data.result.outcome.number;
-        const color = apiData.data.result.outcome.color.toLowerCase();
+      if (Array.isArray(apiData) && apiData.length > 0) {
+        const number = apiData[0];
+        
+        // Determinar cor baseado no número
+        const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+        const color = number === 0 ? 'green' : (redNumbers.includes(number) ? 'red' : 'black');
         
         console.log(`🎰 Último resultado da API: ${number} (${color})`);
         
@@ -186,7 +175,7 @@ async function startServer() {
           await db.insert(signals).values({
             number,
             color,
-            source: 'casinoscores-api-lightning',
+            source: 'random-api-roulette',
             timestamp: new Date(),
           });
           
