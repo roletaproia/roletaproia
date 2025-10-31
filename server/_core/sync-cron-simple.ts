@@ -1,7 +1,7 @@
 import cron from 'node-cron';
 import axios from 'axios';
-import { db } from './_core/db';
-import { signals } from './_core/db/schema';
+import { db } from './db';
+import { signals } from './db/schema';
 
 let isRunning = false;
 let lastNumber: number | null = null;

@@ -13,7 +13,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import signalsApiRouter from "../routes/signals-api";
 import signalsPublicRouter from "../routes/signals-public";
-import { startSyncCron } from "../sync-cron-simple";
+import { startSyncCron } from "./sync-cron-simple";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
