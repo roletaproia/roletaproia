@@ -14,7 +14,7 @@ import { serveStatic, setupVite } from "./vite";
 import signalsApiRouter from "../routes/signals-api";
 import signalsPublicRouter from "../routes/signals-public";
 import cron from 'node-cron';
-import { db } from "../db";
+import { getDb } from "../db";
 import { signals } from "./schema";
 import axios from 'axios';
 
@@ -151,7 +151,7 @@ async function startServer() {
 
       // Salvar no banco de dados (usando a mesma lógica de salvamento)
       // O cron job usa 'db.insert(signals)' sem importação visível. Vou assumir que está ok.
-      await db.insert(signals).values({
+      const db = await getDb();\n      if (!db) throw new Error("Database not available");\n      await db.insert(signals).values({
         number: number,
         color: color,
         source: source || 'local-cron-sender',
@@ -222,7 +222,7 @@ async function startServer() {
         console.log(`🎰 Último resultado da API: ${number} (${color})`);
         
         if (number !== undefined && number >= 0 && number <= 36 && number !== lastNumber) {
-          await db.insert(signals).values({
+          const db = await getDb();\n      if (!db) throw new Error("Database not available");\n      await db.insert(signals).values({
             number,
             color,
             source: 'random-api-roulette',
