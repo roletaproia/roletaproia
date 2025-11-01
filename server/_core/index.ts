@@ -15,7 +15,7 @@ import signalsApiRouter from "../routes/signals-api";
 import signalsPublicRouter from "../routes/signals-public";
 import cron from 'node-cron';
 import { db } from "../db";
-import { signals } from "../db/schema.js";
+import { signals } from "../db/schema.ts";
 import axios from 'axios';
 
 function isPortAvailable(port: number): Promise<boolean> {
