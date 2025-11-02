@@ -132,7 +132,22 @@ export default function LiveSignals() {
           </Card>
 
           {/* Recomendação da I.A. */}
-          <AIRecommendation recommendation={currentData?.recommendation || null} />
+          {currentData?.recommendation ? (
+            <AIRecommendation recommendation={currentData.recommendation} />
+          ) : (
+            <Card className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 border-purple-500/30">
+              <CardHeader>
+                <CardTitle className="text-purple-300 flex items-center gap-2">
+                  🤖 Recomendação da I.A.
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-center py-16">
+                  <p className="text-gray-400">Aguardando recomendação...</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Histórico Visual */}
