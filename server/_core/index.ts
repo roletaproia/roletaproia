@@ -15,7 +15,8 @@ import signalsApiRouter from "../routes/signals-api";
 import signalsPublicRouter from "../routes/signals-public";
 import cron from 'node-cron';
 import { getDb } from "../db";
-import { signals } from "./schema";
+import { signals, recommendations } from "./schema";
+import { desc } from "drizzle-orm";
 import axios from 'axios';
 
 function isPortAvailable(port: number): Promise<boolean> {
