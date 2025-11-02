@@ -7,7 +7,6 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Strategies from "./pages/Strategies";
-import BankrollManagement from "./pages/BankrollManagement";
 import Chat from "./pages/Chat";
 import BettingRobot from "./pages/BettingRobot";
 import Profile from "./pages/Profile";
@@ -20,7 +19,6 @@ import MakeAdmin from "./pages/MakeAdmin";
 import CreateAdmin from "./pages/CreateAdmin";
 import ExtensionGuide from "./pages/ExtensionGuide";
 import RobotModeSelection from "./pages/RobotModeSelection";
-import ManualRobot from "./pages/ManualRobot";
 import ExtensionDownload from "./pages/ExtensionDownload";
 import Pricing from "./pages/Pricing";
 import Referrals from "./pages/Referrals";
@@ -38,7 +36,6 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/strategies" component={Strategies} />
       <Route path="/betting-robot/select-mode" component={RobotModeSelection} />
-      <Route path="/betting-robot/manual" component={ManualRobot} />
       <Route path="/extension-download" component={ExtensionDownload} />
       <Route path="/pricing" component={Pricing} />
       <Route path="/referrals" component={Referrals} />
@@ -46,7 +43,6 @@ function Router() {
       <Route path="/live-signals" component={LiveSignals} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
-      <Route path="/bankroll-management" component={BankrollManagement} />
       <Route path="/chat" component={Chat} />
       <Route path="/profile" component={Profile} />
         <Route path="/settings" component={Settings} />
