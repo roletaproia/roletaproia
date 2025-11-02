@@ -14,9 +14,23 @@ interface AIRecommendationProps {
 }
 
 export default function AIRecommendation({ recommendation }: AIRecommendationProps) {
-  // Parse JSON fields
-  const neighbors = recommendation.neighbors ? JSON.parse(recommendation.neighbors) : [];
-  const analysis = recommendation.analysis ? JSON.parse(recommendation.analysis) : [];
+  // Parse JSON fields safely
+  let neighbors: number[] = [];
+  let analysis: string[] = [];
+  
+  try {
+    neighbors = recommendation.neighbors ? JSON.parse(recommendation.neighbors) : [];
+  } catch (e) {
+    console.error('Error parsing neighbors:', e);
+    neighbors = [];
+  }
+  
+  try {
+    analysis = recommendation.analysis ? JSON.parse(recommendation.analysis) : [];
+  } catch (e) {
+    console.error('Error parsing analysis:', e);
+    analysis = [];
+  }
 
   // Helper functions
   const getColorClass = (color: string) => {
