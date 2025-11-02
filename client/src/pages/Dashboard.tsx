@@ -173,26 +173,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            {/* Estratégias */}
-            <Card className="bg-gradient-to-br from-orange-900/20 to-transparent border-orange-700/30 hover:border-orange-600/60 transition-all cursor-pointer"
-              onClick={() => navigate("/strategies")}>
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center">
-                    <BarChart3 className="h-5 w-5 text-white" />
-                  </div>
-                  <CardTitle className="text-white">Estratégias</CardTitle>
-                </div>
-                <CardDescription>
-                  Aprenda e configure estratégias profissionais
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold">
-                  Ver Estratégias
-                </Button>
-              </CardContent>
-            </Card>
+
           </div>
         </div>
 

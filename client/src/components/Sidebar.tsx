@@ -29,7 +29,6 @@ export default function Sidebar() {
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals", badge: "AO VIVO", badgeColor: "bg-green-500" },
-    { icon: Zap, label: "Estratégias", href: "/strategies" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
     { icon: Gift, label: "Indicações", href: "/referrals" },
     { icon: User, label: "Perfil", href: "/profile" },
