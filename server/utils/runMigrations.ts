@@ -1,13 +1,16 @@
 import { getDb } from "../db";
 
 export async function runMigrations() {
+  console.log("🚀 [MIGRATIONS] Iniciando processo de migrations...");
+  
   const db = await getDb();
   if (!db) {
-    console.error("❌ Database not available for migrations");
+    console.error("❌ [MIGRATIONS] Database not available for migrations");
     return;
   }
 
-  console.log("🔄 Verificando migrations necessárias...");
+  console.log("✅ [MIGRATIONS] Database conectado com sucesso!");
+  console.log("🔄 [MIGRATIONS] Verificando migrations necessárias..." );
 
   try {
     // Verificar e adicionar campos da I.A. avançada na tabela recommendations
@@ -39,17 +42,17 @@ export async function runMigrations() {
           // Adicionar coluna se não existir
           const alterQuery = `ALTER TABLE recommendations ADD COLUMN ${column.name} ${column.type}`;
           await db.execute(alterQuery);
-          console.log(`✅ Coluna ${column.name} adicionada com sucesso`);
+          console.log(`✅ [MIGRATIONS] Coluna ${column.name} adicionada com sucesso`);
         } else {
-          console.log(`⏭️  Coluna ${column.name} já existe`);
+          console.log(`⏭️  [MIGRATIONS] Coluna ${column.name} já existe`);
         }
       } catch (error: any) {
-        console.error(`❌ Erro ao processar coluna ${column.name}: ${error.message}`);
+        console.error(`❌ [MIGRATIONS] Erro ao processar coluna ${column.name}:`, error.message);
       }
     }
 
-    console.log("✅ Migrations concluídas!");
+    console.log("✅ [MIGRATIONS] Migrations concluídas com sucesso!");
   } catch (error) {
-    console.error("❌ Erro ao executar migrations:", error);
+    console.error("❌ [MIGRATIONS] Erro fatal ao executar migrations:", error);
   }
 }
