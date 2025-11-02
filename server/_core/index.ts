@@ -131,20 +131,27 @@ async function startServer() {
       const db = await getDb();
       if (!db) throw new Error("Database not available");
 
-      // Inserir sinal no banco
-      const [signal] = await db.insert(signals).values({
+      // Inserir sinal no banco (MySQL não suporta .returning())
+      await db.insert(signals).values({
         number: number,
         color: color,
         source: source || 'local-cron-sender',
         timestamp: new Date(timestamp) || new Date(),
-      }).returning();
+      });
 
-      // Buscar últimos 20 sinais para gerar recomendação
+      // Buscar o sinal recém-inserido e os últimos 20 sinais para gerar recomendação
       const recentSignals = await db
         .select()
         .from(signals)
         .orderBy(desc(signals.timestamp))
         .limit(20);
+
+      if (recentSignals.length === 0) {
+        console.log(`[RECEBIDO] Sinal ${number} (${color}) de ${source} - Sem sinais para análise`);
+        return res.status(200).send('Sinal recebido e salvo.');
+      }
+
+      const latestSignal = recentSignals[0];
 
       // Gerar recomendação da I.A.
       const { generateAdvancedRecommendation } = await import('../utils/aiRecommendation');
@@ -152,7 +159,7 @@ async function startServer() {
 
       // Salvar recomendação
       await db.insert(recommendations).values({
-        signalId: signal.id,
+        signalId: latestSignal.id,
         betType: recommendation.betType,
         confidence: recommendation.confidence,
         suggestedAmount: recommendation.suggestedAmount,
