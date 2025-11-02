@@ -102,6 +102,7 @@ export const signalsRouter = router({
       .select()
       .from(recommendations)
       .where(eq(recommendations.signalId, latestSignal.id))
+      .orderBy(desc(recommendations.createdAt))
       .limit(1);
 
     return {
