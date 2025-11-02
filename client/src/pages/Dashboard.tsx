@@ -299,32 +299,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Banner de Upgrade (se não for premium) */}
-        {subscriptionStatus?.plan !== "premium" && (
-          <Card className="bg-gradient-to-r from-yellow-900/40 to-red-900/40 border-yellow-600">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <Gift className="h-8 w-8 text-yellow-400" />
-                <div>
-                  <CardTitle className="text-yellow-400 text-xl">
-                    Desbloqueie Recursos Premium
-                  </CardTitle>
-                  <CardDescription className="text-gray-200">
-                    Acesso ilimitado a sinais inteligentes, estratégias avançadas e muito mais!
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Button 
-                onClick={() => navigate("/pricing")}
-                className="bg-yellow-600 hover:bg-yellow-700 text-black font-bold"
-              >
-                Ver Planos Premium
-              </Button>
-            </CardContent>
-          </Card>
-        )}
+
       </div>
     </div>
   </Layout>);

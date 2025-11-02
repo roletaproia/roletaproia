@@ -34,7 +34,7 @@ export default function Sidebar() {
     { icon: Zap, label: "Estratégias", href: "/strategies" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
     { icon: Gift, label: "Indicações", href: "/referrals" },
-    { icon: Crown, label: "Planos", href: "/pricing" },
+
     { icon: User, label: "Perfil", href: "/profile" },
   ];
 
@@ -129,12 +129,7 @@ export default function Sidebar() {
             <HelpCircle className="inline h-4 w-4 mr-2" />
             Suporte Telegram
           </a>
-          <Link href="/pricing">
-            <a className="block w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black text-center font-bold py-3 px-4 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all">
-              <Star className="inline h-4 w-4 mr-2" />
-              Upgrade Premium
-            </a>
-          </Link>
+
         </div>
 
         {/* Informações do Usuário e Logout */}

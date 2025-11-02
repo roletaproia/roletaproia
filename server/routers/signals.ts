@@ -4,6 +4,7 @@ import { getDb } from "../db";
 import { signals, recommendations, captureSessions } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
+import { generateAdvancedRecommendation } from "../utils/aiRecommendation";
 
 export const signalsRouter = router({
   // Admin envia um novo sinal capturado
@@ -43,7 +44,7 @@ export const signalsRouter = router({
         .orderBy(desc(signals.timestamp))
         .limit(10);
 
-      const recommendation = generateRecommendation(recentSignals);
+      const recommendation = generateAdvancedRecommendation(recentSignals);
 
       // Salvar recomendação
       await db.insert(recommendations).values({
@@ -53,6 +54,14 @@ export const signalsRouter = router({
         suggestedAmount: recommendation.suggestedAmount,
         strategy: recommendation.strategy,
         result: "pending",
+        // Dados adicionais da I.A. avançada
+        suggestedNumber: recommendation.suggestedNumber,
+        suggestedDozen: recommendation.suggestedDozen,
+        suggestedColumn: recommendation.suggestedColumn,
+        suggestedParity: recommendation.suggestedParity,
+        sector: recommendation.sector,
+        neighbors: JSON.stringify(recommendation.neighbors),
+        analysis: JSON.stringify(recommendation.analysis),
       });
 
       return { success: true, signal, recommendation };

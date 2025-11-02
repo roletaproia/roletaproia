@@ -281,6 +281,14 @@ export const recommendations = mysqlTable("recommendations", {
   suggestedAmount: int("suggestedAmount").notNull(), // Valor sugerido em centavos
   strategy: varchar("strategy", { length: 64 }).notNull(), // Estratégia usada (martingale, fibonacci, etc.)
   result: mysqlEnum("result", ["pending", "win", "loss"]), // Resultado da recomendação
+  // Campos adicionais da I.A. avançada
+  suggestedNumber: int("suggestedNumber"), // Número específico sugerido (0-36)
+  suggestedDozen: int("suggestedDozen"), // Dúzia sugerida (1, 2 ou 3)
+  suggestedColumn: int("suggestedColumn"), // Coluna sugerida (1, 2 ou 3)
+  suggestedParity: varchar("suggestedParity", { length: 16 }), // "par" ou "impar"
+  sector: varchar("sector", { length: 64 }), // Setor da roda (vizinhos_zero, orfaos, terceiro)
+  neighbors: text("neighbors"), // JSON com números vizinhos
+  analysis: text("analysis"), // JSON com motivos da análise
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
