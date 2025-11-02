@@ -54,7 +54,10 @@ const WHEEL_ORDER = [
  * Função principal de geração de recomendação
  */
 export function generateAdvancedRecommendation(recentSignals: Signal[]): Recommendation {
+  console.log(`[I.A.] Gerando recomendação com ${recentSignals.length} sinais`);
+  
   if (recentSignals.length === 0) {
+    console.log('[I.A.] Sem sinais - retornando recomendação padrão');
     return getDefaultRecommendation();
   }
 
@@ -110,6 +113,16 @@ export function generateAdvancedRecommendation(recentSignals: Signal[]): Recomme
 
   // Determinar cor
   const suggestedColor = getNumberColor(suggestedNumber);
+
+  console.log(`[I.A.] Recomendação gerada:`, {
+    suggestedNumber,
+    suggestedColor,
+    suggestedDozen,
+    suggestedColumn,
+    suggestedParity,
+    sector: sectorAnalysis.hotSector,
+    confidence: Math.round(confidence)
+  });
 
   return {
     suggestedNumber,

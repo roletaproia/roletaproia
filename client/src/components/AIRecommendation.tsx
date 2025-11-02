@@ -93,7 +93,7 @@ export default function AIRecommendation({ recommendation }: AIRecommendationPro
           </h3>
           <div className="grid grid-cols-2 gap-3">
             {/* Número Sugerido */}
-            {recommendation.suggestedNumber !== undefined && (
+            {(recommendation.suggestedNumber !== undefined && recommendation.suggestedNumber !== null) && (
               <div className="flex flex-col">
                 <span className="text-xs text-gray-400 mb-1">📍 Número:</span>
                 <div
@@ -203,25 +203,17 @@ export default function AIRecommendation({ recommendation }: AIRecommendationPro
           </div>
         )}
 
-        {/* Confiança e Valor */}
+        {/* Confiança */}
         <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 rounded-lg p-4 border border-purple-500/30">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center">
-              <p className="text-xs text-gray-400 mb-1">💡 Confiança</p>
-              <p
-                className={`text-4xl font-bold ${getConfidenceColor(
-                  recommendation.confidence
-                )}`}
-              >
-                {recommendation.confidence}%
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-xs text-gray-400 mb-1">💰 Valor Sugerido</p>
-              <p className="text-3xl font-bold text-green-400">
-                R$ {(recommendation.suggestedAmount / 100).toFixed(2)}
-              </p>
-            </div>
+          <div className="text-center">
+            <p className="text-xs text-gray-400 mb-1">💡 Confiança</p>
+            <p
+              className={`text-4xl font-bold ${getConfidenceColor(
+                recommendation.confidence
+              )}`}
+            >
+              {recommendation.confidence}%
+            </p>
           </div>
         </div>
 
