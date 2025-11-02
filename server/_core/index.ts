@@ -196,58 +196,7 @@ async function startServer() {
     console.log(`Server running on http://localhost:${port}/`);
   });
 
-  // Sincronização automática com CasinoScores
-  let lastNumber: number | null = null;
-  let isRunning = false;
-
-  async function fetchAndSaveNumbers() {
-    if (isRunning) return;
-    
-    try {
-      isRunning = true;
-      
-      const response = await axios.get('https://www.randomnumberapi.com/api/v1.0/random?min=0&max=36&count=1', {
-        timeout: 10000
-      });
-      
-      const apiData = response.data;
-      
-      if (Array.isArray(apiData) && apiData.length > 0) {
-        const number = apiData[0];
-        
-        // Determinar cor baseado no número
-        const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
-        const color = number === 0 ? 'green' : (redNumbers.includes(number) ? 'red' : 'black');
-        
-        console.log(`🎰 Último resultado da API: ${number} (${color})`);
-        
-        if (number !== undefined && number >= 0 && number <= 36 && number !== lastNumber) {
-          const db = await getDb(); if (!db) throw new Error("Database not available"); await db.insert(signals).values({
-            number,
-            color,
-            source: 'random-api-roulette',
-            timestamp: new Date(),
-          });
-          
-          console.log(`✅ Número ${number} (${color}) capturado e salvo no banco!`);
-          lastNumber = number;
-        } else if (number === lastNumber) {
-          console.log(`⏭️ Número ${number} já capturado, aguardando próximo...`);
-        }
-      } else {
-        console.log('⚠️ Resposta da API inválida');
-      }
-    } catch (error: any) {
-      console.error('❌ Erro completo:', error);
-    } finally {
-      isRunning = false;
-    }
-  }
-
-  console.log('🚀 Iniciando sincronização com CasinoScores...');
-  fetchAndSaveNumbers();
-  cron.schedule('*/5 * * * * *', fetchAndSaveNumbers);
-  console.log('✅ Cron ativo! Capturando a cada 5 segundos.');
+  // Cron job interno desativado. A sincronização é feita pelo script local do usuário.
 }
 
 startServer().catch(console.error);
