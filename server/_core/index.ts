@@ -163,6 +163,16 @@ async function startServer() {
       const recommendation = generateAdvancedRecommendation(recentSignals);
 
       // Salvar recomendação
+      console.log('[SALVANDO] Dados da recomendação:', {
+        suggestedNumber: recommendation.suggestedNumber,
+        suggestedDozen: recommendation.suggestedDozen,
+        suggestedColumn: recommendation.suggestedColumn,
+        suggestedParity: recommendation.suggestedParity,
+        sector: recommendation.sector,
+        neighbors: JSON.stringify(recommendation.neighbors),
+        analysis: JSON.stringify(recommendation.analysis),
+      });
+      
       await db.insert(recommendations).values({
         signalId: latestSignal.id,
         betType: recommendation.betType,
