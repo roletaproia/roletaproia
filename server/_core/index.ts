@@ -39,6 +39,10 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 }
 
 async function startServer() {
+  // Executar migrations antes de iniciar o servidor
+  const { runMigrations } = await import('../utils/runMigrations');
+  await runMigrations();
+
   const app = express();
   // Security middlewares with CSP configuration
   app.use(helmet({
