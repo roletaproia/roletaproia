@@ -8,7 +8,6 @@ import AIRecommendation from "@/components/AIRecommendation";
 
 export default function LiveSignals() {
   const [isLive, setIsLive] = useState(true);
-  const [show1WinModal, setShow1WinModal] = useState(false);
 
   // Buscar sinal atual
   const { data: currentData, refetch: refetchCurrent } =
@@ -62,65 +61,18 @@ export default function LiveSignals() {
                 Grande índice de acerto • Cadastre-se agora e comece a ganhar!
               </p>
             </div>
-            <Button
-              onClick={() => setShow1WinModal(true)}
-              className="bg-white text-orange-600 hover:bg-yellow-50 font-bold px-8 py-3 text-lg shadow-xl"
+            <a
+              href="https://1wyvrz.life/?open=register&p=f5q8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-orange-600 hover:bg-yellow-50 font-bold px-8 py-3 text-lg shadow-xl rounded-md inline-block"
             >
               CADASTRAR NA 1WIN 🎰
-            </Button>
+            </a>
           </div>
         </div>
 
-        {/* Modal 1Win */}
-        {show1WinModal && (
-          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-            <div className="bg-slate-900 rounded-lg max-w-2xl w-full p-6 border border-orange-600/50">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold text-white">
-                  Cadastre-se na 1Win
-                </h3>
-                <button
-                  onClick={() => setShow1WinModal(false)}
-                  className="text-gray-400 hover:text-white text-2xl"
-                >
-                  ×
-                </button>
-              </div>
-              <div className="space-y-4">
-                <p className="text-gray-300">
-                  Para acessar os sinais da roleta e usar as recomendações da
-                  I.A., você precisa ter uma conta na 1Win.
-                </p>
-                <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4">
-                  <p className="text-yellow-300 text-sm mb-2">
-                    ⚠️ <strong>Importante:</strong>
-                  </p>
-                  <ul className="text-yellow-200 text-sm space-y-1 ml-4">
-                    <li>• Cadastre-se usando nosso link exclusivo</li>
-                    <li>• Faça login na sua conta 1Win</li>
-                    <li>• Depois volte aqui para usar os sinais</li>
-                  </ul>
-                </div>
-                <div className="flex gap-3">
-                  <a
-                    href="https://1wyvrz.life/?open=register&p=f5q8"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold py-3 rounded-lg text-center hover:from-orange-700 hover:to-red-700 transition-all"
-                  >
-                    CADASTRAR AGORA 🚀
-                  </a>
-                  <button
-                    onClick={() => setShow1WinModal(false)}
-                    className="px-6 bg-slate-700 text-white rounded-lg hover:bg-slate-600"
-                  >
-                    Já tenho conta
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+
 
         {/* Header */}
         <div className="mb-8">
