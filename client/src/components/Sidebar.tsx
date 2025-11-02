@@ -30,6 +30,7 @@ export default function Sidebar() {
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals", badge: "AO VIVO", badgeColor: "bg-green-500" },
+    { icon: Wallet, label: "Gerenciamento de Banca", href: "/bankroll" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
     { icon: Gift, label: "Indicações", href: "/referrals" },
     { icon: BookOpen, label: "Educação Financeira", href: "/education" },
