@@ -4,22 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { trpc } from "@/lib/trpc";
-import { Radio, Hand, TrendingUp, MessageSquare, Users, BarChart3, LogOut, User, Settings, Sparkles, Gift } from "lucide-react";
+import { Radio, MessageSquare, Users, BarChart3, LogOut, User, Settings, Sparkles, Gift } from "lucide-react";
 import { useLocation, Link } from "wouter";
 
 export default function Dashboard() {
   const { user } = useAuth();
   const [, navigate] = useLocation();
 
-  // Buscar dados de banca
-  const { data: bankroll, isLoading: bankrollLoading } = trpc.bankroll.get.useQuery();
+
 
   // Buscar status de subscription
   const { data: subscriptionStatus } = trpc.subscription.checkAccess.useQuery();
-
-  const formatCurrency = (cents: number) => {
-    return `R$ ${(cents / 100).toFixed(2)}`;
-  };
 
   const { logout } = useAuth();
 
@@ -101,64 +96,6 @@ export default function Dashboard() {
       </div>
 
       <div className="p-6 space-y-8">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Saldo Atual */}
-          <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-200">Saldo Atual</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-white">
-                {bankrollLoading ? "..." : formatCurrency(bankroll?.currentBalance || 0)}
-              </div>
-              <p className="text-xs text-gray-500 mt-1">
-                Inicial: {bankrollLoading ? "..." : formatCurrency(bankroll?.initialBalance || 0)}
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Total de Ganhos */}
-          <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-200">Total de Ganhos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-400">
-                {bankrollLoading ? "..." : formatCurrency(bankroll?.totalWins || 0)}
-              </div>
-              <p className="text-xs text-gray-500 mt-1">Acumulado</p>
-            </CardContent>
-          </Card>
-
-          {/* Total de Perdas */}
-          <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-200">Total de Perdas</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-red-400">
-                {bankrollLoading ? "..." : formatCurrency(bankroll?.totalLosses || 0)}
-              </div>
-              <p className="text-xs text-gray-500 mt-1">Acumulado</p>
-            </CardContent>
-          </Card>
-
-          {/* Taxa de Vitória */}
-          <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-700/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-gray-200">Taxa de Vitória</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-blue-400">
-                {bankrollLoading ? "..." : `${bankroll?.winRate || "0"}%`}
-              </div>
-              <p className="text-xs text-gray-500 mt-1">
-                {bankrollLoading ? "..." : `${bankroll?.totalBets || 0} apostas`}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
 
         {/* Funcionalidades Principais */}
         <div>
@@ -192,47 +129,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            {/* Simulador Manual */}
-            <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-700/30 hover:border-blue-600/60 transition-all cursor-pointer"
-              onClick={() => navigate("/betting-robot/manual")}>
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                    <Hand className="h-5 w-5 text-white" />
-                  </div>
-                  <CardTitle className="text-white">Simulador Manual</CardTitle>
-                </div>
-                <CardDescription>
-                  Insira números e receba sugestões da I.A.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
-                  Acessar Simulador
-                </Button>
-              </CardContent>
-            </Card>
 
-            {/* Gerenciamento de Banca */}
-            <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30 hover:border-green-600/60 transition-all cursor-pointer"
-              onClick={() => navigate("/bankroll-management")}>
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
-                    <TrendingUp className="h-5 w-5 text-white" />
-                  </div>
-                  <CardTitle className="text-white">Gerenciamento de Banca</CardTitle>
-                </div>
-                <CardDescription>
-                  Acompanhe seu saldo e estatísticas detalhadas
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold">
-                  Gerenciar Banca
-                </Button>
-              </CardContent>
-            </Card>
 
             {/* Chat */}
             <Card className="bg-gradient-to-br from-yellow-900/20 to-transparent border-yellow-700/30 hover:border-yellow-600/60 transition-all cursor-pointer"
