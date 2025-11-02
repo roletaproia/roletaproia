@@ -128,37 +128,46 @@ async function startServer() {
         return res.status(400).send('Dados inválidos.');
       }
 
-      // Salvar no banco de dados (usando a mesma lógica de salvamento)
-      // O banco de dados (db) e a tabela (signals) precisam ser importados.
-      // Vou assumir que 'db' e 'signals' estão disponíveis no escopo, como no cron job abaixo.
-      // O cron job usa 'db' e 'signals' sem importação explícita, então vou assumir que estão disponíveis.
-      // No entanto, para ser seguro, vou verificar se preciso importar.
-      // O código original não tem 'db' ou 'signals' importados, mas usa 'db.insert(signals)' no cron job.
-      // Vou assumir que 'db' e 'signals' são globais ou importados em outro lugar que não está visível.
-      // Se der erro, eu corrijo.
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
 
-      // Vou usar a lógica de inserção do cron job que já estava no arquivo.
-      // Preciso importar 'db' e 'signals' se não estiverem disponíveis.
-      // O código original não mostra a importação de 'db' e 'signals'.
-      // Vou adicionar a importação de 'db' e 'signals' no topo do arquivo para garantir.
-
-      // Vou fazer a edição em duas partes: importação e rota.
-      // Vou assumir que 'db' e 'signals' estão disponíveis no escopo global do arquivo.
-      // Se o cron job usa, a rota também deve usar.
-
-      // Vou prosseguir com a implementação da rota, assumindo que 'db' e 'signals' estão disponíveis.
-      // Se der erro de compilação, eu corrijo.
-
-      // Salvar no banco de dados (usando a mesma lógica de salvamento)
-      // O cron job usa 'db.insert(signals)' sem importação visível. Vou assumir que está ok.
-      const db = await getDb(); if (!db) throw new Error("Database not available"); await db.insert(signals).values({
+      // Inserir sinal no banco
+      const [signal] = await db.insert(signals).values({
         number: number,
         color: color,
         source: source || 'local-cron-sender',
         timestamp: new Date(timestamp) || new Date(),
+      }).returning();
+
+      // Buscar últimos 20 sinais para gerar recomendação
+      const recentSignals = await db
+        .select()
+        .from(signals)
+        .orderBy(desc(signals.timestamp))
+        .limit(20);
+
+      // Gerar recomendação da I.A.
+      const { generateAdvancedRecommendation } = await import('../utils/aiRecommendation');
+      const recommendation = generateAdvancedRecommendation(recentSignals);
+
+      // Salvar recomendação
+      await db.insert(recommendations).values({
+        signalId: signal.id,
+        betType: recommendation.betType,
+        confidence: recommendation.confidence,
+        suggestedAmount: recommendation.suggestedAmount,
+        strategy: recommendation.strategy,
+        result: "pending",
+        suggestedNumber: recommendation.suggestedNumber,
+        suggestedDozen: recommendation.suggestedDozen,
+        suggestedColumn: recommendation.suggestedColumn,
+        suggestedParity: recommendation.suggestedParity,
+        sector: recommendation.sector,
+        neighbors: JSON.stringify(recommendation.neighbors),
+        analysis: JSON.stringify(recommendation.analysis),
       });
 
-      console.log(`[RECEBIDO] Sinal ${number} (${color}) de ${source}`);
+      console.log(`[RECEBIDO] Sinal ${number} (${color}) de ${source} - Recomendação gerada!`);
       res.status(200).send('Sinal recebido e salvo.');
 
     } catch (error) {
