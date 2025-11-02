@@ -12,13 +12,13 @@ export async function runMigrations() {
   try {
     // Adicionar campos da I.A. avançada na tabela recommendations
     const migrations = [
-      `ALTER TABLE recommendations ADD COLUMN IF NOT EXISTS suggestedNumber INT`,
-      `ALTER TABLE recommendations ADD COLUMN IF NOT EXISTS suggestedDozen VARCHAR(10)`,
-      `ALTER TABLE recommendations ADD COLUMN IF NOT EXISTS suggestedColumn VARCHAR(10)`,
-      `ALTER TABLE recommendations ADD COLUMN IF NOT EXISTS suggestedParity VARCHAR(10)`,
-      `ALTER TABLE recommendations ADD COLUMN IF NOT EXISTS sector VARCHAR(50)`,
-      `ALTER TABLE recommendations ADD COLUMN IF NOT EXISTS neighbors TEXT`,
-      `ALTER TABLE recommendations ADD COLUMN IF NOT EXISTS analysis TEXT`,
+      `ALTER TABLE recommendations ADD COLUMN suggestedNumber INT`,
+      `ALTER TABLE recommendations ADD COLUMN suggestedDozen INT`,
+      `ALTER TABLE recommendations ADD COLUMN suggestedColumn INT`,
+      `ALTER TABLE recommendations ADD COLUMN suggestedParity VARCHAR(10)`,
+      `ALTER TABLE recommendations ADD COLUMN sector VARCHAR(50)`,
+      `ALTER TABLE recommendations ADD COLUMN neighbors TEXT`,
+      `ALTER TABLE recommendations ADD COLUMN analysis TEXT`,
     ];
 
     for (const migration of migrations) {
