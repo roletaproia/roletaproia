@@ -8,6 +8,7 @@ import superjson from "superjson";
 import App from "./App";
 import { getLoginUrl } from "./const";
 import "./index.css";
+import { registerServiceWorker } from "./lib/registerSW";
 
 const queryClient = new QueryClient();
 
@@ -60,3 +61,12 @@ createRoot(document.getElementById("root")!).render(
     </QueryClientProvider>
   </trpc.Provider>
 );
+
+// Registrar Service Worker para PWA
+if (import.meta.env.PROD) {
+  registerServiceWorker().then((registration) => {
+    if (registration) {
+      console.log('PWA pronto para uso offline');
+    }
+  });
+}

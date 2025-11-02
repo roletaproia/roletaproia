@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Mail, Image as ImageIcon, Save, Trash2, ExternalLink } from "lucide-react";
+import NotificationSettings from "@/components/NotificationSettings";
 
 export default function Profile() {
   const { user, refetchUser } = useAuth();
@@ -222,6 +223,9 @@ export default function Profile() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Configurações de Notificações */}
+        <NotificationSettings />
 
         {/* Informações da Conta */}
         <Card className="bg-gray-800 border-gray-700">
