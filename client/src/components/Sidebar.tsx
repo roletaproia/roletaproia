@@ -16,6 +16,7 @@ import {
   Radio,
   HelpCircle,
   Crown,
+  BookOpen,
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "./ui/button";
@@ -31,6 +32,7 @@ export default function Sidebar() {
     { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals", badge: "AO VIVO", badgeColor: "bg-green-500" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
     { icon: Gift, label: "Indicações", href: "/referrals" },
+    { icon: BookOpen, label: "Educação Financeira", href: "/education" },
     { icon: User, label: "Perfil", href: "/profile" },
   ];
 

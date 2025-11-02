@@ -24,6 +24,7 @@ import Pricing from "./pages/Pricing";
 import Referrals from "./pages/Referrals";
 import AdminSubscriptions from "./pages/AdminSubscriptions";
 import LiveSignals from "./pages/LiveSignals";
+import FinancialEducation from "./pages/FinancialEducation";
 
 
 function Router() {
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/referrals" component={Referrals} />
       <Route path="/betting-robot" component={BettingRobot} />
       <Route path="/live-signals" component={LiveSignals} />
+      <Route path="/education" component={FinancialEducation} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
       <Route path="/chat" component={Chat} />
