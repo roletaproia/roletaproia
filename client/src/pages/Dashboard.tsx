@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { trpc } from "@/lib/trpc";
-import { Radio, MessageSquare, Users, BarChart3, LogOut, User, Settings, Sparkles, Gift } from "lucide-react";
+import { Radio, MessageSquare, Users, BarChart3, LogOut, User, Settings, Sparkles, Gift, Wallet, BookOpen } from "lucide-react";
 import { useLocation, Link } from "wouter";
 
 export default function Dashboard() {
@@ -173,6 +173,68 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
+            {/* Gerenciamento de Banca */}
+            <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30 hover:border-green-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/bankroll")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+                    <Wallet className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Gerenciamento de Banca</CardTitle>
+                </div>
+                <CardDescription>
+                  Gerencie sua banca com estratégias inteligentes
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold">
+                  Gerenciar Banca
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Educação Financeira */}
+            <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-700/30 hover:border-blue-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/education")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                    <BookOpen className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Educação Financeira</CardTitle>
+                </div>
+                <CardDescription>
+                  Aprenda sobre jogo responsável e gestão de banca
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+                  Aprender Mais
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Estatísticas Avançadas */}
+            <Card className="bg-gradient-to-br from-cyan-900/20 to-transparent border-cyan-700/30 hover:border-cyan-600/60 transition-all cursor-pointer"
+              onClick={() => navigate("/statistics")}>
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="w-10 h-10 bg-cyan-600 rounded-full flex items-center justify-center">
+                    <BarChart3 className="h-5 w-5 text-white" />
+                  </div>
+                  <CardTitle className="text-white">Estatísticas Avançadas</CardTitle>
+                </div>
+                <CardDescription>
+                  Visualize padrões e estatísticas detalhadas
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold">
+                  Ver Estatísticas
+                </Button>
+              </CardContent>
+            </Card>
 
           </div>
         </div>
