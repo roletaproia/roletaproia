@@ -32,16 +32,42 @@ export function AIRecommendationMultiple({ recommendation }: AIRecommendationMul
     }
   }, [recommendation.suggestedNumber, lastRecommendation]);
 
+  // IMPORTANTE: Tailwind precisa ver as classes COMPLETAS no código para incluí-las no build
+  // NÃO usar template strings dinâmicas como `bg-${color}-600`
   const getColorClass = (color: string) => {
-    if (color === "red") return "bg-red-600";
-    if (color === "black") return "bg-gray-900";
-    return "bg-green-600";
+    // Validação: garantir que color nunca é undefined
+    if (!color) {
+      console.error("[AIRecommendationMultiple] Cor undefined recebida! Usando vermelho como fallback");
+      return "bg-red-600";
+    }
+    
+    // Mapa fixo de cores - Tailwind vai incluir todas essas classes no build
+    const colorMap: Record<string, string> = {
+      red: "bg-red-600",
+      black: "bg-gray-900",
+      green: "bg-green-600"
+    };
+    
+    // Retornar classe do mapa ou fallback
+    const colorClass = colorMap[color.toLowerCase()];
+    if (!colorClass) {
+      console.warn(`[AIRecommendationMultiple] Cor inválida: ${color}, usando vermelho como fallback`);
+      return "bg-red-600";
+    }
+    
+    return colorClass;
   };
 
   const getColorName = (color: string) => {
-    if (color === "red") return "Vermelho";
-    if (color === "black") return "Preto";
-    return "Verde";
+    if (!color) return "Vermelho"; // Fallback
+    
+    const colorNames: Record<string, string> = {
+      red: "Vermelho",
+      black: "Preto",
+      green: "Verde"
+    };
+    
+    return colorNames[color.toLowerCase()] || "Vermelho";
   };
 
   const getDozenName = (dozen: number) => {

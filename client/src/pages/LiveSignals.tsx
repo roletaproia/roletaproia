@@ -42,10 +42,20 @@ export default function LiveSignals() {
   };
 
   // Função para obter classe CSS da cor
+  // IMPORTANTE: Tailwind precisa ver as classes COMPLETAS no código
   const getColorClass = (color: string): string => {
-    if (color === "red") return "bg-red-500";
-    if (color === "black") return "bg-gray-900";
-    return "bg-green-500";
+    if (!color) {
+      console.warn("[LiveSignals] Cor undefined, usando vermelho");
+      return "bg-red-500";
+    }
+    
+    const colorMap: Record<string, string> = {
+      red: "bg-red-500",
+      black: "bg-gray-900",
+      green: "bg-green-500"
+    };
+    
+    return colorMap[color.toLowerCase()] || "bg-red-500";
   };
 
   return (

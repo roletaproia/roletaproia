@@ -125,8 +125,14 @@ export function generateAdvancedRecommendation(recentSignals: Signal[]): Recomme
   // Determinar paridade
   const suggestedParity = suggestedNumber % 2 === 0 ? "par" : "impar";
 
-  // Determinar cor
+  // Determinar cor com validação extra
   const suggestedColor = getNumberColor(suggestedNumber);
+  
+  // VALIDAÇÃO EXTRA: garantir que a cor nunca é undefined
+  if (!suggestedColor || (suggestedColor !== "red" && suggestedColor !== "black" && suggestedColor !== "green")) {
+    console.error(`[I.A.] COR INVÁLIDA DETECTADA: ${suggestedColor} para número ${suggestedNumber}`);
+    throw new Error(`Cor inválida: ${suggestedColor}`);
+  }
 
   console.log(`[I.A.] Recomendação gerada:`, {
     suggestedNumber,
@@ -430,11 +436,28 @@ function determineBestNumber(
 }
 
 /**
- * Obtém a cor de um número
+ * Obtém a cor de um número com validação
+ * NUNCA retorna undefined - sempre retorna "red" ou "black" (nunca "green" para recomendações)
  */
-function getNumberColor(number: number): string {
+export function getNumberColor(number: number): string {
+  // Validação: garantir que number é um número válido
+  if (typeof number !== 'number' || isNaN(number)) {
+    console.warn(`[getNumberColor] Número inválido recebido: ${number}, retornando "red" como fallback`);
+    return "red";
+  }
+  
+  // Zero é verde (mas nunca deve ser recomendado)
   if (number === 0) return "green";
-  return RED_NUMBERS.includes(number) ? "red" : "black";
+  
+  // Verificar se é vermelho
+  if (RED_NUMBERS.includes(number)) return "red";
+  
+  // Verificar se é preto
+  if (BLACK_NUMBERS.includes(number)) return "black";
+  
+  // Fallback: se o número não está em nenhuma lista, retornar vermelho
+  console.warn(`[getNumberColor] Número ${number} não encontrado nas listas, retornando "red" como fallback`);
+  return "red";
 }
 
 /**
