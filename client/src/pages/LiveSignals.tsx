@@ -4,7 +4,8 @@ import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import AIRecommendation from "@/components/AIRecommendation";
+import { AIRecommendationMultiple } from "@/components/AIRecommendationMultiple";
+import { Open1WinButton } from "@/components/Open1WinButton";
 
 export default function LiveSignals() {
   const [isLive, setIsLive] = useState(true);
@@ -133,7 +134,7 @@ export default function LiveSignals() {
 
           {/* Recomendação da I.A. */}
           {currentData?.recommendation ? (
-            <AIRecommendation recommendation={currentData.recommendation} />
+            <AIRecommendationMultiple recommendation={currentData.recommendation} />
           ) : (
             <Card className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 border-purple-500/30">
               <CardHeader>
@@ -175,6 +176,11 @@ export default function LiveSignals() {
               ) : (
                 <p className="text-gray-400 py-8">Nenhum sinal ainda...</p>
               )}
+            </div>
+            
+            {/* Botão 1Win */}
+            <div className="mt-6">
+              <Open1WinButton />
             </div>
           </CardContent>
         </Card>
