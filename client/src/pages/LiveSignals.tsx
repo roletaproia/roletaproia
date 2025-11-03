@@ -51,24 +51,24 @@ export default function LiveSignals() {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Banner 1Win */}
-        <div className="mb-6 bg-gradient-to-r from-yellow-600 to-orange-600 rounded-lg p-4 shadow-lg">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="flex-1">
-              <h2 className="text-white font-bold text-xl mb-1">
-                🏆 USE A CASA DE APOSTA RECOMENDADA
+        {/* Banner 1Win - Compacto no mobile */}
+        <div className="mb-6 bg-gradient-to-r from-yellow-600 to-orange-600 rounded-lg p-3 md:p-4 shadow-lg">
+          <div className="flex items-center justify-between flex-wrap gap-2 md:gap-4">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-white font-bold text-sm md:text-xl mb-0.5 md:mb-1">
+                🏆 CASA RECOMENDADA
               </h2>
-              <p className="text-yellow-100 text-sm">
-                Grande índice de acerto • Cadastre-se agora e comece a ganhar!
+              <p className="text-yellow-100 text-xs md:text-sm hidden md:block">
+                Grande índice de acerto • Cadastre-se agora!
               </p>
             </div>
             <a
               href="https://1wyvrz.life/?open=register&p=f5q8"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white text-orange-600 hover:bg-yellow-50 font-bold px-8 py-3 text-lg shadow-xl rounded-md inline-block"
+              className="bg-white text-orange-600 hover:bg-yellow-50 font-bold px-4 md:px-8 py-2 md:py-3 text-sm md:text-lg shadow-xl rounded-md inline-block whitespace-nowrap"
             >
-              CADASTRAR NA 1WIN 🎰
+              1WIN 🎰
             </a>
           </div>
         </div>
