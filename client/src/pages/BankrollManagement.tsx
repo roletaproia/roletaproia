@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -111,8 +112,9 @@ export default function BankrollManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 p-4 md:p-8">
+        <div className="max-w-7xl mx-auto space-y-6">
         
         {/* Header */}
         <div className="flex items-center gap-3 mb-8">
@@ -588,7 +590,8 @@ export default function BankrollManagement() {
           </CardContent>
         </Card>
 
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }

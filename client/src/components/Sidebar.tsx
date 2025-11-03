@@ -119,18 +119,29 @@ export default function Sidebar() {
           })}
         </nav>
 
-        {/* Botão de Suporte Telegram */}
-        <div className="p-4">
+        {/* Botões de Ação */}
+        <div className="p-4 space-y-2">
+          {/* Botão 1Win - Ganhe Bônus */}
+          <a 
+            href="https://1wyvrz.life/?open=register&p=f5q8" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="block w-full bg-gradient-to-r from-yellow-600 to-orange-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:from-yellow-700 hover:to-orange-700 transition-all shadow-lg"
+          >
+            <Crown className="inline h-4 w-4 mr-2" />
+            1Win - Ganhe Bônus 🎰
+          </a>
+
+          {/* Botão Suporte Telegram */}
           <a 
             href="https://t.me/seu_usuario_telegram" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all mb-2"
+            className="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all"
           >
             <HelpCircle className="inline h-4 w-4 mr-2" />
             Suporte Telegram
           </a>
-
         </div>
 
         {/* Informações do Usuário e Logout */}

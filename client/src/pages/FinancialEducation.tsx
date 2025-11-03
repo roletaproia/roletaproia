@@ -1,3 +1,4 @@
+import Layout from "@/components/Layout";
 import { Card } from "@/components/ui/card";
 import { 
   BookOpen, 
@@ -16,8 +17,9 @@ import { Link } from "wouter";
 
 export default function FinancialEducation() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900">
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900">
+        <div className="container mx-auto px-4 py-12 max-w-6xl">
         
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -485,7 +487,8 @@ export default function FinancialEducation() {
           </Card>
         </section>
 
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
