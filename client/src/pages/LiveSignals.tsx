@@ -12,7 +12,7 @@ export default function LiveSignals() {
   // Buscar sinal atual
   const { data: currentData, refetch: refetchCurrent } =
     trpc.signals.getCurrentSignal.useQuery(undefined, {
-      refetchInterval: 3000, // Atualizar a cada 3 segundos
+      refetchInterval: 1000, // Atualizar a cada 1 segundo (tempo real)
     });
 
   // Buscar últimos sinais
@@ -20,7 +20,7 @@ export default function LiveSignals() {
     trpc.signals.getLatestSignals.useQuery(
       { limit: 10 },
       {
-        refetchInterval: 3000,
+        refetchInterval: 1000, // Tempo real
       }
     );
 
@@ -29,7 +29,7 @@ export default function LiveSignals() {
     trpc.signals.getSessionStats.useQuery(
       {},
       {
-        refetchInterval: 5000,
+        refetchInterval: 2000, // Estatísticas a cada 2s
       }
     );
 
