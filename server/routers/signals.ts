@@ -98,10 +98,10 @@ export const signalsRouter = router({
       return null;
     }
 
+    // Buscar a última recomendação criada (para a PRÓXIMA rodada)
     const [recommendation] = await db
       .select()
       .from(recommendations)
-      .where(eq(recommendations.signalId, latestSignal.id))
       .orderBy(desc(recommendations.createdAt))
       .limit(1);
 
