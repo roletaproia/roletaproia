@@ -123,6 +123,11 @@ export default function LiveSignals() {
                       "pt-BR"
                     )}
                   </p>
+                  
+                  {/* Botão 1Win dentro do card */}
+                  <div className="mt-6 w-full">
+                    <Open1WinButton />
+                  </div>
                 </div>
               ) : (
                 <div className="flex items-center justify-center py-16">
@@ -176,11 +181,6 @@ export default function LiveSignals() {
               ) : (
                 <p className="text-gray-400 py-8">Nenhum sinal ainda...</p>
               )}
-            </div>
-            
-            {/* Botão 1Win */}
-            <div className="mt-6">
-              <Open1WinButton />
             </div>
           </CardContent>
         </Card>
