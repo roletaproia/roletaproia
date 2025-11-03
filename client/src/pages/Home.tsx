@@ -290,7 +290,7 @@ export default function Home() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Notificações Push</h3>
                 <p className="text-gray-300">
-                  Receba alertas instantâneos quando novas recomendações forem geradas ou quando a confiança for alta (>80%).
+                  Receba alertas instantâneos quando novas recomendações forem geradas ou quando a confiança for alta (&gt;80%).
                 </p>
               </div>
             </div>
