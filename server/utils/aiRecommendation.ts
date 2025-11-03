@@ -61,6 +61,9 @@ export function generateAdvancedRecommendation(recentSignals: Signal[]): Recomme
     return getDefaultRecommendation();
   }
 
+  // Número que acabou de sair (NÃO recomendar este!)
+  const lastNumber = recentSignals[0].number;
+
   const analysis: string[] = [];
   let confidence = 50;
 
@@ -93,13 +96,24 @@ export function generateAdvancedRecommendation(recentSignals: Signal[]): Recomme
   confidence = Math.max(50, Math.min(95, confidence));
 
   // Determinar número sugerido baseado em todas as análises
-  const suggestedNumber = determineBestNumber(
+  let suggestedNumber = determineBestNumber(
     colorAnalysis,
     dozenAnalysis,
     sectorAnalysis,
     parityAnalysis,
     hotNumbersAnalysis
   );
+
+  // IMPORTANTE: NÃO recomendar o número que acabou de sair!
+  if (suggestedNumber === lastNumber) {
+    console.log(`[I.A.] Número ${suggestedNumber} acabou de sair! Escolhendo outro...`);
+    // Escolher outro número da mesma cor
+    const suggestedColor = getNumberColor(suggestedNumber);
+    const colorNumbers = suggestedColor === "red" ? RED_NUMBERS : BLACK_NUMBERS;
+    const alternatives = colorNumbers.filter(n => n !== lastNumber);
+    suggestedNumber = alternatives[Math.floor(Math.random() * alternatives.length)];
+    console.log(`[I.A.] Novo número escolhido: ${suggestedNumber}`);
+  }
 
   // Encontrar vizinhos do número sugerido
   const neighbors = getNeighbors(suggestedNumber, 2);
