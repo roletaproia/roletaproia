@@ -268,7 +268,7 @@ export const robotRouter = router({
 
       if (betType === "color") {
         // Contar vermelhos e pretos
-        const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 17, 18, 19, 21, 23, 25, 27, 28, 30, 31, 32, 34, 36];
+        const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
         const reds = numbers.filter(n => redNumbers.includes(n)).length;
         const blacks = numbers.filter(n => n !== 0 && !redNumbers.includes(n)).length;
 
@@ -397,8 +397,8 @@ export const robotRouter = router({
  */
 function determineResult(number: number, betType: string, betValue?: string): "win" | "loss" {
   // Cores da roleta
-  const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 17, 18, 19, 21, 23, 25, 27, 28, 30, 31, 32, 34, 36];
-  const blackNumbers = [2, 4, 6, 8, 10, 11, 13, 15, 20, 22, 24, 26, 29, 33, 35];
+  const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+  const blackNumbers = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
 
   switch (betType) {
     case "color":
