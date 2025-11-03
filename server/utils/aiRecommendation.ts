@@ -39,11 +39,11 @@ const SECTORS = {
   terceiro: [27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33],
 };
 
-// Números vermelhos
-const RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+// Números vermelhos (Lightning Roulette - Evolution Gaming)
+const RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 17, 18, 19, 21, 23, 25, 27, 28, 30, 31, 32, 34, 36];
 
-// Números pretos
-const BLACK_NUMBERS = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
+// Números pretos (Lightning Roulette - Evolution Gaming)
+const BLACK_NUMBERS = [2, 4, 6, 8, 10, 11, 13, 15, 20, 22, 24, 26, 29, 33, 35];
 
 // Mapa de vizinhos na roda (ordem física)
 const WHEEL_ORDER = [
