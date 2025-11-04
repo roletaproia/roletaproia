@@ -107,6 +107,18 @@ export const signalsRouter = router({
       .orderBy(desc(recommendations.createdAt))
       .limit(1);
 
+    // Parse JSON fields
+    if (recommendation && recommendation.analysis) {
+      try {
+        recommendation.analysis = typeof recommendation.analysis === 'string' 
+          ? JSON.parse(recommendation.analysis) 
+          : recommendation.analysis;
+      } catch (e) {
+        console.error('Error parsing analysis:', e);
+        recommendation.analysis = [];
+      }
+    }
+
     return {
       signal: latestSignal,
       recommendation: recommendation || null,
