@@ -27,6 +27,8 @@ import LiveSignals from "./pages/LiveSignals";
 import FinancialEducation from "./pages/FinancialEducation";
 import BankrollManagement from "@/pages/BankrollManagement";
 import AdvancedStatistics from "@/pages/AdvancedStatistics";
+import TermsOfService from "@/pages/TermsOfService";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
 
 function Router() {
@@ -47,6 +49,8 @@ function Router() {
       <Route path="/education" component={FinancialEducation} />
       <Route path="/bankroll" component={BankrollManagement} />
       <Route path="/statistics" component={AdvancedStatistics} />
+      <Route path="/termos-de-uso" component={TermsOfService} />
+      <Route path="/politica-de-privacidade" component={PrivacyPolicy} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
       <Route path="/chat" component={Chat} />
