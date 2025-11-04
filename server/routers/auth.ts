@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
-import { users, blockedIps, subscriptions } from "../../drizzle/schema";
+import { users, subscriptions } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import { SignJWT } from "jose";
@@ -28,19 +28,8 @@ export const authRouter = router({
       const db = await getDb();
       if (!db) throw new Error("Database not available");
 
-      // Obter IP do usuário
+      // Obter IP do usuário para registro
       const userIp = ctx.req.ip || ctx.req.socket.remoteAddress || 'unknown';
-
-      // Verificar quantas contas já foram criadas com este IP
-      const existingIpsCount = await db
-        .select()
-        .from(blockedIps)
-        .where(eq(blockedIps.ipAddress, userIp));
-
-      // Permitir até 3 contas por IP
-      if (existingIpsCount.length >= 3) {
-        throw new Error("Limite de contas de teste atingido para este IP. Entre em contato com o suporte se precisar de ajuda.");
-      }
 
       // Verificar se o email já existe
       
@@ -68,11 +57,7 @@ export const authRouter = router({
         })
         .$returningId();
 
-      // Registrar IP como usado
-      await db.insert(blockedIps).values({
-        ipAddress: userIp,
-        userId: newUser.id,
-      });
+      // IP registrado apenas na subscription para referência
 
       // Criar subscription com trial de 7 dias
       const trialEndsAt = new Date();
