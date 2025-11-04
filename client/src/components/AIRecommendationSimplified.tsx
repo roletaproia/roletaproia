@@ -28,14 +28,17 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
   }>({ type: null, message: '' });
   const [isAnalyzing, setIsAnalyzing] = useState(false); // Estado de análise
   const [previousResult, setPreviousResult] = useState<number | null>(null);
-  const [previousRecommendationId, setPreviousRecommendationId] = useState<number | null>(null);
+  const [previousRecommendationJson, setPreviousRecommendationJson] = useState<string>("");
 
-  // Detectar quando chega nova recomendação (ID mudou)
+  // Stringify recommendation para detectar mudanças nos valores internos
+  const recommendationJson = JSON.stringify(recommendation);
+
+  // Detectar quando chega nova recomendação (qualquer valor mudou)
   useEffect(() => {
-    if (recommendation.id && recommendation.id !== previousRecommendationId) {
-      // Nova recomendação chegou!
+    if (recommendationJson && recommendationJson !== previousRecommendationJson) {
+      // Nova recomendação chegou (valores mudaram)!
       setIsAnalyzing(true);
-      setPreviousRecommendationId(recommendation.id);
+      setPreviousRecommendationJson(recommendationJson);
       
       // Mostrar "ANALISANDO" por 3 segundos
       const analyzeTimer = setTimeout(() => {
@@ -44,7 +47,7 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
       
       return () => clearTimeout(analyzeTimer);
     }
-  }, [recommendation.id, previousRecommendationId]);
+  }, [recommendationJson, previousRecommendationJson]);
 
   // Detectar quando chega novo resultado
   useEffect(() => {
