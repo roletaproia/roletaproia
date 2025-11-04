@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AIRecommendationMultiple } from "@/components/AIRecommendationMultiple";
+import { AIRecommendationSimplified } from "@/components/AIRecommendationSimplified";
 import { Open1WinButton } from "@/components/Open1WinButton";
 
 export default function LiveSignals() {
@@ -149,7 +149,10 @@ export default function LiveSignals() {
 
           {/* Recomendação da I.A. */}
           {currentData?.recommendation ? (
-            <AIRecommendationMultiple recommendation={currentData.recommendation} />
+            <AIRecommendationSimplified 
+              recommendation={currentData.recommendation} 
+              lastResult={currentData.signal?.number || null}
+            />
           ) : (
             <Card className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 border-purple-500/30">
               <CardHeader>

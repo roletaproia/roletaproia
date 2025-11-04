@@ -5,6 +5,7 @@ import { signals, recommendations, captureSessions } from "../../drizzle/schema"
 import { eq, desc } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 import { generateAdvancedRecommendation } from "../utils/aiRecommendation";
+import { generateAdvancedRecommendationV2 } from "../utils/aiRecommendationV2";
 
 export const signalsRouter = router({
   // Admin envia um novo sinal capturado
@@ -37,31 +38,32 @@ export const signalsRouter = router({
         })
         .returning();
 
-      // Gerar recomendação baseada no histórico
+      // Gerar recomendação baseada no histórico (V2 - análise profunda)
       const recentSignals = await db
         .select()
         .from(signals)
         .orderBy(desc(signals.timestamp))
-        .limit(10);
+        .limit(200); // Análise profunda com 200 sinais
 
-      const recommendation = generateAdvancedRecommendation(recentSignals);
+      const recommendation = generateAdvancedRecommendationV2(recentSignals);
 
-      // Salvar recomendação
+      // Salvar recomendação (adaptado para V2)
       await db.insert(recommendations).values({
         signalId: signal.id,
-        betType: recommendation.betType,
+        betType: recommendation.suggestedColor || "red",
         confidence: recommendation.confidence,
-        suggestedAmount: recommendation.suggestedAmount,
-        strategy: recommendation.strategy,
+        suggestedAmount: 10,
+        strategy: "ai_advanced_v2",
         result: "pending",
-        // Dados adicionais da I.A. avançada
+        // Dados adicionais da I.A. avançada V2
         suggestedNumber: recommendation.suggestedNumber,
-        suggestedDozen: recommendation.suggestedDozen,
-        suggestedColumn: recommendation.suggestedColumn,
-        suggestedParity: recommendation.suggestedParity,
-        sector: recommendation.sector,
-        neighbors: JSON.stringify(recommendation.neighbors),
+        suggestedDozen: recommendation.suggestedNumber ? Math.ceil(recommendation.suggestedNumber / 12) : 1,
+        suggestedColumn: recommendation.suggestedNumber ? ((recommendation.suggestedNumber - 1) % 3) + 1 : 1,
+        suggestedParity: recommendation.suggestedNumber && recommendation.suggestedNumber % 2 === 0 ? "par" : "impar",
+        sector: "v2_confluence",
+        neighbors: JSON.stringify([]),
         analysis: JSON.stringify(recommendation.analysis),
+        suggestedColor: recommendation.suggestedColor,
       });
 
       return { success: true, signal, recommendation };
