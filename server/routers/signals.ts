@@ -107,21 +107,35 @@ export const signalsRouter = router({
       .orderBy(desc(recommendations.createdAt))
       .limit(1);
 
-    // Parse JSON fields
-    if (recommendation && recommendation.analysis) {
+    // Adaptar recommendation para o formato do componente AIRecommendationSimplified
+    let adaptedRecommendation = null;
+    
+    if (recommendation) {
+      // Parse analysis
+      let analysis = [];
       try {
-        recommendation.analysis = typeof recommendation.analysis === 'string' 
+        analysis = typeof recommendation.analysis === 'string' 
           ? JSON.parse(recommendation.analysis) 
           : recommendation.analysis;
       } catch (e) {
         console.error('Error parsing analysis:', e);
-        recommendation.analysis = [];
+        analysis = [];
       }
+
+      // Adaptar para novo formato
+      adaptedRecommendation = {
+        hasSignal: recommendation.suggestedNumber !== null && recommendation.suggestedNumber !== undefined,
+        suggestedNumber: recommendation.suggestedNumber,
+        suggestedColor: recommendation.suggestedColor || recommendation.betType,
+        confidence: recommendation.confidence || 0,
+        analysis: Array.isArray(analysis) ? analysis : [],
+        confluenceScore: 3, // Valor padrão (pode ser calculado depois)
+      };
     }
 
     return {
       signal: latestSignal,
-      recommendation: recommendation || null,
+      recommendation: adaptedRecommendation,
     };
   }),
 
