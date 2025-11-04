@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Target, TrendingUp, AlertTriangle, CheckCircle, XCircle, Loader } from "lucide-react";
 
 interface Recommendation {
+  id?: number; // ID da recomendação para detectar mudanças
   hasSignal: boolean;
   suggestedNumber: number | null;
   suggestedColor: string | null;
@@ -27,13 +28,14 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
   }>({ type: null, message: '' });
   const [isAnalyzing, setIsAnalyzing] = useState(false); // Estado de análise
   const [previousResult, setPreviousResult] = useState<number | null>(null);
+  const [previousRecommendationId, setPreviousRecommendationId] = useState<number | null>(null);
 
-  // Detectar quando chega novo resultado
+  // Detectar quando chega nova recomendação (ID mudou)
   useEffect(() => {
-    if (lastResult !== null && lastResult !== previousResult) {
-      // Novo resultado chegou!
+    if (recommendation.id && recommendation.id !== previousRecommendationId) {
+      // Nova recomendação chegou!
       setIsAnalyzing(true);
-      setPreviousResult(lastResult);
+      setPreviousRecommendationId(recommendation.id);
       
       // Mostrar "ANALISANDO" por 3 segundos
       const analyzeTimer = setTimeout(() => {
@@ -41,6 +43,13 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
       }, 3000);
       
       return () => clearTimeout(analyzeTimer);
+    }
+  }, [recommendation.id, previousRecommendationId]);
+
+  // Detectar quando chega novo resultado
+  useEffect(() => {
+    if (lastResult !== null && lastResult !== previousResult) {
+      setPreviousResult(lastResult);
     }
   }, [lastResult, previousResult]);
 
