@@ -144,12 +144,12 @@ async function startServer() {
         timestamp: new Date(timestamp) || new Date(),
       });
 
-      // Buscar o sinal recém-inserido e os últimos 20 sinais para gerar recomendação
+      // Buscar o sinal recém-inserido e os últimos 200 sinais para gerar recomendação V2
       const recentSignals = await db
         .select()
         .from(signals)
         .orderBy(desc(signals.timestamp))
-        .limit(20);
+        .limit(200); // V2 usa 200 spins para análise profunda
 
       if (recentSignals.length === 0) {
         console.log(`[RECEBIDO] Sinal ${number} (${color}) de ${source} - Sem sinais para análise`);
@@ -158,9 +158,9 @@ async function startServer() {
 
       const latestSignal = recentSignals[0];
 
-      // Gerar recomendação da I.A.
-      const { generateAdvancedRecommendation } = await import('../utils/aiRecommendation');
-      const recommendation = generateAdvancedRecommendation(recentSignals);
+      // Gerar recomendação da I.A. V2 (5 estratégias avançadas)
+      const { generateAdvancedRecommendationV2 } = await import('../utils/aiRecommendationV2');
+      const recommendation = generateAdvancedRecommendationV2(recentSignals);
 
       // Salvar recomendação
       console.log('[SALVANDO] Dados da recomendação:', {
@@ -175,18 +175,20 @@ async function startServer() {
       
       await db.insert(recommendations).values({
         signalId: latestSignal.id,
-        betType: recommendation.betType,
+        betType: recommendation.suggestedColor || "red",
         confidence: recommendation.confidence,
-        suggestedAmount: recommendation.suggestedAmount,
-        strategy: recommendation.strategy,
+        suggestedAmount: 10,
+        strategy: "ai_advanced_v2",
         result: "pending",
+        // Dados V2
         suggestedNumber: recommendation.suggestedNumber,
-        suggestedDozen: recommendation.suggestedDozen,
-        suggestedColumn: recommendation.suggestedColumn,
-        suggestedParity: recommendation.suggestedParity,
-        sector: recommendation.sector,
-        neighbors: JSON.stringify(recommendation.neighbors),
+        suggestedDozen: recommendation.suggestedNumber ? Math.ceil(recommendation.suggestedNumber / 12) : 1,
+        suggestedColumn: recommendation.suggestedNumber ? ((recommendation.suggestedNumber - 1) % 3) + 1 : 1,
+        suggestedParity: recommendation.suggestedNumber && recommendation.suggestedNumber % 2 === 0 ? "par" : "impar",
+        sector: "v2_confluence",
+        neighbors: JSON.stringify([]),
         analysis: JSON.stringify(recommendation.analysis),
+        suggestedColor: recommendation.suggestedColor,
       });
 
       console.log(`[RECEBIDO] Sinal ${number} (${color}) de ${source} - Recomendação gerada!`);
