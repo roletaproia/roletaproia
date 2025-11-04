@@ -36,15 +36,6 @@ export default function Dashboard() {
             )}
           </div>
           <p className="text-gray-200">Bem-vindo, {user?.name}! Escolha uma funcionalidade abaixo.</p>
-          {subscriptionStatus?.daysRemaining !== undefined && subscriptionStatus.daysRemaining <= 7 && (
-            <div className={`mt-2 px-3 py-2 rounded-lg text-sm font-medium ${
-              subscriptionStatus.daysRemaining <= 2 
-                ? "bg-red-900/30 border border-red-700/50 text-red-300" 
-                : "bg-yellow-900/30 border border-yellow-700/50 text-yellow-300"
-            }`}>
-              ⏱️ {subscriptionStatus.daysRemaining} {subscriptionStatus.daysRemaining === 1 ? "dia restante" : "dias restantes"} no seu {subscriptionStatus.plan === "trial" ? "período de teste" : "plano"}
-            </div>
-          )}
         </div>
         {/* Menu de Perfil */}
         <DropdownMenu>

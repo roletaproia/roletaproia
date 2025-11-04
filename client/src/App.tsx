@@ -20,7 +20,7 @@ import CreateAdmin from "./pages/CreateAdmin";
 import ExtensionGuide from "./pages/ExtensionGuide";
 import RobotModeSelection from "./pages/RobotModeSelection";
 import ExtensionDownload from "./pages/ExtensionDownload";
-import Pricing from "./pages/Pricing";
+
 import Referrals from "./pages/Referrals";
 import AdminSubscriptions from "./pages/AdminSubscriptions";
 import LiveSignals from "./pages/LiveSignals";
@@ -42,7 +42,7 @@ function Router() {
       <Route path="/strategies" component={Strategies} />
       <Route path="/betting-robot/select-mode" component={RobotModeSelection} />
       <Route path="/extension-download" component={ExtensionDownload} />
-      <Route path="/pricing" component={Pricing} />
+
       <Route path="/referrals" component={Referrals} />
       <Route path="/betting-robot" component={BettingRobot} />
       <Route path="/live-signals" component={LiveSignals} />

@@ -160,19 +160,46 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
           </span>
         </div>
 
-        {/* Número e Cor */}
+        {/* Informações da Aposta */}
         <div className="bg-black/30 rounded-lg p-6 mb-4">
-          <div className="text-center">
-            <p className="text-gray-400 text-sm mb-2">🎯 APOSTE NO NÚMERO:</p>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className={`${getColorClass(recommendation.suggestedColor)} w-20 h-20 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg`}>
-                {recommendation.suggestedNumber}
+          <div className="grid grid-cols-2 gap-4">
+            {/* Número */}
+            <div className="text-center col-span-2">
+              <p className="text-gray-400 text-sm mb-2">🎯 Número:</p>
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <div className={`${getColorClass(recommendation.suggestedColor)} w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg`}>
+                  {recommendation.suggestedNumber}
+                </div>
               </div>
             </div>
-            <p className="text-gray-400 text-sm mb-1">🎨 COR:</p>
-            <p className="text-white text-2xl font-bold">
-              {getColorName(recommendation.suggestedColor)}
-            </p>
+            
+            {/* Cor */}
+            <div className="text-center">
+              <p className="text-gray-400 text-xs mb-1">🎨 Cor:</p>
+              <p className="text-white text-lg font-bold">
+                {getColorName(recommendation.suggestedColor)}
+              </p>
+            </div>
+
+            {/* Par/Ímpar */}
+            <div className="text-center">
+              <p className="text-gray-400 text-xs mb-1">🔢 Par/Ímpar:</p>
+              <p className="text-white text-lg font-bold">
+                {recommendation.suggestedNumber && recommendation.suggestedNumber % 2 === 0 ? 'Par' : 'Ímpar'}
+              </p>
+            </div>
+
+            {/* Dúzia */}
+            <div className="text-center col-span-2">
+              <p className="text-gray-400 text-xs mb-1">📊 Dúzia:</p>
+              <p className="text-white text-lg font-bold">
+                {recommendation.suggestedNumber && recommendation.suggestedNumber <= 12 
+                  ? '1ª (1-12)' 
+                  : recommendation.suggestedNumber && recommendation.suggestedNumber <= 24
+                  ? '2ª (13-24)'
+                  : '3ª (25-36)'}
+              </p>
+            </div>
           </div>
         </div>
 
