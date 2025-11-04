@@ -25,10 +25,28 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
     type: 'success' | 'partial' | 'error' | null;
     message: string;
   }>({ type: null, message: '' });
+  const [isAnalyzing, setIsAnalyzing] = useState(false); // Estado de análise
+  const [previousResult, setPreviousResult] = useState<number | null>(null);
+
+  // Detectar quando chega novo resultado
+  useEffect(() => {
+    if (lastResult !== null && lastResult !== previousResult) {
+      // Novo resultado chegou!
+      setIsAnalyzing(true);
+      setPreviousResult(lastResult);
+      
+      // Mostrar "ANALISANDO" por 3 segundos
+      const analyzeTimer = setTimeout(() => {
+        setIsAnalyzing(false);
+      }, 3000);
+      
+      return () => clearTimeout(analyzeTimer);
+    }
+  }, [lastResult, previousResult]);
 
   // Verificar se acertou/errou quando novo resultado chega
   useEffect(() => {
-    if (lastResult !== null && lastRecommendation) {
+    if (lastResult !== null && lastRecommendation && !isAnalyzing) {
       const resultColor = getNumberColor(lastResult);
       
       // Acertou o número exato
@@ -108,6 +126,34 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
   const calculateMartingaleBet = (baseValue: number, level: number) => {
     return baseValue * Math.pow(2, level);
   };
+
+  // Se está analisando, mostrar mensagem de análise
+  if (isAnalyzing) {
+    return (
+      <div className="space-y-4">
+        {/* Mensagem de Análise */}
+        <div className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl p-8 border border-blue-500/30 shadow-xl text-center">
+          <Loader className="w-12 h-12 text-blue-400 mx-auto mb-4 animate-spin" />
+          <h3 className="text-2xl font-bold text-white mb-3">
+            🔍 ANALISANDO PADRÕES...
+          </h3>
+          <p className="text-blue-200 text-lg mb-4">
+            🤖 Criando a melhor entrada para você!
+          </p>
+          <div className="bg-black/30 rounded-lg p-4">
+            <p className="text-gray-300 text-sm">
+              💡 Aguarde alguns instantes...
+            </p>
+          </div>
+        </div>
+
+        {/* Feedback (se houver) */}
+        {feedback.type && (
+          <FeedbackCard feedback={feedback} martingaleLevel={martingaleLevel} />
+        )}
+      </div>
+    );
+  }
 
   // Se não há sinal, mostrar mensagem de aguardo
   if (!recommendation.hasSignal) {
