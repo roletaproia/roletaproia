@@ -125,6 +125,7 @@ export const signalsRouter = router({
       // Adaptar para novo formato
       adaptedRecommendation = {
         id: recommendation.id, // ID para detectar mudanças
+        createdAt: recommendation.createdAt, // Timestamp para detectar novas recomendações
         hasSignal: recommendation.suggestedNumber !== null && recommendation.suggestedNumber !== undefined,
         suggestedNumber: recommendation.suggestedNumber,
         suggestedColor: recommendation.suggestedColor || recommendation.betType,
