@@ -31,6 +31,7 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
   const [previousRecommendationTimestamp, setPreviousRecommendationTimestamp] = useState<string | null>(null);
 
   // Detectar quando chega nova recomendação (createdAt mudou)
+  // Força rebuild para deploy
   useEffect(() => {
     const currentTimestamp = recommendation.createdAt || recommendation.id?.toString();
     
