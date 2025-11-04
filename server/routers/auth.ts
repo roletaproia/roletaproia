@@ -31,15 +31,15 @@ export const authRouter = router({
       // Obter IP do usuário
       const userIp = ctx.req.ip || ctx.req.socket.remoteAddress || 'unknown';
 
-      // Verificar se o IP já foi usado para criar trial
-      const [existingIp] = await db
+      // Verificar quantas contas já foram criadas com este IP
+      const existingIpsCount = await db
         .select()
         .from(blockedIps)
-        .where(eq(blockedIps.ipAddress, userIp))
-        .limit(1);
+        .where(eq(blockedIps.ipAddress, userIp));
 
-      if (existingIp) {
-        throw new Error("Este IP já foi usado para criar uma conta de teste. Entre em contato com o suporte se precisar de ajuda.");
+      // Permitir até 3 contas por IP
+      if (existingIpsCount.length >= 3) {
+        throw new Error("Limite de contas de teste atingido para este IP. Entre em contato com o suporte se precisar de ajuda.");
       }
 
       // Verificar se o email já existe

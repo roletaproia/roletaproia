@@ -237,11 +237,11 @@ export type InsertPayment = typeof payments.$inferInsert;
 
 /**
  * Tabela de IPs Bloqueados
- * Controle anti-fraude: cada IP só pode criar 1 trial
+ * Controle anti-fraude: cada IP pode criar até 3 trials
  */
 export const blockedIps = mysqlTable("blockedIps", {
   id: int("id").autoincrement().primaryKey(),
-  ipAddress: varchar("ipAddress", { length: 45 }).notNull().unique(),
+  ipAddress: varchar("ipAddress", { length: 45 }).notNull(),
   userId: int("userId").references(() => users.id), // Primeiro usuário que usou este IP
   reason: text("reason"), // Motivo do bloqueio (se manual)
   createdAt: timestamp("createdAt").defaultNow().notNull(),
