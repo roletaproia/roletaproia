@@ -30,12 +30,12 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
   const [previousResult, setPreviousResult] = useState<number | null>(null);
   const [previousRecommendationId, setPreviousRecommendationId] = useState<number | null>(null);
 
-  // Detectar quando chega nova recomendação (ID mudou)
+  // Detectar quando chega novo resultado (número da roleta mudou)
   useEffect(() => {
-    if (recommendation.id && recommendation.id !== previousRecommendationId) {
-      // Nova recomendação chegou!
+    if (lastResult !== null && lastResult !== previousResult) {
+      // Novo número saiu!
       setIsAnalyzing(true);
-      setPreviousRecommendationId(recommendation.id);
+      setPreviousResult(lastResult);
       
       // Mostrar "ANALISANDO" por 3 segundos
       const analyzeTimer = setTimeout(() => {
@@ -43,13 +43,6 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
       }, 3000);
       
       return () => clearTimeout(analyzeTimer);
-    }
-  }, [recommendation.id, previousRecommendationId]);
-
-  // Detectar quando chega novo resultado
-  useEffect(() => {
-    if (lastResult !== null && lastResult !== previousResult) {
-      setPreviousResult(lastResult);
     }
   }, [lastResult, previousResult]);
 
