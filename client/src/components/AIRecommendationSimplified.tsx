@@ -111,43 +111,7 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
     return baseValue * Math.pow(2, level);
   };
 
-  // Se não há sinal, mostrar mensagem de aguardo
-  if (!recommendation.hasSignal) {
-    return (
-      <div className="space-y-4">
-        {/* Mensagem de Aguardo */}
-        <div className="bg-gradient-to-br from-yellow-900/40 to-orange-900/40 rounded-xl p-8 border border-yellow-500/30 shadow-xl text-center">
-          <Loader className="w-12 h-12 text-yellow-400 mx-auto mb-4 animate-spin" />
-          <h3 className="text-2xl font-bold text-white mb-3">
-            ⏳ AGUARDANDO ENTRADA CERTEIRA
-          </h3>
-          <p className="text-yellow-200 text-lg mb-4">
-            🤖 O Robô I.A. está analisando padrões...
-          </p>
-          <div className="bg-black/30 rounded-lg p-4 space-y-2">
-            <p className="text-gray-300 text-sm">
-              💡 Ainda não há confluência suficiente entre as estratégias
-            </p>
-            <p className="text-gray-400 text-xs">
-              {recommendation.analysis.map((line, i) => (
-                <span key={i} className="block">{line}</span>
-              ))}
-            </p>
-          </div>
-          <p className="text-yellow-300 font-semibold mt-4">
-            ⚠️ Aguarde a próxima oportunidade!
-          </p>
-        </div>
-
-        {/* Feedback (se houver) */}
-        {feedback.type && (
-          <FeedbackCard feedback={feedback} martingaleLevel={martingaleLevel} />
-        )}
-      </div>
-    );
-  }
-
-  // Se há sinal, mostrar recomendação simplificada
+  // Sempre mostrar recomendação (com ou sem sinal)
   return (
     <div className="space-y-4">
       {/* Card de Recomendação Simplificado */}
