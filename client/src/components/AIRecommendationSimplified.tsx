@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Target, TrendingUp, AlertTriangle, CheckCircle, XCircle, Loader } from "lucide-react";
 
 interface Recommendation {
@@ -14,10 +14,9 @@ interface Recommendation {
 interface AIRecommendationSimplifiedProps {
   recommendation: Recommendation;
   lastResult: number | null; // Último número que saiu
-  signalId: number | null; // ID do sinal para detectar novos números
 }
 
-export function AIRecommendationSimplified({ recommendation, lastResult, signalId }: AIRecommendationSimplifiedProps) {
+export function AIRecommendationSimplified({ recommendation, lastResult }: AIRecommendationSimplifiedProps) {
   const [martingaleLevel, setMartingaleLevel] = useState(0); // 0, 1, 2
   const [lastRecommendation, setLastRecommendation] = useState<{
     number: number | null;
@@ -27,28 +26,11 @@ export function AIRecommendationSimplified({ recommendation, lastResult, signalI
     type: 'success' | 'partial' | 'error' | null;
     message: string;
   }>({ type: null, message: '' });
-  const [isAnalyzing, setIsAnalyzing] = useState(false); // Estado de análise
-  const previousSignalIdRef = useRef<number | null>(null);
-
-  // Detectar quando chega novo resultado (signalId mudou = novo número)
-  useEffect(() => {
-    if (signalId !== null && signalId !== previousSignalIdRef.current) {
-      // Novo número saiu!
-      setIsAnalyzing(true);
-      previousSignalIdRef.current = signalId;
-      
-      // Mostrar "ANALISANDO" por 3 segundos
-      const analyzeTimer = setTimeout(() => {
-        setIsAnalyzing(false);
-      }, 3000);
-      
-      return () => clearTimeout(analyzeTimer);
-    }
-  }, [signalId]);
+  // Estado isAnalyzing removido - sempre mostra última recomendação
 
   // Verificar se acertou/errou quando novo resultado chega
   useEffect(() => {
-    if (lastResult !== null && lastRecommendation && !isAnalyzing) {
+    if (lastResult !== null && lastRecommendation) {
       const resultColor = getNumberColor(lastResult);
       
       // Acertou o número exato
@@ -128,34 +110,6 @@ export function AIRecommendationSimplified({ recommendation, lastResult, signalI
   const calculateMartingaleBet = (baseValue: number, level: number) => {
     return baseValue * Math.pow(2, level);
   };
-
-  // Se está analisando, mostrar mensagem de análise
-  if (isAnalyzing) {
-    return (
-      <div className="space-y-4">
-        {/* Mensagem de Análise */}
-        <div className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl p-8 border border-blue-500/30 shadow-xl text-center">
-          <Loader className="w-12 h-12 text-blue-400 mx-auto mb-4 animate-spin" />
-          <h3 className="text-2xl font-bold text-white mb-3">
-            🔍 ANALISANDO PADRÕES...
-          </h3>
-          <p className="text-blue-200 text-lg mb-4">
-            🤖 Criando a melhor entrada para você!
-          </p>
-          <div className="bg-black/30 rounded-lg p-4">
-            <p className="text-gray-300 text-sm">
-              💡 Aguarde alguns instantes...
-            </p>
-          </div>
-        </div>
-
-        {/* Feedback (se houver) */}
-        {feedback.type && (
-          <FeedbackCard feedback={feedback} martingaleLevel={martingaleLevel} />
-        )}
-      </div>
-    );
-  }
 
   // Se não há sinal, mostrar mensagem de aguardo
   if (!recommendation.hasSignal) {
