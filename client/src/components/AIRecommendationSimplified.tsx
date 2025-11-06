@@ -14,9 +14,10 @@ interface Recommendation {
 interface AIRecommendationSimplifiedProps {
   recommendation: Recommendation;
   lastResult: number | null; // Último número que saiu
+  signalId: number | null; // ID do sinal para detectar novos números
 }
 
-export function AIRecommendationSimplified({ recommendation, lastResult }: AIRecommendationSimplifiedProps) {
+export function AIRecommendationSimplified({ recommendation, lastResult, signalId }: AIRecommendationSimplifiedProps) {
   const [martingaleLevel, setMartingaleLevel] = useState(0); // 0, 1, 2
   const [lastRecommendation, setLastRecommendation] = useState<{
     number: number | null;
@@ -27,15 +28,14 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
     message: string;
   }>({ type: null, message: '' });
   const [isAnalyzing, setIsAnalyzing] = useState(false); // Estado de análise
-  const [previousResult, setPreviousResult] = useState<number | null>(null);
-  const [previousRecommendationId, setPreviousRecommendationId] = useState<number | null>(null);
+  const [previousSignalId, setPreviousSignalId] = useState<number | null>(null);
 
-  // Detectar quando chega novo resultado (número da roleta mudou)
+  // Detectar quando chega novo resultado (signalId mudou = novo número)
   useEffect(() => {
-    if (lastResult !== null && lastResult !== previousResult) {
+    if (signalId !== null && signalId !== previousSignalId) {
       // Novo número saiu!
       setIsAnalyzing(true);
-      setPreviousResult(lastResult);
+      setPreviousSignalId(signalId);
       
       // Mostrar "ANALISANDO" por 3 segundos
       const analyzeTimer = setTimeout(() => {
@@ -44,7 +44,7 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
       
       return () => clearTimeout(analyzeTimer);
     }
-  }, [lastResult, previousResult]);
+  }, [signalId, previousSignalId]);
 
   // Verificar se acertou/errou quando novo resultado chega
   useEffect(() => {

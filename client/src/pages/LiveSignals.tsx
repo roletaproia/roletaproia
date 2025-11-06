@@ -152,6 +152,7 @@ export default function LiveSignals() {
             <AIRecommendationSimplified 
               recommendation={currentData.recommendation} 
               lastResult={currentData.signal?.number || null}
+              signalId={currentData.signal?.id || null}
             />
           ) : (
             <Card className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 border-purple-500/30">
