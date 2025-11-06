@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Target, TrendingUp, AlertTriangle, CheckCircle, XCircle, Loader } from "lucide-react";
 
 interface Recommendation {
@@ -28,14 +28,14 @@ export function AIRecommendationSimplified({ recommendation, lastResult, signalI
     message: string;
   }>({ type: null, message: '' });
   const [isAnalyzing, setIsAnalyzing] = useState(false); // Estado de análise
-  const [previousSignalId, setPreviousSignalId] = useState<number | null>(null);
+  const previousSignalIdRef = useRef<number | null>(null);
 
   // Detectar quando chega novo resultado (signalId mudou = novo número)
   useEffect(() => {
-    if (signalId !== null && signalId !== previousSignalId) {
+    if (signalId !== null && signalId !== previousSignalIdRef.current) {
       // Novo número saiu!
       setIsAnalyzing(true);
-      setPreviousSignalId(signalId);
+      previousSignalIdRef.current = signalId;
       
       // Mostrar "ANALISANDO" por 3 segundos
       const analyzeTimer = setTimeout(() => {
@@ -44,7 +44,7 @@ export function AIRecommendationSimplified({ recommendation, lastResult, signalI
       
       return () => clearTimeout(analyzeTimer);
     }
-  }, [signalId, previousSignalId]);
+  }, [signalId]);
 
   // Verificar se acertou/errou quando novo resultado chega
   useEffect(() => {
