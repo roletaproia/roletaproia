@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AIRecommendationSimplified } from "@/components/AIRecommendationSimplified";
 import { Open1WinButton } from "@/components/Open1WinButton";
 
+// Force rebuild - cache disabled for real-time updates
 export default function LiveSignals() {
   const [isLive, setIsLive] = useState(true);
 
