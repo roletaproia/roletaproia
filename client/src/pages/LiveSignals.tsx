@@ -14,6 +14,10 @@ export default function LiveSignals() {
   const { data: currentData, refetch: refetchCurrent } =
     trpc.signals.getCurrentSignal.useQuery(undefined, {
       refetchInterval: 1000, // Atualizar a cada 1 segundo (tempo real)
+      cacheTime: 0, // Desabilitar cache
+      staleTime: 0, // Sempre considerar dados como "velhos"
+      refetchOnMount: true, // Sempre buscar ao montar
+      refetchOnWindowFocus: true, // Buscar quando janela ganha foco
     });
 
   // Buscar últimos sinais
