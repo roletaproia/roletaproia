@@ -32,6 +32,7 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import HowItWorks from "@/pages/HowItWorks";
 import FAQ from "@/pages/FAQ";
 import Blog from "@/pages/Blog";
+import BlogArticle from "@/pages/BlogArticle";
 
 
 function Router() {
@@ -57,6 +58,7 @@ function Router() {
       <Route path="/como-funciona" component={HowItWorks} />
       <Route path="/faq" component={FAQ} />
       <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogArticle} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
       <Route path="/chat" component={Chat} />
