@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useRoute, Link } from "wouter";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, BookOpen } from "lucide-react";
+import { relatedArticles } from "@/data/relatedArticles";
 
 export default function BlogArticle() {
   const [, params] = useRoute("/blog/:slug");
@@ -150,13 +152,83 @@ export default function BlogArticle() {
     "image": "https://roboroleta.com.br/og-image.png"
   } : null;
 
+  const currentUrl = `https://roboroleta.com.br/blog/${params?.slug}`;
+  const ogImage = "https://roboroleta.com.br/og-image.png";
+
+  // Breadcrumbs Schema
+  const breadcrumbSchema = metadata ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://roboroleta.com.br"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://roboroleta.com.br/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": metadata.title,
+        "item": currentUrl
+      }
+    ]
+  } : null;
+
   return (
     <Layout>
+      {/* Meta tags para SEO, Open Graph e Twitter Cards */}
+      {metadata && (
+        <Helmet>
+          {/* Meta tags básicas */}
+          <title>{metadata.title} | RoboRoleta Blog</title>
+          <meta name="description" content={metadata.description} />
+          <link rel="canonical" href={currentUrl} />
+          <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+          
+          {/* Open Graph / Facebook */}
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content={metadata.title} />
+          <meta property="og:description" content={metadata.description} />
+          <meta property="og:url" content={currentUrl} />
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:site_name" content="RoboRoleta" />
+          <meta property="og:locale" content="pt_BR" />
+          <meta property="article:published_time" content={new Date().toISOString()} />
+          <meta property="article:author" content="RoboRoleta" />
+          <meta property="article:section" content="Apostas e IA" />
+          
+          {/* Twitter Cards */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={metadata.title} />
+          <meta name="twitter:description" content={metadata.description} />
+          <meta name="twitter:image" content={ogImage} />
+          <meta name="twitter:site" content="@roboroleta" />
+          <meta name="twitter:creator" content="@roboroleta" />
+        </Helmet>
+      )}
+      
       {/* Schema Markup para SEO */}
       {schemaMarkup && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+        />
+      )}
+      
+      {/* Breadcrumbs Schema */}
+      {breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
       )}
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-20">
@@ -230,6 +302,28 @@ export default function BlogArticle() {
                 {content}
               </ReactMarkdown>
             </article>
+
+            {/* Artigos Relacionados */}
+            {params?.slug && relatedArticles[params.slug] && (
+              <div className="mt-12 p-8 bg-gray-800/50 rounded-2xl border border-gray-700">
+                <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
+                  <BookOpen className="h-6 w-6 text-purple-500" />
+                  Artigos Relacionados
+                </h3>
+                <div className="grid gap-4 md:grid-cols-3">
+                  {relatedArticles[params.slug].map((article) => (
+                    <Link key={article.slug} href={`/blog/${article.slug}`}>
+                      <div className="p-4 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-purple-500 transition-all cursor-pointer group">
+                        <h4 className="text-white font-semibold group-hover:text-purple-400 transition-colors">
+                          {article.title}
+                        </h4>
+                        <p className="text-sm text-gray-400 mt-2">Leia mais →</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* CTA no final do artigo */}
             <div className="mt-12 p-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl text-white text-center">
