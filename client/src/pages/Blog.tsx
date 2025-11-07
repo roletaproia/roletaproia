@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Blog: React.FC = () => {
   const articles = [
@@ -32,12 +31,9 @@ const Blog: React.FC = () => {
         {articles.map((article, index) => (
           <div key={index} className="border-b pb-4">
             <h2 className="text-2xl font-semibold text-purple-400 hover:text-purple-300">
-              <Link to={`/blog/${article.slug}`}>{article.title}</Link>
+              {article.title}
             </h2>
             <p className="text-lg mt-2">{article.excerpt}</p>
-            <Link to={`/blog/${article.slug}`} className="text-blue-400 hover:underline mt-2 inline-block">
-              Leia mais &rarr;
-            </Link>
           </div>
         ))}
       </div>
