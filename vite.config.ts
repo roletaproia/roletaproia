@@ -27,7 +27,19 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          // Manter nomes originais para sitemap.xml e robots.txt
+          if (assetInfo.name === 'sitemap.xml' || assetInfo.name === 'robots.txt') {
+            return '[name][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
+      },
+    },
   },
+  assetsInclude: ['**/*.xml', '**/*.txt'],
   server: {
     host: true,
     allowedHosts: [
