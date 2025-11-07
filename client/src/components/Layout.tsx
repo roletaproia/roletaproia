@@ -20,6 +20,9 @@ export function Layout({ children }: LayoutProps) {
                 © 2025 Roleta Pro I.A. - Todos os direitos reservados.
               </div>
               <div className="flex gap-6 text-sm">
+                <a href="/blog" className="text-gray-400 hover:text-white transition-colors">
+                  Artigos
+                </a>
                 <a href="/termos-de-uso" className="text-gray-400 hover:text-white transition-colors">
                   Termos de Uso
                 </a>

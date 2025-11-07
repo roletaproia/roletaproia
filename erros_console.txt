@@ -1,0 +1,15 @@
+ERROS ENCONTRADOS NO CONSOLE:
+
+1. Failed to load resource: the server responded with a status of 400 ()
+2. Error while trying to use the following icon from the Manifest: https://roboroleta.com.br/screenshot1.png
+3. Failed to load resource: the server responded with a status of 500 ()
+
+PROBLEMA PRINCIPAL:
+- Status 500 (Internal Server Error) ao tentar fazer login
+- Isso indica que o servidor está recebendo a requisição mas está falhando ao processar
+
+POSSÍVEIS CAUSAS:
+1. Variável de ambiente VITE_APP_URL ainda apontando para domínio antigo
+2. Configuração de cookies/sessão com domínio errado
+3. CORS ainda bloqueando alguma requisição
+4. URL da API hardcoded no frontend
