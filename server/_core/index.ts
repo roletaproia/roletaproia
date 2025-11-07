@@ -71,7 +71,12 @@ async function startServer() {
     }
   }));
   // CORS configuration
-  const allowedOrigins = [process.env.VITE_APP_URL];
+  const allowedOrigins = [
+    process.env.VITE_APP_URL,
+    'https://roboroleta.com.br',
+    'https://www.roboroleta.com.br',
+    'https://roletaproia.onrender.com'
+  ];
   const corsOptions = {
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
       if (process.env.NODE_ENV === "development" || !origin || allowedOrigins.includes(origin)) {
