@@ -80,7 +80,7 @@ export default function BlogArticle() {
   if (loading) {
     return (
       <Layout>
-        <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 py-20">
+        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="animate-pulse">
@@ -102,7 +102,7 @@ export default function BlogArticle() {
   if (error || !content) {
     return (
       <Layout>
-        <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 py-20">
+        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl font-bold mb-4">Artigo não encontrado</h1>
@@ -159,7 +159,7 @@ export default function BlogArticle() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
         />
       )}
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white dark:from-gray-900 dark:to-gray-800 py-20">
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Botão Voltar */}
@@ -197,7 +197,7 @@ export default function BlogArticle() {
             )}
 
             {/* Conteúdo do Artigo */}
-            <article className="prose prose-lg dark:prose-invert max-w-none">
+            <article className="prose prose-lg prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-li:text-gray-300 prose-blockquote:text-gray-400 prose-blockquote:border-purple-500">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
