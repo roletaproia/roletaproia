@@ -5,7 +5,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://roletaproia.com/sitemap.xml
+Sitemap: https://roboroleta.com.br/sitemap.xml
 
 # Crawl-delay (tempo entre requisições)
 Crawl-delay: 1

@@ -5,15 +5,15 @@ Após configurar o domínio personalizado, atualize as seguintes variáveis de a
 ## Frontend (Web Service)
 
 ```
-VITE_APP_URL=https://roletaproia.com
-VITE_APP_LOGO=https://roletaproia.com/robot-roulette.png
+VITE_APP_URL=https://roboroleta.com.br
+VITE_APP_LOGO=https://roboroleta.com.br/robot-roulette.png
 ```
 
 ## Backend (se separado)
 
 ```
-FRONTEND_URL=https://roletaproia.com
-CORS_ORIGIN=https://roletaproia.com
+FRONTEND_URL=https://roboroleta.com.br
+CORS_ORIGIN=https://roboroleta.com.br
 ```
 
 ## Como atualizar no Render:

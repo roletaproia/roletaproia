@@ -175,7 +175,7 @@ Precisa de ajuda? Entre em contato:
 
 - 🌐 **Site:** https://roletaproia.onrender.com
 - 💬 **Chat:** Acesse o chat no site
-- 📧 **Email:** suporte@roletaproia.com
+- 📧 **Email:** suporte@roboroleta.com.br
 
 ---
 

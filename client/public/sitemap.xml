@@ -6,7 +6,7 @@
   
   <!-- Página Principal -->
   <url>
-    <loc>https://roletaproia.com/</loc>
+    <loc>https://roboroleta.com.br/</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
   
   <!-- Sinais Inteligentes (Página Mais Importante) -->
   <url>
-    <loc>https://roletaproia.com/live-signals</loc>
+    <loc>https://roboroleta.com.br/live-signals</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>always</changefreq>
     <priority>1.0</priority>
@@ -22,7 +22,7 @@
   
   <!-- Dashboard -->
   <url>
-    <loc>https://roletaproia.com/dashboard</loc>
+    <loc>https://roboroleta.com.br/dashboard</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -30,7 +30,7 @@
   
   <!-- Gerenciamento de Banca -->
   <url>
-    <loc>https://roletaproia.com/bankroll</loc>
+    <loc>https://roboroleta.com.br/bankroll</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -38,7 +38,7 @@
   
   <!-- Estatísticas Avançadas -->
   <url>
-    <loc>https://roletaproia.com/statistics</loc>
+    <loc>https://roboroleta.com.br/statistics</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -46,7 +46,7 @@
   
   <!-- Educação Financeira -->
   <url>
-    <loc>https://roletaproia.com/education</loc>
+    <loc>https://roboroleta.com.br/education</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -54,7 +54,7 @@
   
   <!-- Como Funciona -->
   <url>
-    <loc>https://roletaproia.com/como-funciona</loc>
+    <loc>https://roboroleta.com.br/como-funciona</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -62,7 +62,7 @@
   
   <!-- FAQ -->
   <url>
-    <loc>https://roletaproia.com/faq</loc>
+    <loc>https://roboroleta.com.br/faq</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -70,7 +70,7 @@
   
   <!-- Blog -->
   <url>
-    <loc>https://roletaproia.com/blog</loc>
+    <loc>https://roboroleta.com.br/blog</loc>
     <lastmod>2025-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
