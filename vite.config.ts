@@ -39,7 +39,7 @@ export default defineConfig({
       },
     },
   },
-  assetsInclude: ['**/*.xml', '**/*.txt'],
+  assetsInclude: ['**/*.xml', '**/*.txt', '**/*.md'],
   server: {
     host: true,
     allowedHosts: [

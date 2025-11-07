@@ -57,8 +57,8 @@ function Router() {
       <Route path="/politica-de-privacidade" component={PrivacyPolicy} />
       <Route path="/como-funciona" component={HowItWorks} />
       <Route path="/faq" component={FAQ} />
-      <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogArticle} />
+      <Route path="/blog" component={Blog} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
       <Route path="/chat" component={Chat} />
