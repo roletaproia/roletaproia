@@ -1,0 +1,33 @@
+CONFIGURAÇÕES DNS PARA ROBOROLETA.COM.BR
+==========================================
+
+DOMÍNIO PRINCIPAL: roboroleta.com.br
+Status: DNS update needed to verify domain ownership
+
+Configuração necessária:
+- Tipo: ANAME ou ALIAS
+- Aponta para: roletaproia.onrender.com
+
+OU (se o provedor não suportar ANAME/ALIAS):
+- Tipo: A
+- Aponta para: 216.24.571
+
+---
+
+SUBDOMÍNIO WWW: www.roboroleta.com.br
+Status: DNS update needed to verify domain ownership
+Redireciona para: roboroleta.com.br
+
+Configuração necessária:
+- Tipo: CNAME
+- Host: www
+- Aponta para: roletaproia.onrender.com
+
+---
+
+OBSERVAÇÃO IMPORTANTE:
+O Render criou automaticamente AMBOS os domínios:
+1. roboroleta.com.br (domínio principal)
+2. www.roboroleta.com.br (subdomínio www)
+
+Você precisa configurar os dois no Registro.br!
