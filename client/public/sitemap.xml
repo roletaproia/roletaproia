@@ -52,4 +52,28 @@
     <priority>0.7</priority>
   </url>
   
+  <!-- Como Funciona -->
+  <url>
+    <loc>https://roletaproia.onrender.com/como-funciona</loc>
+    <lastmod>2025-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- FAQ -->
+  <url>
+    <loc>https://roletaproia.onrender.com/faq</loc>
+    <lastmod>2025-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Blog -->
+  <url>
+    <loc>https://roletaproia.onrender.com/blog</loc>
+    <lastmod>2025-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
 </urlset>

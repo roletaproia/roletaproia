@@ -29,6 +29,9 @@ import BankrollManagement from "@/pages/BankrollManagement";
 import AdvancedStatistics from "@/pages/AdvancedStatistics";
 import TermsOfService from "@/pages/TermsOfService";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import HowItWorks from "@/pages/HowItWorks";
+import FAQ from "@/pages/FAQ";
+import Blog from "@/pages/Blog";
 
 
 function Router() {
@@ -51,6 +54,9 @@ function Router() {
       <Route path="/statistics" component={AdvancedStatistics} />
       <Route path="/termos-de-uso" component={TermsOfService} />
       <Route path="/politica-de-privacidade" component={PrivacyPolicy} />
+      <Route path="/como-funciona" component={HowItWorks} />
+      <Route path="/faq" component={FAQ} />
+      <Route path="/blog" component={Blog} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
       <Route path="/chat" component={Chat} />
