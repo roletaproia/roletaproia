@@ -197,7 +197,7 @@ export default function BlogArticle() {
             )}
 
             {/* Conteúdo do Artigo */}
-            <article className="prose prose-lg prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-li:text-gray-300 prose-blockquote:text-gray-400 prose-blockquote:border-purple-500">
+            <article className="prose prose-lg prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:mb-6 prose-p:leading-relaxed prose-strong:text-white prose-li:text-gray-300 prose-blockquote:text-gray-400 prose-blockquote:border-purple-500 prose-h2:mt-12 prose-h2:mb-6 prose-h3:mt-8 prose-h3:mb-4 prose-ul:my-6 prose-ol:my-6 prose-table:my-8">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
