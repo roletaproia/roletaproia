@@ -1,0 +1,18 @@
+# Roleta Pro I.A. - Robots.txt
+# Permitir todos os bots de busca
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://roletaproia.onrender.com/sitemap.xml
+
+# Crawl-delay (tempo entre requisições)
+Crawl-delay: 1
+
+# Páginas específicas para indexação prioritária
+Allow: /live-signals
+Allow: /dashboard
+Allow: /statistics
+Allow: /bankroll
+Allow: /education
