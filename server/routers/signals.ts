@@ -100,40 +100,27 @@ export const signalsRouter = router({
       return null;
     }
 
-    // Buscar a última recomendação criada (para a PRÓXIMA rodada)
-    const [recommendation] = await db
+    // GERAR RECOMENDAÇÃO EM TEMPO REAL baseada nos últimos 200 sinais
+    const recentSignals = await db
       .select()
-      .from(recommendations)
-      .orderBy(desc(recommendations.createdAt))
-      .limit(1);
+      .from(signals)
+      .orderBy(desc(signals.timestamp))
+      .limit(200);
+
+    // Gerar recomendação usando V2 (análise profunda)
+    const recommendation = generateAdvancedRecommendationV2(recentSignals);
 
     // Adaptar recommendation para o formato do componente AIRecommendationSimplified
-    let adaptedRecommendation = null;
-    
-    if (recommendation) {
-      // Parse analysis
-      let analysis = [];
-      try {
-        analysis = typeof recommendation.analysis === 'string' 
-          ? JSON.parse(recommendation.analysis) 
-          : recommendation.analysis;
-      } catch (e) {
-        console.error('Error parsing analysis:', e);
-        analysis = [];
-      }
-
-      // Adaptar para novo formato
-      adaptedRecommendation = {
-        id: recommendation.id, // ID para detectar mudanças
-        createdAt: recommendation.createdAt, // Timestamp para detectar novas recomendações
-        hasSignal: recommendation.suggestedNumber !== null && recommendation.suggestedNumber !== undefined,
-        suggestedNumber: recommendation.suggestedNumber,
-        suggestedColor: recommendation.suggestedColor || recommendation.betType,
-        confidence: recommendation.confidence || 0,
-        analysis: Array.isArray(analysis) ? analysis : [],
-        confluenceScore: 3, // Valor padrão (pode ser calculado depois)
-      };
-    }
+    const adaptedRecommendation = {
+      id: latestSignal.id, // Usar ID do sinal para detectar mudanças
+      createdAt: new Date(), // Timestamp atual
+      hasSignal: recommendation.suggestedNumber !== null && recommendation.suggestedNumber !== undefined,
+      suggestedNumber: recommendation.suggestedNumber,
+      suggestedColor: recommendation.suggestedColor,
+      confidence: recommendation.confidence || 0,
+      analysis: Array.isArray(recommendation.analysis) ? recommendation.analysis : [],
+      confluenceScore: recommendation.confluenceScore || 3,
+    };
 
     return {
       signal: latestSignal,
