@@ -8,6 +8,7 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Clock, BookOpen } from "lucide-react";
 import { relatedArticles } from "@/data/relatedArticles";
+import { howToArticles } from "@/data/howToArticles";
 
 export default function BlogArticle() {
   const [, params] = useRoute("/blog/:slug");
@@ -181,6 +182,20 @@ export default function BlogArticle() {
     ]
   } : null;
 
+  // How-To Schema (se aplicável)
+  const howToSchema = params?.slug && howToArticles[params.slug] ? {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": howToArticles[params.slug].name,
+    "description": howToArticles[params.slug].description,
+    "step": howToArticles[params.slug].steps.map((step, index) => ({
+      "@type": "HowToStep",
+      "position": index + 1,
+      "name": step.name,
+      "text": step.text
+    }))
+  } : null;
+
   return (
     <Layout>
       {/* Meta tags para SEO, Open Graph e Twitter Cards */}
@@ -231,6 +246,15 @@ export default function BlogArticle() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
       )}
+      
+      {/* How-To Schema */}
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        />
+      )}
+      
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">

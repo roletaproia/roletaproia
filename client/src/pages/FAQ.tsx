@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const FAQ: React.FC = () => {
   const faqs = [
@@ -32,8 +33,30 @@ const FAQ: React.FC = () => {
     },
   ];
 
+  // FAQ Schema for SEO
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
-    <div className="p-6">
+    <>
+      <Helmet>
+        <title>FAQ - Perguntas Frequentes | RoboRoleta</title>
+        <meta name="description" content="Perguntas frequentes sobre o RoboRoleta - Sistema de IA para análise de roleta. Saiba como funciona, taxa de acerto, estratégias e mais." />
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
+      </Helmet>
+      <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Perguntas Frequentes (FAQ)</h1>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
@@ -44,6 +67,7 @@ const FAQ: React.FC = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

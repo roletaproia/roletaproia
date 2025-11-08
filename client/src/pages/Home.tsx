@@ -22,7 +22,7 @@ export default function Home() {
       <nav className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur border-b border-red-900/30">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            {APP_LOGO && <img src={APP_LOGO} alt={APP_TITLE} className="h-8 w-8" />}
+            {APP_LOGO && <img src="/logo-56.webp" srcSet="/logo-56.webp 1x, /logo-112.webp 2x" alt={APP_TITLE} className="h-8 w-8" width="56" height="56" />}
             <span className="text-xl font-bold text-red-400">{APP_TITLE}</span>
           </div>
           <div className="flex items-center space-x-4">
@@ -97,9 +97,12 @@ export default function Home() {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-red-600/20 rounded-2xl blur-3xl" />
             <img
-              src="/robot-roulette.png"
+              src="/robot-roulette-665.webp"
+              srcSet="/robot-roulette-665.webp 1x, /robot-roulette-1330.webp 2x"
               alt="Robô de Apostas"
               className="relative w-full h-auto drop-shadow-2xl"
+              width="665"
+              height="665"
             />
           </div>
         </div>
