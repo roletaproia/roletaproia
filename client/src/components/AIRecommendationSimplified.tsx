@@ -121,9 +121,15 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
           <h3 className="text-xl font-bold text-white">
             🤖 RECOMENDAÇÃO I.A.
           </h3>
-          <span className="ml-auto px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">
-            SINAL CONFIRMADO
-          </span>
+          {recommendation.confidence >= 50 ? (
+            <span className="ml-auto px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">
+              SINAL CONFIRMADO
+            </span>
+          ) : (
+            <span className="ml-auto px-3 py-1 bg-yellow-500 text-black text-xs font-bold rounded-full">
+              BAIXA CONFIANÇA
+            </span>
+          )}
         </div>
 
         {/* Informações da Aposta */}
@@ -177,13 +183,29 @@ export function AIRecommendationSimplified({ recommendation, lastResult }: AIRec
               <p key={i} className="text-gray-300 text-sm">• {line}</p>
             ))}
           </div>
-          <p className="text-purple-300 text-xs mt-2">
-            ✅ {recommendation.confluenceScore}/5 estratégias concordam
-          </p>
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-purple-300 text-xs">
+              ✅ {recommendation.confluenceScore}/5 estratégias concordam
+            </p>
+            <p className={`text-xs font-bold ${
+              recommendation.confidence >= 70 ? 'text-green-400' :
+              recommendation.confidence >= 50 ? 'text-yellow-400' :
+              'text-red-400'
+            }`}>
+              {recommendation.confidence}% confiança
+            </p>
+          </div>
         </div>
 
-        {/* Aviso */}
-        <p className="text-yellow-300 text-xs text-center">
+        {/* Avisos */}
+        {recommendation.confidence < 50 && (
+          <div className="bg-yellow-900/30 border border-yellow-500/50 rounded-lg p-3 mb-3">
+            <p className="text-yellow-300 text-xs text-center font-bold">
+              ⚠️ ATENÇÃO: A I.A. recomenda apostar apenas quando a confiança estiver acima de 50%
+            </p>
+          </div>
+        )}
+        <p className="text-gray-400 text-xs text-center">
           ⚠️ Lembre-se: A roleta é um jogo de sorte. Jogue com responsabilidade!
         </p>
       </div>

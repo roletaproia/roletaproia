@@ -78,31 +78,38 @@ export function generateAdvancedRecommendationV2(recentSignals: Signal[]): Recom
   
   console.log(`[I.A. V2] Confluência: ${redVotes} vermelho, ${blackVotes} preto`);
 
-  // Só envia sinal se 3+ estratégias concordam
-  if (confluenceScore < 3) {
-    console.log('[I.A. V2] Confluência insuficiente - aguardando');
-    return {
-      hasSignal: false,
-      suggestedNumber: null,
-      suggestedColor: null,
-      confidence: 0,
-      analysis: [
-        'Aguardando confluência entre estratégias',
-        `Vermelho: ${redVotes}/5 estratégias`,
-        `Preto: ${blackVotes}/5 estratégias`,
-        'Mínimo necessário: 3/5',
-      ],
-      confluenceScore,
-    };
+  // Sempre gera sinal, mas marca confiança baixa se < 2 estratégias
+  const hasStrongSignal = confluenceScore >= 2;
+  
+  if (!hasStrongSignal) {
+    console.log('[I.A. V2] Confluência baixa - gerando sinal com baixa confiança');
   }
 
-  // Determinar cor sugerida
-  const suggestedColor = redVotes > blackVotes ? 'red' : 'black';
+  // Determinar cor sugerida (mesmo com baixa confluência)
+  let suggestedColor: string;
+  
+  if (redVotes === 0 && blackVotes === 0) {
+    // Nenhuma estratégia concorda - usar a mais confiante
+    const mostConfident = strategies.sort((a, b) => b.confidence - a.confidence)[0];
+    suggestedColor = mostConfident.suggestedColor;
+  } else {
+    suggestedColor = redVotes > blackVotes ? 'red' : 'black';
+  }
   
   // Pegar estratégias que concordam com a cor sugerida
-  const agreeingStrategies = strategies.filter(
+  let agreeingStrategies = strategies.filter(
     s => s.agrees && s.suggestedColor === suggestedColor
   );
+  
+  // Se nenhuma estratégia concorda, usar todas da cor sugerida
+  if (agreeingStrategies.length === 0) {
+    agreeingStrategies = strategies.filter(s => s.suggestedColor === suggestedColor);
+  }
+  
+  // Se ainda não tem, usar a mais confiante
+  if (agreeingStrategies.length === 0) {
+    agreeingStrategies = [strategies.sort((a, b) => b.confidence - a.confidence)[0]];
+  }
 
   // Calcular confiança média
   const avgConfidence = agreeingStrategies.reduce((sum, s) => sum + s.confidence, 0) / agreeingStrategies.length;
@@ -128,8 +135,15 @@ export function generateAdvancedRecommendationV2(recentSignals: Signal[]): Recom
     suggestedNumber = colorNumbers[Math.floor(Math.random() * colorNumbers.length)];
   }
 
-  // Compilar análise
+  // Compilar análise com aviso se confiança baixa
   const analysis = agreeingStrategies.map(s => s.reason);
+  
+  // Adicionar avisos baseados na confiança
+  if (avgConfidence < 50) {
+    analysis.unshift('⚠️ CONFIANÇA BAIXA - Aguarde sinal com confiança ≥ 50%');
+  } else if (avgConfidence >= 70) {
+    analysis.unshift('✅ CONFIANÇA ALTA - Sinal forte!');
+  }
 
   console.log(`[I.A. V2] SINAL CONFIRMADO: ${suggestedColor} (${suggestedNumber}) - Confiança: ${Math.round(avgConfidence)}%`);
 
