@@ -371,6 +371,69 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Blog Section */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Aprenda Mais Sobre Roleta e IA</h2>
+          <p className="text-xl text-gray-200 max-w-2xl mx-auto">
+            Confira nossos artigos sobre estratégias, inteligência artificial e gerenciamento de banca.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {/* Article 1 */}
+          <a href="/blog/como-a-inteligencia-artificial-esta-mudando-o-jogo-da-roleta" className="group bg-gradient-to-br from-slate-900/80 to-slate-900/40 border border-slate-700/30 rounded-xl p-6 hover:border-red-600/60 transition-all duration-300 hover:scale-105">
+            <div className="mb-4">
+              <span className="inline-block px-3 py-1 bg-red-900/50 text-red-300 text-xs font-semibold rounded-full">IA & Tecnologia</span>
+            </div>
+            <h3 className="text-xl font-bold mb-3 group-hover:text-red-400 transition-colors">Como a Inteligência Artificial Está Mudando o Jogo da Roleta</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Descubra como a IA está revolucionando as estratégias de apostas e análise de padrões na roleta online.
+            </p>
+            <div className="flex items-center text-sm text-gray-500">
+              <BookOpen className="h-4 w-4 mr-2" />
+              <span>Leitura de 8 min</span>
+            </div>
+          </a>
+
+          {/* Article 2 */}
+          <a href="/blog/estrategias-de-apostas-em-roleta-online-o-que-funciona-de-verdade" className="group bg-gradient-to-br from-slate-900/80 to-slate-900/40 border border-slate-700/30 rounded-xl p-6 hover:border-purple-600/60 transition-all duration-300 hover:scale-105">
+            <div className="mb-4">
+              <span className="inline-block px-3 py-1 bg-purple-900/50 text-purple-300 text-xs font-semibold rounded-full">Estratégias</span>
+            </div>
+            <h3 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">Estratégias de Apostas em Roleta Online: O Que Funciona de Verdade</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Análise completa das principais estratégias de apostas, com dados reais sobre eficácia e riscos.
+            </p>
+            <div className="flex items-center text-sm text-gray-500">
+              <Target className="h-4 w-4 mr-2" />
+              <span>Leitura de 10 min</span>
+            </div>
+          </a>
+
+          {/* Article 3 */}
+          <a href="/blog/gerenciamento-de-banca-como-nao-perder-tudo-na-roleta" className="group bg-gradient-to-br from-slate-900/80 to-slate-900/40 border border-slate-700/30 rounded-xl p-6 hover:border-green-600/60 transition-all duration-300 hover:scale-105">
+            <div className="mb-4">
+              <span className="inline-block px-3 py-1 bg-green-900/50 text-green-300 text-xs font-semibold rounded-full">Gerenciamento</span>
+            </div>
+            <h3 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">Gerenciamento de Banca: Como Não Perder Tudo na Roleta</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Aprenda técnicas profissionais de gerenciamento de banca para proteger seu capital e jogar com responsabilidade.
+            </p>
+            <div className="flex items-center text-sm text-gray-500">
+              <Wallet className="h-4 w-4 mr-2" />
+              <span>Leitura de 9 min</span>
+            </div>
+          </a>
+        </div>
+
+        <div className="text-center">
+          <Button asChild variant="outline" size="lg" className="border-red-700 text-white hover:bg-red-900/20">
+            <a href="/blog">Ver Todos os Artigos <ArrowRight className="ml-2 h-4 w-4" /></a>
+          </Button>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-20 md:py-32">
         <div className="bg-gradient-to-r from-red-900/40 to-red-900/40 border border-red-700/50 rounded-2xl p-12 md:p-16 text-center">

@@ -4,8 +4,11 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemaps
 Sitemap: https://roboroleta.com.br/sitemap.xml
+
+# RSS Feed
+Allow: /rss.xml
 
 # Crawl-delay (tempo entre requisições)
 Crawl-delay: 1
@@ -16,3 +19,5 @@ Allow: /dashboard
 Allow: /statistics
 Allow: /bankroll
 Allow: /education
+Allow: /blog
+Allow: /blog/*
