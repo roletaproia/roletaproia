@@ -7,6 +7,10 @@ import { v4 as uuidv4 } from "uuid";
 import { generateAdvancedRecommendation } from "../utils/aiRecommendation";
 import { generateAdvancedRecommendationV2 } from "../utils/aiRecommendationV2";
 
+// Cache de recomendação (em memória) - só muda quando novo sinal chega
+let cachedRecommendation: any = null;
+let cachedSignalId: number | null = null;
+
 export const signalsRouter = router({
   // Admin envia um novo sinal capturado
   sendSignal: protectedProcedure
@@ -100,7 +104,18 @@ export const signalsRouter = router({
       return null;
     }
 
-    // GERAR RECOMENDAÇÃO EM TEMPO REAL baseada nos últimos 200 sinais
+    // Se o sinal é o mesmo, retornar recomendação em cache
+    if (cachedSignalId === latestSignal.id && cachedRecommendation) {
+      console.log('[Cache] Retornando recomendação em cache para sinal', latestSignal.id);
+      return {
+        signal: latestSignal,
+        recommendation: cachedRecommendation,
+      };
+    }
+
+    // Novo sinal detectado - gerar nova recomendação
+    console.log('[Cache] Novo sinal detectado:', latestSignal.id, '- Gerando nova recomendação');
+    
     const recentSignals = await db
       .select()
       .from(signals)
@@ -121,6 +136,10 @@ export const signalsRouter = router({
       analysis: Array.isArray(recommendation.analysis) ? recommendation.analysis : [],
       confluenceScore: recommendation.confluenceScore || 3,
     };
+
+    // Salvar no cache
+    cachedRecommendation = adaptedRecommendation;
+    cachedSignalId = latestSignal.id;
 
     return {
       signal: latestSignal,
