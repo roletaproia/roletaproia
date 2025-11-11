@@ -6,7 +6,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
+
 import { upload, processAndSaveAvatar } from "./fileUpload";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
@@ -94,8 +94,7 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Configure cookie parser
   app.use(cookieParser());
-  // OAuth callback under /api/oauth/callback
-  registerOAuthRoutes(app);
+
   
   // Extension download endpoint - redirect to GitHub
   app.get("/api/download/extension", (req, res) => {
@@ -105,26 +104,7 @@ async function startServer() {
     res.redirect(githubUrl);
   });
   
-  // File upload endpoint for avatars
-  app.post("/api/upload/avatar", upload.single("avatar"), async (req, res) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file provided" });
-      }
-      
-      // Authenticate user from request
-      const user = await (req as any).user;
-      if (!user) {
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-      
-      const avatarUrl = await processAndSaveAvatar(req.file, user.id);
-      res.json({ success: true, avatarUrl });
-    } catch (error: any) {
-      console.error("Upload error:", error);
-      res.status(500).json({ error: error.message || "Upload failed" });
-    }
-  });
+
   
   // REST API for signals (easier for external scripts)
   app.use("/api/signals", signalsApiRouter);
