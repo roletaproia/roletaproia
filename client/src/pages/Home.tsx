@@ -49,7 +49,7 @@ export default function Home() {
           <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl shadow-red-900/50">
             <iframe
               className="w-full h-full"
-              src="https://www.youtube.com/embed/BSExzVwAgLU?autoplay=1&mute=1&loop=1&playlist=BSExzVwAgLU&controls=0&modestbranding=1&rel=0"
+              src="https://www.youtube.com/embed/BSExzVwAgLU"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
