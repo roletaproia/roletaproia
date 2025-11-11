@@ -37,7 +37,7 @@ Reservamo-nos o direito de modificar ou substituir estes Termos a qualquer momen
 
 ## 7. Contato
 
-Se você tiver alguma dúvida sobre estes Termos de Uso, entre em contato conosco através do e-mail: [SEU E-MAIL DE SUPORTE AQUI]
+Se você tiver alguma dúvida sobre estes Termos de Uso, entre em contato conosco através do e-mail: champgames@champgames.com.br
 `;
 
 export default function TermsOfUse() {

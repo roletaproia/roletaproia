@@ -34,7 +34,7 @@ Se você sentir que precisa de uma pausa, utilize as ferramentas de autoexclusã
 
 ## 6. Contato
 
-Se você tiver dúvidas sobre nossa política de Jogo Responsável, entre em contato conosco através do e-mail: [SEU E-MAIL DE SUPORTE AQUI]
+Se você tiver dúvidas sobre nossa política de Jogo Responsável, entre em contato conosco através do e-mail: champgames@champgames.com.br
 `;
 
 export default function ResponsibleGaming() {
