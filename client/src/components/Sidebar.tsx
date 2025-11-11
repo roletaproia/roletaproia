@@ -122,7 +122,7 @@ export default function Sidebar() {
 
           {/* Botão Suporte Telegram */}
           <a 
-            href="https://t.me/seu_usuario_telegram" 
+            href="https://t.me/roboroleta_suporte" 
             target="_blank" 
             rel="noopener noreferrer"
             className="block w-full bg-blue-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all"
