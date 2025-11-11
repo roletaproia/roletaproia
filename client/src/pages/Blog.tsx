@@ -127,21 +127,7 @@ const Blog: React.FC = () => {
           })}
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Pronto para Colocar o Conhecimento em Prática?
-          </h2>
-          <p className="text-xl text-white/90 mb-6 max-w-2xl mx-auto">
-            Cadastre-se no RoboRoleta e comece a receber sinais inteligentes baseados em IA 
-            para suas apostas na roleta.
-          </p>
-          <Link href="/register">
-            <button className="bg-white text-purple-600 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors">
-              Começar Agora Grátis
-            </button>
-          </Link>
-        </div>
+        
       </div>
     </div>
   );
