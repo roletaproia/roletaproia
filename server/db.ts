@@ -1,6 +1,6 @@
 import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, strategies, InsertStrategy, bankrolls, InsertBankroll, bets, InsertBet, chatMessages, InsertChatMessage } from "./_core/schema";
+import { InsertUser, users, strategies, InsertStrategy, bankrolls, InsertBankroll, bets, InsertBet } from "./_core/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -184,48 +184,6 @@ export async function getUserBets(userId: number, limit: number = 50) {
   return db.select().from(bets).where(eq(bets.userId, userId)).orderBy(desc(bets.createdAt)).limit(limit);
 }
 
-/**
- * Gerenciamento de Chat
- */
-export async function createChatMessage(userId: number, message: string, isSystemMessage: number = 0) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  
-  return db.insert(chatMessages).values({
-    userId,
-    message,
-    isSystemMessage,
-  });
-}
 
-export async function getChatMessages(limit: number = 100) {
-  const db = await getDb();
-  if (!db) return [];
-  
-  // JOIN com users para trazer nome e role
-  const messages = await db
-    .select({
-      id: chatMessages.id,
-      userId: chatMessages.userId,
-      message: chatMessages.message,
-      isSystemMessage: chatMessages.isSystemMessage,
-      createdAt: chatMessages.createdAt,
-      userName: users.name,
-      userRole: users.role,
-    })
-    .from(chatMessages)
-    .leftJoin(users, eq(chatMessages.userId, users.id))
-    .orderBy(desc(chatMessages.createdAt))
-    .limit(limit);
-  
-  return messages;
-}
-
-export async function deleteChatMessage(messageId: number) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  
-  return db.delete(chatMessages).where(eq(chatMessages.id, messageId));
-}
 
 

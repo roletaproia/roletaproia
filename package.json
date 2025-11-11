@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
-    "build": "vite build && mkdir -p dist/public/blog && cp -r client/public/blog/*.md dist/public/blog/ && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist && tsx run-migration.ts",
+    "build": "vite build && mkdir -p dist/public/blog && cp -r client/public/blog/*.md dist/public/blog/ && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist ",
     "start": "NODE_ENV=production node dist/index.js",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
