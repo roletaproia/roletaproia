@@ -35,7 +35,7 @@ Podemos atualizar nossa Política de Privacidade de tempos em tempos. Notificare
 
 ## 5. Contato
 
-Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em contato conosco pelo e-mail: \`manus20261@gmail.com\`
+Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em contato conosco pelo e-mail: \`felipefaria2019cps@gmail.com\`
 `;
 
 export default function PrivacyPolicy() {
