@@ -122,26 +122,7 @@ export default function Dashboard() {
 
 
 
-            {/* Chat */}
-            <Card className="bg-gradient-to-br from-yellow-900/20 to-transparent border-yellow-700/30 hover:border-yellow-600/60 transition-all cursor-pointer"
-              onClick={() => navigate("/chat")}>
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-yellow-600 rounded-full flex items-center justify-center">
-                    <MessageSquare className="h-5 w-5 text-white" />
-                  </div>
-                  <CardTitle className="text-white">Chat da Comunidade</CardTitle>
-                </div>
-                <CardDescription>
-                  Converse e compartilhe estratégias
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold">
-                  Entrar no Chat
-                </Button>
-              </CardContent>
-            </Card>
+
 
 
 
