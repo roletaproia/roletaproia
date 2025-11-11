@@ -65,8 +65,8 @@ async function startServer() {
         connectSrc: ["'self'"],
         fontSrc: ["'self'"],
         objectSrc: ["'none'"],
-        mediaSrc: ["'self'"],
-        frameSrc: ["'none'"]
+        mediaSrc: ["'self'", "https://www.youtube.com", "https://youtube.com"],
+        frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com"]
       }
     }
   }));
