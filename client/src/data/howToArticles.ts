@@ -1,5 +1,3 @@
-// Artigos que contêm tutoriais passo a passo e devem ter How-To Schema
-
 export const howToArticles: Record<string, {
   name: string;
   description: string;
@@ -12,10 +10,6 @@ export const howToArticles: Record<string, {
     name: "Como Usar o Sistema RoboRoleta",
     description: "Aprenda a usar o sistema RoboRoleta passo a passo para maximizar suas chances de ganhar na roleta online.",
     steps: [
-      {
-
-      {
-
       {
         name: "Acesse o Dashboard",
         text: "Acesse o dashboard do RoboRoleta. Lá você verá os sinais em tempo real gerados pela IA."
