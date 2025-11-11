@@ -143,26 +143,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            {/* Indicações */}
-            <Card className="bg-gradient-to-br from-pink-900/20 to-transparent border-pink-700/30 hover:border-pink-600/60 transition-all cursor-pointer"
-              onClick={() => navigate("/referrals")}>
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center">
-                    <Users className="h-5 w-5 text-white" />
-                  </div>
-                  <CardTitle className="text-white">Indicações</CardTitle>
-                </div>
-                <CardDescription>
-                  Indique amigos e ganhe recompensas
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold">
-                  Meu Link de Indicação
-                </Button>
-              </CardContent>
-            </Card>
+
 
             {/* Gerenciamento de Banca */}
             <Card className="bg-gradient-to-br from-green-900/20 to-transparent border-green-700/30 hover:border-green-600/60 transition-all cursor-pointer"

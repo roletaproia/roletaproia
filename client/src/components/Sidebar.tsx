@@ -34,7 +34,7 @@ export default function Sidebar() {
     { icon: Wallet, label: "Gerenciamento de Banca", href: "/bankroll" },
     { icon: BarChart3, label: "Estatísticas Avançadas", href: "/statistics" },
     { icon: MessageSquare, label: "Chat", href: "/chat" },
-    { icon: Gift, label: "Indicações", href: "/referrals" },
+
     { icon: BookOpen, label: "Educação Financeira", href: "/education" },
     { icon: User, label: "Perfil", href: "/profile" },
   ];

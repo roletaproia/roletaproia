@@ -23,7 +23,7 @@ import ExtensionGuide from "./pages/ExtensionGuide";
 import RobotModeSelection from "./pages/RobotModeSelection";
 import ExtensionDownload from "./pages/ExtensionDownload";
 
-import Referrals from "./pages/Referrals";
+
 import AdminSubscriptions from "./pages/AdminSubscriptions";
 import LiveSignals from "./pages/LiveSignals";
 import FinancialEducation from "./pages/FinancialEducation";
@@ -49,7 +49,7 @@ function Router() {
       <Route path="/betting-robot/select-mode" component={RobotModeSelection} />
       <Route path="/extension-download" component={ExtensionDownload} />
 
-      <Route path="/referrals" component={Referrals} />
+
       <Route path="/betting-robot" component={BettingRobot} />
       <Route path="/live-signals" component={LiveSignals} />
       <Route path="/education" component={FinancialEducation} />
