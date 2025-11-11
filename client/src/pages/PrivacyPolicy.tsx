@@ -1,5 +1,4 @@
 import { Layout } from '@/components/Layout';
-import { Markdown } from '@/components/Markdown';
 
 const privacyPolicyContent = `
 # Política de Privacidade - RoboRoleta
@@ -50,7 +49,7 @@ export default function PrivacyPolicy() {
           <p className="text-gray-400 mb-8">
             <strong>Última Atualização:</strong> 11 de Novembro de 2025
           </p>
-          <Markdown content={privacyPolicyContent} />
+          <div className="prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: privacyPolicyContent }} />
         </div>
       </div>
     </Layout>
