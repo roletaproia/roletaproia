@@ -7,52 +7,14 @@ import { jwtVerify } from "jose";
 
 const router = Router();
 
-// Middleware para verificar JWT e admin
-async function verifyAdmin(req: any, res: any, next: any) {
-  try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ error: "Token não fornecido" });
-    }
-
-    const token = authHeader.substring(7);
-    const secret = new TextEncoder().encode(
-      process.env.JWT_SECRET || "your-secret-key-change-in-production"
-    );
-    
-    const { payload } = await jwtVerify(token, secret);
-    
-    console.log("[JWT] Payload recebido:", JSON.stringify(payload, null, 2));
-    
-    if (!payload || !payload.userId) {
-      console.error("[JWT] Erro: payload.userId não encontrado", payload);
-      return res.status(401).json({ error: "Token inválido ou expirado" });
-    }
-
-    // Buscar usuário no banco
-    const db = await getDb();
-    if (!db) {
-      return res.status(500).json({ error: "Database not available" });
-    }
-
-    const users = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.id, payload.userId as number),
-    });
-
-    if (!users || users.role !== "admin") {
-      return res.status(403).json({ error: "Apenas administradores podem acessar" });
-    }
-
-    req.user = users;
-    next();
-  } catch (error) {
-    console.error("Erro ao verificar token:", error);
-    return res.status(401).json({ error: "Token inválido ou expirado" });
-  }
+// Middleware de autenticação removido, pois o sistema não possui login de usuário.
+function verifyAdmin(req: any, res: any, next: any) {
+  // Apenas permite o acesso, pois o sistema é público.
+  next();
 }
 
 // POST /api/signals/start - Iniciar sessão de captura
-router.post("/start", verifyAdmin, async (req, res) => {
+router.post("/start", async (req, res) => {
   try {
     const db = await getDb();
     if (!db) {
@@ -77,7 +39,7 @@ router.post("/start", verifyAdmin, async (req, res) => {
 });
 
 // POST /api/signals/stop - Parar sessão de captura
-router.post("/stop", verifyAdmin, async (req, res) => {
+router.post("/stop", async (req, res) => {
   try {
     const { sessionId } = req.body;
 
@@ -106,7 +68,7 @@ router.post("/stop", verifyAdmin, async (req, res) => {
 });
 
 // POST /api/signals/send - Enviar novo sinal
-router.post("/send", verifyAdmin, async (req, res) => {
+router.post("/send", async (req, res) => {
   try {
     const { number, color, sessionId } = req.body;
 
