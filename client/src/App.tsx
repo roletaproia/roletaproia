@@ -32,6 +32,7 @@ import AdvancedStatistics from "@/pages/AdvancedStatistics";
 import TermsOfService from "@/pages/TermsOfUse";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import HowItWorks from "@/pages/HowItWorks";
+import ResponsibleGaming from "@/pages/ResponsibleGaming";
 import FAQ from "@/pages/FAQ";
 import Blog from "@/pages/Blog";
 import BlogArticle from "@/pages/BlogArticle";
