@@ -1,26 +1,21 @@
 import Layout from "@/components/Layout";
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
 import { trpc } from "@/lib/trpc";
-import { Radio, MessageSquare, Users, BarChart3, LogOut, User, Settings, Sparkles, Gift, Wallet, BookOpen } from "lucide-react";
-import { useLocation, Link } from "wouter";
+import { Radio, BarChart3, Sparkles, Wallet, BookOpen } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function Dashboard() {
-  const { user } = useAuth();
   const [, navigate] = useLocation();
 
-
-
-  // Buscar status de subscription
+  // Buscar status de subscription (mantido para o badge, mas sem login)
   const { data: subscriptionStatus } = trpc.subscription.checkAccess.useQuery();
-
-  const { logout } = useAuth();
 
   return (<Layout>
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
-      {/* Header com Menu de Perfil */}
+      {/* Header Simples */}
       <div className="border-b border-red-900/30 p-6 flex items-center justify-between">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
@@ -35,55 +30,8 @@ export default function Dashboard() {
               </span>
             )}
           </div>
-          <p className="text-gray-200">Bem-vindo, {user?.name}! Escolha uma funcionalidade abaixo.</p>
+          <p className="text-gray-200">Escolha uma funcionalidade abaixo.</p>
         </div>
-        {/* Menu de Perfil */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="rounded-full h-10 w-10 p-0 bg-red-900/20 border-red-700/30 hover:bg-red-900/40">
-              {user?.name?.charAt(0).toUpperCase()}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
-            <div className="px-2 py-1.5 text-sm font-medium text-foreground">
-              {user?.name}
-            </div>
-            <div className="px-2 py-0.5 text-xs text-muted-foreground">
-              {user?.role === "admin" ? "👑 Admin" : user?.role === "sub-admin" ? "🔐 Sub-Admin" : "👤 Usuário"}
-            </div>
-            <div className="border-t my-1" />
-            <DropdownMenuItem asChild>
-              <Link href="/profile" className="cursor-pointer flex items-center">
-                <User className="mr-2 h-4 w-4" />
-                <span>Editar Perfil</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/settings" className="cursor-pointer flex items-center">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Configurações</span>
-              </Link>
-            </DropdownMenuItem>
-            {user?.role === "admin" && (
-              <>
-                <div className="border-t my-1" />
-                <DropdownMenuItem asChild>
-                  <Link href="/admin" className="cursor-pointer text-yellow-400 flex items-center">
-                    <span>🔐 Painel Admin</span>
-                  </Link>
-                </DropdownMenuItem>
-              </>
-            )}
-            <div className="border-t my-1" />
-            <DropdownMenuItem
-              onClick={logout}
-              className="cursor-pointer text-destructive focus:text-destructive flex items-center"
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Deslogar</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
 
       <div className="p-6 space-y-8">

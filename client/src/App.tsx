@@ -12,8 +12,8 @@ import Strategies from "./pages/Strategies";
 
 import BettingRobot from "./pages/BettingRobot";
 
-import Settings from "./pages/Settings";
-import AdminPanel from "./pages/AdminPanel";
+
+
 
 
 
@@ -24,7 +24,7 @@ import RobotModeSelection from "./pages/RobotModeSelection";
 import ExtensionDownload from "./pages/ExtensionDownload";
 
 
-import AdminSubscriptions from "./pages/AdminSubscriptions";
+
 import LiveSignals from "./pages/LiveSignals";
 import FinancialEducation from "./pages/FinancialEducation";
 import BankrollManagement from "@/pages/BankrollManagement";
@@ -63,11 +63,6 @@ function Router() {
       <Route path="/blog" component={Blog} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
-      
-      
-        <Route path="/settings" component={Settings} />
-      <Route path="/admin" component={AdminPanel} />
-      <Route path="/admin/subscriptions" component={AdminSubscriptions} />
       
       
       

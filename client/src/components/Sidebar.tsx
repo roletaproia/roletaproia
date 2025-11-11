@@ -35,14 +35,7 @@ export default function Sidebar() {
 
   ];
 
-  // Adicionar links de Admin se o usuário for admin
-  if (false) {
-    menuItems.push({ icon: Shield, label: "Moderação Chat", href: "/chat-moderation" });
-  }
-  
-  if (false) {
-    menuItems.push({ icon: Shield, label: "Painel Admin", href: "/admin" });
-  }
+
 
   const closeSidebar = () => setIsOpen(false);
 
@@ -132,7 +125,7 @@ export default function Sidebar() {
           </a>
         </div>
 
-        {/* Informações do Usuário e Logout - REMOVIDO PARA COMPLIANCE */}
+
       </aside>
     </>
   );
