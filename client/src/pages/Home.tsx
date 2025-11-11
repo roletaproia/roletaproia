@@ -18,23 +18,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur border-b border-red-900/30">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            {APP_LOGO && <img src="/logo-56.webp" srcSet="/logo-56.webp 1x, /logo-112.webp 2x" alt={APP_TITLE} className="h-8 w-8" width="56" height="56" />}
-            <span className="text-xl font-bold text-red-400">{APP_TITLE}</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <a href={getLoginUrl()} className="text-gray-300 hover:text-white transition-colors">
-              Login
-            </a>
-            <Button asChild className="bg-red-600 hover:bg-red-700">
-              <a href={getLoginUrl()}>Criar Conta</a>
-            </Button>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation - REMOVED FOR PLAY STORE COMPLIANCE */}
+
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 md:py-32">
@@ -42,68 +27,35 @@ export default function Home() {
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="inline-block px-4 py-2 bg-red-900/30 border border-red-700/50 rounded-full">
-                <span className="text-sm font-semibold text-red-300">🤖 IA Avançada + PWA Mobile</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">
-                  Roleta Pro I.A.
-                </span>
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+                Seja bem-vindo à mais nova tecnologia de inteligência artificial para a roleta.
               </h1>
-              <p className="text-xl text-gray-300 max-w-lg">
-                Plataforma completa com análise inteligente, gerenciamento profissional de banca e educação financeira para jogo responsável.
+              <p className="text-2xl font-bold text-green-400 max-w-lg">
+                100% grátis.
               </p>
             </div>
 
-            {/* 100% Free Badge */}
-            <div className="flex items-center space-x-3 bg-gradient-to-r from-green-900/30 to-green-900/30 border border-green-500/50 rounded-lg p-4">
-              <Zap className="h-6 w-6 text-green-400" />
-              <div>
-                <p className="font-bold text-green-300 text-lg">100% GRATUITO</p>
-                <p className="text-green-200 text-sm">Análises por IA + PWA Instalável • Sem custos</p>
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
+            {/* CTA Button */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white">
-                <a href={getLoginUrl()}>
-                  Começar Agora <ArrowRight className="ml-2 h-5 w-5" />
+                <a href="/dashboard">
+                  Entrar Aqui <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-red-700 text-white hover:bg-red-900/20">
-                <a href="#features">Ver Funcionalidades</a>
-              </Button>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center gap-6 pt-4">
-              <div className="flex items-center space-x-2">
-                <Shield className="h-5 w-5 text-green-400" />
-                <span className="text-sm text-gray-300">Seguro e Confiável</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="h-5 w-5 text-blue-400" />
-                <span className="text-sm text-gray-300">Tempo Real</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Smartphone className="h-5 w-5 text-purple-400" />
-                <span className="text-sm text-gray-300">PWA Mobile</span>
-              </div>
             </div>
           </div>
 
-          {/* Right Image */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-red-600/20 rounded-2xl blur-3xl" />
-            <img
-              src="/robot-roulette-665.webp"
-              srcSet="/robot-roulette-665.webp 1x, /robot-roulette-1330.webp 2x"
-              alt="Robô de Apostas"
-              className="relative w-full h-auto drop-shadow-2xl"
-              width="665"
-              height="665"
-            />
+          {/* Right Video */}
+          <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl shadow-red-900/50">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/BSExzVwAgLU?autoplay=1&mute=1&loop=1&playlist=BSExzVwAgLU&controls=0&modestbranding=1&rel=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+            <div className="absolute inset-0 pointer-events-none bg-black/10" />
           </div>
         </div>
       </section>

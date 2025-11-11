@@ -5,9 +5,7 @@ import {
   Zap, 
   Wallet, 
   Hand,
-  MessageSquare, 
-  User, 
-  LogOut,
+
   Shield,
   Menu,
   X,
@@ -25,7 +23,7 @@ import { useState } from "react";
 
 export default function Sidebar() {
   const [location] = useLocation();
-  const user = null; // Usuário removido
+  // const user = null; // Usuário removido - REMOVIDO PARA COMPLIANCE
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
@@ -33,8 +31,6 @@ export default function Sidebar() {
     { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals", badge: "AO VIVO", badgeColor: "bg-green-500" },
     { icon: Wallet, label: "Gerenciamento de Banca", href: "/bankroll" },
     { icon: BarChart3, label: "Estatísticas Avançadas", href: "/statistics" },
-
-
     { icon: BookOpen, label: "Educação Financeira", href: "/education" },
 
   ];
@@ -136,10 +132,7 @@ export default function Sidebar() {
           </a>
         </div>
 
-        {/* Informações do Usuário e Logout */}
-        <div className="p-4 border-t border-red-900/30">
-
-        </div>
+        {/* Informações do Usuário e Logout - REMOVIDO PARA COMPLIANCE */}
       </aside>
     </>
   );
