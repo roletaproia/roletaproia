@@ -1,9 +1,9 @@
 /**
- * Content Script para 1win
+ * Content Script para Plataforma de Apostas
  * Captura números da roleta Evolution e envia para o Roleta Pro I.A.
  */
 
-console.log('[Roleta Pro I.A.] Extensão carregada na 1win!');
+console.log('[Roleta Pro I.A.] Extensão carregada na plataforma de apostas!');
 
 // Estado da extensão
 let isActive = false;
@@ -61,7 +61,7 @@ async function sendNumberToBackend(number) {
       data: {
         number: number,
         timestamp: Date.now(),
-        source: '1win'
+        source: 'betting_platform'
       }
     });
     
@@ -221,7 +221,7 @@ function sendMessageToIframes(message) {
 // Enviar mensagem HELLO para o background saber que a aba existe
 chrome.runtime.sendMessage({
   type: 'HELLO',
-  source: '1win'
+  source: 'betting_platform'
 });
 
 // Inicializar quando a página carregar

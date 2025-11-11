@@ -15,7 +15,7 @@ const alertEl = document.getElementById('alert');
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
 const openRoletaProBtn = document.getElementById('openRoletaPro');
-const open1winBtn = document.getElementById('open1win');
+const openBettingPlatformBtn = document.getElementById('openBettingPlatform');
 
 // Estado
 let currentStatus = null;
@@ -54,7 +54,7 @@ function updateUI(status) {
   lastNumberEl.textContent = status.lastNumber !== null ? status.lastNumber : '-';
 
   // Abas
-  if (status.has1winTab) {
+  if (status.hasBettingPlatformTab) {
     onewinTabEl.textContent = '✅ Conectada';
     onewinTabEl.className = 'status-value active';
   } else {
@@ -155,17 +155,17 @@ function openRoletaPro() {
 }
 
 /**
- * Abre 1win
+ * Abre Plataforma de Apostas
  */
-function open1win() {
-  chrome.tabs.create({ url: 'https://1wyvrz.life/?open=register&p=f5q8' });
+function openBettingPlatform() {
+  chrome.tabs.create({ url: 'https://roletaproia.onrender.com/betting-robot' });
 }
 
 // Event listeners
 startBtn.addEventListener('click', startMonitoring);
 stopBtn.addEventListener('click', stopMonitoring);
 openRoletaProBtn.addEventListener('click', openRoletaPro);
-open1winBtn.addEventListener('click', open1win);
+openBettingPlatformBtn.addEventListener('click', openBettingPlatform);
 
 // Carregar status inicial
 loadStatus();

@@ -8,7 +8,7 @@
  * 4. Nomeie como "Roleta Pro I.A."
  * 
  * COMO USAR:
- * 1. Abra a roleta da 1win
+ * 1. Abra a roleta
  * 2. Clique no favorito "Roleta Pro I.A."
  * 3. Clique no número que saiu
  * 4. Veja a análise em tempo real!

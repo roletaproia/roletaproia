@@ -7,7 +7,7 @@
 ## 🎯 Objetivo
 
 Implementar um sistema completo de **Sinais Inteligentes** onde:
-- Admin captura números da roleta 1win automaticamente (Puppeteer)
+- Admin captura números da roleta casa de apostas automaticamente (Puppeteer)
 - Backend recebe, armazena e gera recomendações com I.A.
 - Todos os usuários veem sinais em tempo real na interface web
 - Usuários executam apostas manualmente baseadas nas recomendações
@@ -53,7 +53,7 @@ Implementar um sistema completo de **Sinais Inteligentes** onde:
 - ✅ Recomendação da I.A. (tipo, confiança %, valor)
 - ✅ Histórico visual (últimos 10 números)
 - ✅ Estatísticas de performance (winrate, lucro, sequência)
-- ✅ Banner de cadastro na 1win
+- ✅ Banner de cadastro na casa de apostas
 - ✅ Design responsivo para mobile
 - ✅ Polling automático a cada 2-5 segundos
 
@@ -72,7 +72,7 @@ Implementar um sistema completo de **Sinais Inteligentes** onde:
 
 **`scripts/capture-roulette.ts`** - Captura automática com Puppeteer
 - ✅ Abre navegador automaticamente
-- ✅ Navega para 1win
+- ✅ Navega para casa de apostas
 - ✅ Aguarda login manual (30s)
 - ✅ Monitora números da roleta
 - ✅ Envia para backend via tRPC
@@ -122,7 +122,7 @@ Implementar um sistema completo de **Sinais Inteligentes** onde:
 │  ADMIN (Seu Computador/VPS)                     │
 │  ┌───────────────────────────────────────────┐ │
 │  │ Puppeteer Script                          │ │
-│  │ - Monitora roleta 1win                    │ │
+│  │ - Monitora roleta casa de apostas                    │ │
 │  │ - Detecta números: 17, 5, 23...           │ │
 │  └───────────────────────────────────────────┘ │
 │              ↓ HTTP POST (tRPC)                 │
@@ -310,8 +310,8 @@ roletaproia/
 
 **`.env` (para scripts locais):**
 ```env
-# URL da roleta 1win
-ROULETTE_URL=https://1wyvrz.life/
+# URL da roleta casa de apostas
+ROULETTE_URL=#link-da-roleta-aqui
 
 # URL do backend (produção)
 BACKEND_URL=https://roletaproia.onrender.com
@@ -349,7 +349,7 @@ HEADLESS=false
    - Título: "🤖 Sinais Inteligentes"
    - Badge: "🔴 AO VIVO" (piscando quando conectado)
 
-2. **Banner 1win**
+2. **Banner casa de apostas**
    - Cadastro com bônus
    - Link de afiliado
 

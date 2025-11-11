@@ -151,7 +151,7 @@ HEADLESS=false
 npx tsx scripts/capture-roulette.ts
 ```
 
-3. Faça login na 1win manualmente
+3. Faça login na casa de apostas manualmente
 4. Navegue até a Roleta Brasileira
 5. Script começará a capturar automaticamente
 
@@ -258,7 +258,7 @@ SELECT * FROM captureSessions WHERE status = 'active';
 
 **Solução:**
 1. Rodar em modo não-headless (`HEADLESS=false`)
-2. Verificar se você fez login na 1win
+2. Verificar se você fez login na casa de apostas
 3. Verificar se navegou até a Roleta Brasileira
 4. Inspecionar página e atualizar seletores CSS
 

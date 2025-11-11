@@ -1,6 +1,6 @@
 /**
  * Background Service Worker
- * Gerencia comunicação entre 1win e Roleta Pro I.A.
+ * Gerencia comunicação entre a Plataforma de Apostas e o Roleta Pro I.A.
  */
 
 console.log('[Roleta Pro I.A.] Background script iniciado!');
@@ -11,15 +11,15 @@ let state = {
   lastNumber: null,
   numbersHistory: [],
   roletaProTabId: null,
-  oneWinTabId: null
+  bettingPlatformTabId: null
 };
 
 /**
- * Encontra aba da 1win
+ * Encontra aba da Plataforma de Apostas
  */
-async function find1winTab() {
+async function findBettingPlatformTab() {
   const tabs = await chrome.tabs.query({});
-  const tab = tabs.find(t => t.url && (t.url.includes('.life') || t.url.includes('1win.com') || t.url.includes('1win.br')));
+  const tab = tabs.find(t => t.url && (t.url.includes('.life')));
   return tab?.id || null;
 }
 
@@ -83,10 +83,10 @@ async function startMonitoring() {
   state.isMonitoring = true;
   await chrome.storage.local.set({ isActive: true });
   
-  // Enviar comando para 1win
-  const oneWinTabId = await find1winTab();
-  if (oneWinTabId) {
-    await sendToTab(oneWinTabId, { type: 'START_MONITORING' });
+  // Enviar comando para a Plataforma de Apostas
+  const bettingPlatformTabId = await findBettingPlatformTab();
+  if (bettingPlatformTabId) {
+    await sendToTab(bettingPlatformTabId, { type: 'START_MONITORING' });
   }
   
   return { success: true, message: 'Monitoramento iniciado' };
@@ -101,28 +101,28 @@ async function stopMonitoring() {
   state.isMonitoring = false;
   await chrome.storage.local.set({ isActive: false });
   
-  // Enviar comando para 1win
-  const oneWinTabId = await find1winTab();
-  if (oneWinTabId) {
-    await sendToTab(oneWinTabId, { type: 'STOP_MONITORING' });
+  // Enviar comando para a Plataforma de Apostas
+  const bettingPlatformTabId = await findBettingPlatformTab();
+  if (bettingPlatformTabId) {
+    await sendToTab(bettingPlatformTabId, { type: 'STOP_MONITORING' });
   }
   
   return { success: true, message: 'Monitoramento parado' };
 }
 
 /**
- * Executa aposta na 1win
+ * Executa aposta na Plataforma de Apostas
  */
 async function placeBet(betData) {
   console.log('[Roleta Pro I.A.] Executando aposta:', betData);
   
-  const oneWinTabId = await find1winTab();
-  if (!oneWinTabId) {
-    return { success: false, error: 'Aba da 1win não encontrada' };
+  const bettingPlatformTabId = await findBettingPlatformTab();
+  if (!bettingPlatformTabId) {
+    return { success: false, error: 'Aba da Plataforma de Apostas não encontrada' };
   }
   
   return new Promise((resolve) => {
-    chrome.tabs.sendMessage(oneWinTabId, {
+    chrome.tabs.sendMessage(bettingPlatformTabId, {
       type: 'PLACE_BET',
       data: betData
     }, (response) => {
@@ -139,7 +139,7 @@ function getStatus() {
     isMonitoring: state.isMonitoring,
     lastNumber: state.lastNumber,
     numbersHistory: state.numbersHistory.slice(0, 10),
-    has1winTab: state.oneWinTabId !== null,
+    hasBettingPlatformTab: state.bettingPlatformTabId !== null,
     hasRoletaProTab: state.roletaProTabId !== null
   };
 }
@@ -150,8 +150,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   
   // Atualizar IDs das abas
   if (sender.tab) {
-    if (sender.tab.url.includes('.life') || sender.tab.url.includes('1win.com') || sender.tab.url.includes('1win.br')) {
-      state.oneWinTabId = sender.tab.id;
+    if (sender.tab.url.includes('.life')) {
+      state.bettingPlatformTabId = sender.tab.id;
     }
     if (sender.tab.url.includes('roletaproia.onrender.com')) {
       state.roletaProTabId = sender.tab.id;

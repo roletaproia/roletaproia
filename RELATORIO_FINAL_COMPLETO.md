@@ -91,7 +91,7 @@ Criamos **10 artigos otimizados para SEO**, totalizando **~15.000 palavras** de 
 - ✅ **Palavras-chave otimizadas** para SEO
 - ✅ **Estrutura H1/H2/H3** bem definida
 - ✅ **Tabelas comparativas** para facilitar leitura
-- ✅ **CTAs estratégicos** para RoboRoleta e 1win
+- ✅ **CTAs estratégicos** para RoboRoleta e Casa de Apostas
 - ✅ **Meta descrições** otimizadas
 - ✅ **Tags SEO** relevantes
 

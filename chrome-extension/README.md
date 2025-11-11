@@ -1,12 +1,12 @@
 # 🤖 Roleta Pro I.A. - Extensão Chrome
 
-Extensão do Chrome para conectar o **Roleta Pro I.A.** com a roleta da **1win** e automatizar apostas.
+Extensão do Chrome para conectar o **Roleta Pro I.A.** com a roleta e automatizar apostas.
 
 ---
 
 ## 📋 Funcionalidades
 
-✅ **Captura automática** de números da roleta 1win  
+✅ **Captura automática** de números da roleta  
 ✅ **Comunicação em tempo real** com o sistema Roleta Pro I.A.  
 ✅ **Execução automática** de apostas baseadas em estratégias  
 ✅ **Histórico** de números capturados  
@@ -45,9 +45,9 @@ Extensão do Chrome para conectar o **Roleta Pro I.A.** com a roleta da **1win**
 Você precisa ter **2 abas abertas**:
 
 1. **Roleta Pro I.A.** - https://roletaproia.onrender.com/betting-robot
-2. **1win Roleta** - https://1whfxh.life/casino/play/v_evolution:RoletaAoVivo
+2. **Plataforma de Roleta** - [Link para a plataforma]
 
-💡 **Dica:** Clique no ícone da extensão e use os botões "🌐 Abrir Roleta Pro I.A." e "🎰 Abrir 1win" para abrir automaticamente!
+💡 **Dica:** Clique no ícone da extensão e use os botões "🌐 Abrir Roleta Pro I.A." e "🎰 Abrir Plataforma" para abrir automaticamente!
 
 ### 2️⃣ Configurar estratégia
 
@@ -59,7 +59,7 @@ Você precisa ter **2 abas abertas**:
 ### 3️⃣ Iniciar o robô
 
 1. Clique no botão **"▶️ Iniciar Robô"**
-2. A extensão começará a monitorar os números da 1win
+2. A extensão começará a monitorar os números da plataforma
 3. Apostas serão executadas automaticamente!
 
 ### 4️⃣ Acompanhar em tempo real
@@ -80,7 +80,7 @@ Clique no ícone da extensão para ver:
 
 - ✅ Status do monitoramento
 - ✅ Último número capturado
-- ✅ Status das abas (1win e Roleta Pro)
+- ✅ Status das abas (Plataforma e Roleta Pro)
 - ✅ Histórico dos últimos 10 números
 - ✅ Botões de controle rápido
 
@@ -92,16 +92,16 @@ Clique no ícone da extensão para ver:
 
 **Solução:** Verifique se a extensão está ativada em `chrome://extensions/`
 
-### ❌ "Aba da 1win não encontrada"
+### ❌ "Aba da Plataforma não encontrada"
 
-**Solução:** Abra a página da roleta 1win: https://1whfxh.life/casino/play/v_evolution:RoletaAoVivo
+**Solução:** Abra a página da roleta na plataforma: [Link para a plataforma]
 
 ### ❌ "Números não estão sendo capturados"
 
 **Solução:**
 1. Verifique se a roleta está rodando
 2. Abra o console (F12) e veja se há erros
-3. Recarregue a página da 1win
+3. Recarregue a página da plataforma
 
 ### ❌ "Apostas não estão sendo executadas"
 
@@ -148,7 +148,7 @@ Clique no ícone da extensão para ver:
 chrome-extension/
 ├── manifest.json          # Configuração da extensão
 ├── background.js          # Service worker (gerencia comunicação)
-├── content-1win.js        # Script injetado na 1win (captura números)
+├── content-betting-platform.js        # Script injetado na plataforma (captura números)
 ├── content-roletaproia.js # Script injetado no Roleta Pro (comunica)
 ├── popup.html             # Interface do popup
 ├── popup.js               # Lógica do popup

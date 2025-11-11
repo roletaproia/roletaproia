@@ -1,6 +1,6 @@
 /**
  * Content Script para Roleta Pro I.A.
- * Comunica com a página do robô e envia comandos para a 1win
+ * Comunica com a página do robô e envia comandos para a plataforma de apostas
  */
 
 console.log('[Roleta Pro I.A.] Extensão carregada no Roleta Pro I.A.!');
@@ -84,7 +84,7 @@ window.addEventListener('message', (event) => {
   }
 });
 
-// Escutar mensagens do background (números novos da 1win)
+// Escutar mensagens do background (números novos da plataforma)
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('[Roleta Pro I.A.] Mensagem do background:', message);
   

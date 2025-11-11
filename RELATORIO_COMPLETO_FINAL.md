@@ -88,7 +88,7 @@ Hoje realizamos uma transformação completa no site **RoboRoleta**, desde a cor
 - ✅ Linguagem simples e persuasiva
 - ✅ Estrutura SEO otimizada (H1, H2, H3)
 - ✅ Tabelas comparativas
-- ✅ CTAs estratégicos (RoboRoleta + 1win)
+- ✅ CTAs estratégicos (RoboRoleta + Casa de Apostas)
 - ✅ Meta descrição e tags SEO
 
 ---

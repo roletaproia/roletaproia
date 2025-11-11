@@ -1,11 +1,11 @@
 /**
- * Bookmarklet para capturar números da roleta 1win automaticamente
+ * Bookmarklet para capturar números da roleta automaticamente
  * 
  * COMO USAR:
  * 1. Copie todo o código abaixo
  * 2. Crie um novo favorito no navegador
  * 3. Cole o código no campo "URL" do favorito
- * 4. Abra a roleta da 1win
+ * 4. Abra a roleta
  * 5. Clique no favorito para ativar
  */
 

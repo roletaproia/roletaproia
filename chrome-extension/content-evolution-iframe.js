@@ -119,15 +119,15 @@ function startMonitoring() {
       console.log(`[Roleta Pro I.A.] Novo número detectado: ${currentNumber}`);
       lastDetectedNumber = currentNumber;
       
-      // Enviar para o parent window (página da 1win)
+       // Enviar para o parent window (página da plataforma)
       try {
-        // Tentar enviar para várias origens possíveis da 1win
+         // Tentar enviar para várias origens possíveis da plataforma
         const possibleOrigins = [
           window.location.ancestorOrigins?.[0], // Origem do parent
           'https://1wyvrz.life',
           'https://1whfxh.life',
-          'https://1win.com',
-          'https://1win.br'
+
+
         ].filter(Boolean);
         
         possibleOrigins.forEach(origin => {
