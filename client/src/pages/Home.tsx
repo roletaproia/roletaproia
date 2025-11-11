@@ -1,4 +1,4 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { Button } from "@/components/ui/button";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { 
@@ -8,13 +8,10 @@ import {
 import { useLocation } from "wouter";
 
 export default function Home() {
-  const { user, isAuthenticated } = useAuth();
+  const isAuthenticated = true; // Mock as authenticated for public access
   const [, navigate] = useLocation();
 
-  if (isAuthenticated && user) {
-    navigate("/dashboard");
-    return null;
-  }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white">

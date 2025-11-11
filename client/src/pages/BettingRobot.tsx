@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,7 +25,7 @@ declare global {
 
 export default function BettingRobot() {
   const [, navigate] = useLocation();
-  const { user, isAuthenticated } = useAuth();
+  const isAuthenticated = true; // Mock as authenticated for public access
 
   // Estado da extensão
   const [extensionInstalled, setExtensionInstalled] = useState(false);
@@ -56,12 +56,7 @@ export default function BettingRobot() {
   const bankroll = bankrollQuery.data;
   const bets = betsQuery.data || [];
 
-  // Verificar autenticação
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/", { replace: true });
-    }
-  }, [isAuthenticated, navigate]);
+
 
   // Verificar se extensão está instalada
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +8,7 @@ import { Shield, Users, TrendingUp, AlertCircle, Crown, UserMinus, CreditCard } 
 import { Link, useLocation } from "wouter";
 
 export default function AdminPanel() {
-  const { user } = useAuth();
+  const user = { role: "admin", id: 1 }; // Mock user as admin for public access
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   // Queries
@@ -23,19 +23,8 @@ export default function AdminPanel() {
   const stats = statsQuery.data;
 
   // Verificar se o usuário é admin
-  if (user?.role !== "admin") {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950 to-slate-950 text-white p-6 flex items-center justify-center">
-        <Card className="bg-gradient-to-br from-red-900/20 to-transparent border-red-700/30 max-w-md">
-          <CardContent className="pt-6 text-center space-y-4">
-            <AlertCircle className="h-12 w-12 text-red-400 mx-auto" />
-            <h2 className="text-xl font-bold">Acesso Negado</h2>
-            <p className="text-gray-200">Apenas administradores podem acessar este painel.</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  if (false) { // Painel de Admin desativado
+
 
   const handlePromoteSubAdmin = async (userId: number) => {
     try {
