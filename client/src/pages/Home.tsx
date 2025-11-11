@@ -49,7 +49,7 @@ export default function Home() {
           <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl shadow-red-900/50">
             <iframe
               className="w-full h-full"
-              src="https://www.youtube.com/embed/BSExzVwAgLU"
+              src="https://www.youtube.com/embed/BSExzVwAgLU?autoplay=1&mute=1"
               title="Robô Roleta - Como funciona"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
