@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">RoboRoleta</string>
+    <string name="title_activity_main">RoboRoleta</string>
+    <string name="package_name">com.roletaproia.app</string>
+    <string name="custom_url_scheme">com.roletaproia.app</string>
+</resources>

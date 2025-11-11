@@ -9,7 +9,7 @@ export function getBaseUrl() {
   // VITE_APP_URL is the URL of the backend service (e.g., Render URL)
   if (import.meta.env.VITE_APP_URL) return import.meta.env.VITE_APP_URL; 
   // Fallback for development
-  return "http://localhost:5000"; 
+  return "https://roboroleta.com.br"; 
 }
 
 export function cn(...inputs: ClassValue[]) {
