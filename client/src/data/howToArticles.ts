@@ -13,16 +13,12 @@ export const howToArticles: Record<string, {
     description: "Aprenda a usar o sistema RoboRoleta passo a passo para maximizar suas chances de ganhar na roleta online.",
     steps: [
       {
-        name: "Cadastre-se no RoboRoleta",
-        text: "Acesse o site RoboRoleta e crie sua conta gratuita. O sistema é 100% gratuito e não requer pagamento."
-      },
+
       {
-        name: "Ative o bônus da 1win",
-        text: "Cadastre-se na 1win usando o link do RoboRoleta e ative o bônus de boas-vindas. Isso aumentará sua banca inicial e dará mais margem para seguir as estratégias."
-      },
+
       {
         name: "Acesse o Dashboard",
-        text: "Faça login no RoboRoleta e acesse o dashboard. Lá você verá os sinais em tempo real gerados pela IA."
+        text: "Acesse o dashboard do RoboRoleta. Lá você verá os sinais em tempo real gerados pela IA."
       },
       {
         name: "Aguarde um sinal de confluência",
