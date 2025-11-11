@@ -50,9 +50,10 @@ export default function Home() {
             <iframe
               className="w-full h-full"
               src="https://www.youtube.com/embed/BSExzVwAgLU"
-              title="YouTube video player"
+              title="Robô Roleta - Como funciona"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             ></iframe>
             <div className="absolute inset-0 pointer-events-none bg-black/10" />
