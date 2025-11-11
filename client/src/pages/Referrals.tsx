@@ -26,7 +26,7 @@ export default function Referrals() {
         {/* Header */}
         <div className="max-w-4xl mx-auto mb-8">
           <h1 className="text-4xl font-bold mb-2 text-yellow-400">Sistema de Indicação</h1>
-          <p className="text-gray-300">Indique amigos e ganhe +7 dias grátis para cada indicação!</p>
+          <p className="text-gray-300">Indique amigos e ajude a expandir nossa comunidade!</p>
         </div>
 
         {/* Referral Link Card */}
@@ -38,7 +38,7 @@ export default function Referrals() {
                 <CardTitle className="text-white">Seu Link de Indicação</CardTitle>
               </div>
               <CardDescription className="text-gray-300">
-                Compartilhe este link com seus amigos. Para cada amigo que se cadastrar, você ganha +7 dias grátis!
+                Compartilhe este link com seus amigos e ajude-os a descobrir o RoboRoleta!
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -153,7 +153,7 @@ export default function Referrals() {
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">
                     3
                   </span>
-                  <span>Quando alguém se cadastrar usando seu link, você ganha +7 dias grátis automaticamente!</span>
+                  <span>Quando alguém se cadastrar usando seu link, você estará ajudando a expandir nossa comunidade!</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">

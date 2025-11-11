@@ -19,15 +19,12 @@ export const subscriptionRouter = router({
       .limit(1);
 
     if (!subscription) {
-      // Criar trial automático se não existir
-      const trialEndsAt = new Date();
-      trialEndsAt.setDate(trialEndsAt.getDate() + 7); // 7 dias de trial
-
+      // Criar acesso gratuito ilimitado se não existir
       await db.insert(subscriptions).values({
         userId: ctx.user.id,
-        plan: "trial",
+        plan: "free",
         status: "active",
-        trialEndsAt,
+        trialEndsAt: null,
         registrationIp: ctx.req.ip || ctx.req.socket.remoteAddress,
       });
 
@@ -45,6 +42,7 @@ export const subscriptionRouter = router({
 
   /**
    * Verifica se o usuário tem acesso ativo
+   * AGORA: Todos os usuários têm acesso gratuito ilimitado
    */
   checkAccess: protectedProcedure.query(async ({ ctx }) => {
     const db = await getDb();
@@ -59,73 +57,17 @@ export const subscriptionRouter = router({
       };
     }
 
-    const [subscription] = await db
-      .select()
-      .from(subscriptions)
-      .where(eq(subscriptions.userId, ctx.user.id))
-      .limit(1);
-
-    if (!subscription) {
-      return { hasAccess: false, reason: "no_subscription" };
-    }
-
-    const now = new Date();
-
-    // Verificar trial
-    if (subscription.plan === "trial") {
-      if (!subscription.trialEndsAt) {
-        return { hasAccess: false, reason: "invalid_trial" };
-      }
-
-      const trialEnd = new Date(subscription.trialEndsAt);
-      // Adicionar dias extras
-      trialEnd.setDate(trialEnd.getDate() + subscription.extraDays);
-
-      if (now > trialEnd) {
-        // Trial expirado
-        await db
-          .update(subscriptions)
-          .set({ status: "expired" })
-          .where(eq(subscriptions.userId, ctx.user.id));
-
-        return { hasAccess: false, reason: "trial_expired", daysRemaining: 0 };
-      }
-
-      const daysRemaining = Math.ceil((trialEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-      return {
-        hasAccess: true,
-        plan: "trial",
-        daysRemaining,
-        badge: "Usuário Teste",
-      };
-    }
-
-    // Verificar assinatura paga
-    if (subscription.subscriptionEndsAt) {
-      const subEnd = new Date(subscription.subscriptionEndsAt);
-      if (now > subEnd) {
-        await db
-          .update(subscriptions)
-          .set({ status: "expired" })
-          .where(eq(subscriptions.userId, ctx.user.id));
-
-        return { hasAccess: false, reason: "subscription_expired" };
-      }
-
-      const daysRemaining = Math.ceil((subEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-      return {
-        hasAccess: true,
-        plan: subscription.plan,
-        daysRemaining,
-        badge: "Usuário Premium",
-      };
-    }
-
-    return { hasAccess: false, reason: "unknown" };
+    // Todos os usuários têm acesso gratuito ilimitado
+    return {
+      hasAccess: true,
+      plan: "free",
+      badge: "100% Gratuito",
+    };
   }),
 
   /**
    * Admin: Adicionar dias extras para um usuário
+   * MANTIDO APENAS PARA COMPATIBILIDADE COM CÓDIGO EXISTENTE
    */
   addExtraDays: adminProcedure
     .input(
@@ -158,6 +100,7 @@ export const subscriptionRouter = router({
 
   /**
    * Admin: Converter usuário para premium
+   * MANTIDO APENAS PARA COMPATIBILIDADE COM CÓDIGO EXISTENTE
    */
   convertToPremium: adminProcedure
     .input(
@@ -197,4 +140,3 @@ export const subscriptionRouter = router({
       return { success: true, subscriptionEndsAt };
     }),
 });
-
