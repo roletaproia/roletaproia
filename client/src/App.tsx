@@ -29,7 +29,7 @@ import LiveSignals from "./pages/LiveSignals";
 import FinancialEducation from "./pages/FinancialEducation";
 import BankrollManagement from "@/pages/BankrollManagement";
 import AdvancedStatistics from "@/pages/AdvancedStatistics";
-import TermsOfService from "@/pages/TermsOfService";
+import TermsOfService from "@/pages/TermsOfUse";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import HowItWorks from "@/pages/HowItWorks";
 import FAQ from "@/pages/FAQ";
@@ -56,8 +56,8 @@ function Router() {
       <Route path="/bankroll" component={BankrollManagement} />
       <Route path="/statistics" component={AdvancedStatistics} />
       <Route path="/termos-de-uso" component={TermsOfService} />
-      <Route path="/politica-de-privacidade" component={PrivacyPolicy} />
-      <Route path="/como-funciona" component={HowItWorks} />
+      <Route path="/politicaprivacidade" component={PrivacyPolicy} />
+      <Route path="/jogo-responsavel" component={ResponsibleGaming} />
       <Route path="/faq" component={FAQ} />
       <Route path="/blog/:slug" component={BlogArticle} />
       <Route path="/blog" component={Blog} />

@@ -26,8 +26,11 @@ export function Layout({ children }: LayoutProps) {
                 <a href="/termos-de-uso" className="text-gray-400 hover:text-white transition-colors">
                   Termos de Uso
                 </a>
-                <a href="/politica-de-privacidade" className="text-gray-400 hover:text-white transition-colors">
+                <a href="/politicaprivacidade" className="text-gray-400 hover:text-white transition-colors">
                   Política de Privacidade
+                </a>
+                <a href="/jogo-responsavel" className="text-gray-400 hover:text-white transition-colors">
+                  Jogo Responsável
                 </a>
                 <a href="https://t.me/roletaproia" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                   Suporte
