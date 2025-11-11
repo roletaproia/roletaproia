@@ -9,16 +9,16 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Strategies from "./pages/Strategies";
-import Chat from "./pages/Chat";
+
 import BettingRobot from "./pages/BettingRobot";
-import Profile from "./pages/Profile";
+
 import Settings from "./pages/Settings";
 import AdminPanel from "./pages/AdminPanel";
-import ChatModeration from "./pages/ChatModeration";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import MakeAdmin from "./pages/MakeAdmin";
-import CreateAdmin from "./pages/CreateAdmin";
+
+
+
+
+
 import ExtensionGuide from "./pages/ExtensionGuide";
 import RobotModeSelection from "./pages/RobotModeSelection";
 import ExtensionDownload from "./pages/ExtensionDownload";
@@ -42,8 +42,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
+      
+      
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/strategies" component={Strategies} />
       <Route path="/betting-robot/select-mode" component={RobotModeSelection} />
@@ -63,14 +63,14 @@ function Router() {
       <Route path="/blog" component={Blog} />
 
       <Route path="/extension-guide" component={ExtensionGuide} />
-      <Route path="/chat" component={Chat} />
-      <Route path="/profile" component={Profile} />
+      
+      
         <Route path="/settings" component={Settings} />
       <Route path="/admin" component={AdminPanel} />
       <Route path="/admin/subscriptions" component={AdminSubscriptions} />
-      <Route path="/chat-moderation" component={ChatModeration} />
-      <Route path="/make-admin" component={MakeAdmin} />
-      <Route path="/create-admin" component={CreateAdmin} />
+      
+      
+      
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

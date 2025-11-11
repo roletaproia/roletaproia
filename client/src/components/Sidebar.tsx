@@ -19,13 +19,13 @@ import {
   BookOpen,
   BarChart3,
 } from "lucide-react";
-import { useAuth } from "@/_core/hooks/useAuth";
+
 import { Button } from "./ui/button";
 import { useState } from "react";
 
 export default function Sidebar() {
   const [location] = useLocation();
-  const { user, logout } = useAuth();
+  const user = null; // Usuário removido
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
@@ -33,18 +33,18 @@ export default function Sidebar() {
     { icon: Radio, label: "Sinais Inteligentes", href: "/live-signals", badge: "AO VIVO", badgeColor: "bg-green-500" },
     { icon: Wallet, label: "Gerenciamento de Banca", href: "/bankroll" },
     { icon: BarChart3, label: "Estatísticas Avançadas", href: "/statistics" },
-    { icon: MessageSquare, label: "Chat", href: "/chat" },
+
 
     { icon: BookOpen, label: "Educação Financeira", href: "/education" },
-    { icon: User, label: "Perfil", href: "/profile" },
+
   ];
 
   // Adicionar links de Admin se o usuário for admin
-  if (user?.role === "admin" || user?.role === "sub-admin") {
+  if (false) {
     menuItems.push({ icon: Shield, label: "Moderação Chat", href: "/chat-moderation" });
   }
   
-  if (user?.role === "admin") {
+  if (false) {
     menuItems.push({ icon: Shield, label: "Painel Admin", href: "/admin" });
   }
 
@@ -121,16 +121,8 @@ export default function Sidebar() {
 
         {/* Botões de Ação */}
         <div className="p-4 space-y-2">
-          {/* Botão 1Win - Ganhe Bônus */}
-          <a 
-            href="https://1wyvrz.life/?open=register&p=f5q8" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="block w-full bg-gradient-to-r from-yellow-600 to-orange-600 text-white text-center font-bold py-3 px-4 rounded-lg hover:from-yellow-700 hover:to-orange-700 transition-all shadow-lg"
-          >
-            <Crown className="inline h-4 w-4 mr-2" />
-            1Win - Ganhe Bônus 🎰
-          </a>
+  
+
 
           {/* Botão Suporte Telegram */}
           <a 
@@ -146,28 +138,7 @@ export default function Sidebar() {
 
         {/* Informações do Usuário e Logout */}
         <div className="p-4 border-t border-red-900/30">
-          <div className="flex items-center space-x-3 mb-3 px-2">
-            <div className="h-10 w-10 rounded-full bg-red-600 flex items-center justify-center text-white font-bold">
-              {user?.name?.charAt(0).toUpperCase()}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">{user?.name}</p>
-              <p className="text-xs text-gray-400">
-                {user?.role === "admin" ? "👑 Admin" : user?.role === "sub-admin" ? "🔐 Sub-Admin" : "👤 Usuário"}
-              </p>
-            </div>
-          </div>
-          <Button
-            onClick={() => {
-              logout();
-              closeSidebar();
-            }}
-            variant="outline"
-            className="w-full border-red-700/30 text-gray-300 hover:bg-red-900/20 hover:text-white"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Sair
-          </Button>
+
         </div>
       </aside>
     </>
