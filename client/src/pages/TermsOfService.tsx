@@ -10,7 +10,7 @@ export default function TermsOfService() {
           </h1>
           
           <p className="text-gray-400 mb-8">
-            <strong>Última Atualização:</strong> 04 de Novembro de 2025
+            <strong>Última Atualização:</strong> 11 de Novembro de 2025
           </p>
 
           <div className="prose prose-invert max-w-none">
@@ -26,8 +26,8 @@ export default function TermsOfService() {
               1. Aceitação dos Termos
             </h2>
             <p className="text-gray-300 mb-6">
-              Ao criar uma conta, acessar ou usar o Serviço, você declara que leu, entendeu e concorda em cumprir estes Termos. 
-              Se você não concordar com qualquer parte destes Termos, você não deve usar o Serviço.
+Ao acessar ou usar o Serviço, você declara que leu, entendeu e concorda em cumprir estes Termos. 
+	              O Serviço não requer a criação de conta. Se você não concordar com qualquer parte destes Termos, você não deve usar o Serviço.
             </p>
 
             <hr className="border-gray-700 my-8" />
@@ -105,11 +105,11 @@ export default function TermsOfService() {
             <hr className="border-gray-700 my-8" />
 
             <h2 className="text-2xl font-bold text-white mt-8 mb-4">
-              6. Encerramento de Conta
+              6. Alterações no Serviço
             </h2>
             <p className="text-gray-300 mb-6">
-              Podemos encerrar ou suspender seu acesso ao Serviço imediatamente, sem aviso prévio ou responsabilidade, 
-              se você violar estes Termos.
+O Serviço pode ser alterado, suspenso ou descontinuado a qualquer momento, sem aviso prévio ou responsabilidade. 
+	              O acesso ao Serviço pode ser suspenso se você violar estes Termos.
             </p>
 
             <hr className="border-gray-700 my-8" />
@@ -156,12 +156,12 @@ export default function TermsOfService() {
                     </td>
                   </tr>
                   <tr className="border-b border-gray-700">
-                    <td className="py-3 pr-4 font-semibold text-white">Suporte Telegram</td>
-                    <td className="py-3">
-                      <a href="https://t.me/roletaproia" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
-                        https://t.me/roletaproia
-                      </a>
-                    </td>
+<td className="py-3 pr-4 font-semibold text-white">Suporte Telegram</td>
+	                    <td className="py-3">
+	                      <a href="https://t.me/roboroleta_suporte" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+	                        https://t.me/roboroleta_suporte
+	                      </a>
+	                    </td>
                   </tr>
                   <tr>
                     <td className="py-3 pr-4 font-semibold text-white">Telefone</td>

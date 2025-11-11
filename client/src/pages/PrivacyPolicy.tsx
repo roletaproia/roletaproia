@@ -3,13 +3,13 @@ import { Layout } from '@/components/Layout';
 const privacyPolicyContent = `
 # Política de Privacidade - RoboRoleta
 
-**Última atualização:** 11 de novembro de 2025
+**Última atualização:** 11 de Novembro de 2025
 
 Esta Política de Privacidade descreve como o RoboRoleta ("nós", "nosso") coleta, usa e protege as informações dos usuários. Ao usar nosso aplicativo, você concorda com a coleta e uso de informações de acordo com esta política.
 
 ## 1. Coleta e Uso de Informações
 
-O RoboRoleta é uma ferramenta de análise e não coleta informações de identificação pessoal (PII) dos seus usuários. Não solicitamos nome, e-mail, endereço ou número de telefone.
+O RoboRoleta é uma ferramenta de análise e não coleta informações de identificação pessoal (PII) dos seus usuários. Não solicitamos nome, e-mail, endereço, número de telefone ou qualquer dado que possa identificá-lo diretamente. O sistema não possui funcionalidades de cadastro, login ou interação social (como chat).
 
 As únicas informações que podemos coletar são dados anônimos de uso do aplicativo, como:
 
