@@ -265,41 +265,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Como Funciona</h2>
-          <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-            Comece em 3 passos simples e tenha acesso a todas as funcionalidades.
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="mb-4 inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-900/50 border border-red-700/50">
-              <span className="text-2xl font-bold text-red-400">1</span>
-            </div>
-            <h3 className="text-xl font-bold mb-2">Crie sua Conta</h3>
-            <p className="text-gray-200">Registre-se gratuitamente em menos de 1 minuto. Sem cartão de crédito.</p>
-          </div>
-
-          <div className="text-center">
-            <div className="mb-4 inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-900/50 border border-red-700/50">
-              <span className="text-2xl font-bold text-red-400">2</span>
-            </div>
-            <h3 className="text-xl font-bold mb-2">Explore as Ferramentas</h3>
-            <p className="text-gray-200">Acesse sinais, estatísticas, gerenciamento de banca e educação financeira.</p>
-          </div>
-
-          <div className="text-center">
-            <div className="mb-4 inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-900/50 border border-red-700/50">
-              <span className="text-2xl font-bold text-red-400">3</span>
-            </div>
-            <h3 className="text-xl font-bold mb-2">Jogue com Inteligência</h3>
-            <p className="text-gray-200">Use as recomendações da IA e ferramentas profissionais para tomar decisões informadas.</p>
-          </div>
-        </div>
-      </section>
 
       {/* Stats Section */}
       <section className="container mx-auto px-4 py-20">
@@ -386,25 +352,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
-        <div className="bg-gradient-to-r from-red-900/40 to-red-900/40 border border-red-700/50 rounded-2xl p-12 md:p-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Pronto para Começar?</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Junte-se aos usuários que já estão usando o Roleta Pro I.A. para jogar de forma mais inteligente e responsável.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white">
-              <a href={getLoginUrl()}>
-                Criar Conta Grátis <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-red-700 text-white hover:bg-red-900/20">
-              <a href="#features">Ver Todas as Features</a>
-            </Button>
-          </div>
-        </div>
-      </section>
+
 
       {/* Footer */}
       <footer className="border-t border-purple-900/30 py-12 mt-20">
@@ -425,14 +373,7 @@ export default function Home() {
                 <li><a href="#features" className="hover:text-white transition-colors">Educação Financeira</a></li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-bold mb-4">Comunidade</h4>
-              <ul className="space-y-2 text-sm text-gray-200">
-                <li><a href={getLoginUrl()} className="hover:text-white transition-colors">Chat</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Suporte Telegram</a></li>
-                <li><a href={getLoginUrl()} className="hover:text-white transition-colors">Indicações</a></li>
-              </ul>
-            </div>
+
             <div>
               <h4 className="font-bold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm text-gray-200">
